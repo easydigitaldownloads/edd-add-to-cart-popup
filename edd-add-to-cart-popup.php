@@ -42,3 +42,5 @@ function edd_acp() {
 		: $instance;
 }
 
+// "Execute" the plugin functionality
+edd_acp()->run();
