@@ -23,3 +23,8 @@ define( 'EDD_ACP_ASSETS_DIR',		EDD_ACP_DIR . 'assets' . DS );
 define( 'EDD_ACP_CSS_DIR',			EDD_ACP_ASSETS_DIR . 'css' . DS );
 define( 'EDD_ACP_JS_DIR',			EDD_ACP_ASSETS_DIR . 'js' . DS );
 define( 'EDD_ACP_INCLUDES_DIR',		EDD_ACP_DIR . 'includes' . DS );
+
+// Load the autoloader - lol
+require EDD_ACP_INCLUDES_DIR . 'autoload.php';
+// Add autoloading paths
+edd_acp_autoloader()->add( 'Aventura\\Edd\\AddToCartPopup', EDD_ACP_INCLUDES_DIR );
