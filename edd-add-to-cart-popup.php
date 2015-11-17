@@ -9,3 +9,17 @@
  * Contributors: Miguel Muscat
  */
 
+// If the file is called directly, or has already been called, abort
+if ( ! defined('WPINC') || defined('EDD_ACP') ) die;
+
+// Define short-hand directory separator if not already defined
+if ( ! defined('DS') ) define( 'DS', DIRECTORY_SEPARATOR );
+
+// Directory and path constant definitions
+define( 'EDD_ACP', 					__FILE__ );
+define( 'EDD_ACP_DIR',				plugin_dir_path(EDD_ACP) );
+define( 'EDD_ACP_BASE',				plugin_basename(EDD_ACP) );
+define( 'EDD_ACP_ASSETS_DIR',		EDD_ACP_DIR . 'assets' . DS );
+define( 'EDD_ACP_CSS_DIR',			EDD_ACP_ASSETS_DIR . 'css' . DS );
+define( 'EDD_ACP_JS_DIR',			EDD_ACP_ASSETS_DIR . 'js' . DS );
+define( 'EDD_ACP_INCLUDES_DIR',		EDD_ACP_DIR . 'includes' . DS );
