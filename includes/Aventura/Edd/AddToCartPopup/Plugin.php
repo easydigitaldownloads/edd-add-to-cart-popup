@@ -64,7 +64,7 @@ class Plugin {
 	/**
 	 * Resets the hook loader.
 	 *
-	 * @return Aventura\Edd\AddToCartPopup\HookLoader
+	 * @return Aventura\Edd\AddToCartPopup\Plugin
 	 */
 	public function resetHookLoader() {
 		$this->_hookLoader = new HookLoader();
@@ -97,7 +97,14 @@ class Plugin {
 	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
 	 */
 	public function run() {
-		$this->getHookLoader()->registerHooks();
+		// Code to execute after all initialization and before any hook triggers
+		
+		// Register settings
+		$this->getSettings()->register();
+
+		// Hook all queued hooks
+		$this->getHookLoader()->registerQueue();
+
 		return $this;
 	}
 
