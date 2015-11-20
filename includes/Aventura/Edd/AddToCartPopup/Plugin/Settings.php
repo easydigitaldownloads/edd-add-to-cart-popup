@@ -5,19 +5,12 @@ namespace Aventura\Edd\AddToCartPopup\Plugin;
 /**
  * Settings controller class, which acts as a wrapper for the database option.
  */
-class Settings {
+class Settings extends Module {
 
 	/**
 	 * Default name of the db option
 	 */
 	const DEFAULT_DB_OPTION_NAME = '';
-
-	/**
-	 * The parent plugin instance.
-	 * 
-	 * @var Aventura\Edd\AddToCartPopup\Plugin
-	 */
-	protected $_plugin;
 
 	/**
 	 * The name of the db option.
@@ -52,35 +45,15 @@ class Settings {
 	/**
 	 * Constructor.
 	 */
-	public function __construct($plugin) {
-		$this->setPlugin($plugin)
-				->setDbOptionName(self::DEFAULT_DB_OPTION_NAME)
-				->_construct();
-	}
-	
-	/**
-	 * Internal constructor.
-	 */
-	protected function _construct() {}
-
-	/**
-	 * Gets the parent plugin instance to which this istance belongs to.
-	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin
-	 */
-	public function getPlugin() {
-		return $this->_plugin;
+	protected function _construct() {
+		$this->setDbOptionName(self::DEFAULT_DB_OPTION_NAME);
 	}
 
 	/**
-	 * Sets the parent plugin instance to which this instance belongs to.
-	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Plugin $plugin The plugin instance
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings This instance
+	 * Execution method, run on 'edd_acp_on_run' action.
 	 */
-	public function setPlugin($plugin) {
-		$this->_plugin = $plugin;
-		return $this;
+	public function run() {
+		$this->register();
 	}
 
 	/**
