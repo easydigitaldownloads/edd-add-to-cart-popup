@@ -18,12 +18,18 @@ class Plugin {
 	protected $_hookLoader;
 
 	/**
+	 * @var Aventura\Edd\AddToCartPopup\Plugin\Settings
+	 */
+	protected $_settings;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
-				->resetHookLoader();
+				->resetHookLoader()
+				->setSettings(new Plugin\Settings($this));
 	}
 
 	/**
@@ -58,10 +64,30 @@ class Plugin {
 	/**
 	 * Resets the hook loader.
 	 *
-	 * @return Aventura\Edd\AddToCartPopup\HookLoader
+	 * @return Aventura\Edd\AddToCartPopup\Plugin
 	 */
 	public function resetHookLoader() {
 		$this->_hookLoader = new HookLoader();
+		return $this;
+	}
+
+	/**
+	 * Gets the settings.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings
+	 */
+	public function getSettings() {
+		return $this->_settings;
+	}
+
+	/**
+	 * Sets the settings instance.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Plugin\Settings $settings
+	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 */
+	public function setSettings($settings) {
+		$this->_settings = $settings;
 		return $this;
 	}
 
@@ -71,7 +97,14 @@ class Plugin {
 	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
 	 */
 	public function run() {
-		$this->getHookLoader()->registerHooks();
+		// Code to execute after all initialization and before any hook triggers
+		
+		// Register settings
+		$this->getSettings()->register();
+
+		// Hook all queued hooks
+		$this->getHookLoader()->registerQueue();
+
 		return $this;
 	}
 
