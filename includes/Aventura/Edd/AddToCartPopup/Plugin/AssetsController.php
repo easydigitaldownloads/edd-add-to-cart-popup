@@ -7,9 +7,11 @@ namespace Aventura\Edd\AddToCartPopup\Plugin;
  */
 class AssetsController {
 
+	// Asset type constants
 	const TYPE_SCRIPT = 'script';
 	const TYPE_STYLE = 'style';
 
+	// Asset hook location constants
 	const ON_FRONTEND = 'wp';
 	const ON_ADMIN = 'admin';
 	const ON_LOGIN = 'login';
@@ -127,7 +129,6 @@ class AssetsController {
 	public function style($where, $enqueue, $handle, $src, $deps = array(), $ver = false, $media = 'all') {
 		return $this->queueHookForAsset('style', $where, $type, $enqueue, $handle, $src, $deps, $ver, $media);
 	}
-
 
 	/**
 	 * All in one method for setting up a hook and callback for an asset.
