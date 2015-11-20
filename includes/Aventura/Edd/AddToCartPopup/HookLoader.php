@@ -137,17 +137,22 @@ class HookLoader {
 	}
 
 	/**
-	 * Register the filters and actions with WordPress.
+	 * Register the queued filters and actions with WordPress.
 	 *
 	 * @since    1.0.0
 	 */
 	public function registerQueue() {
+		// Register queued filters
 		foreach ( $this->filters as $hook ) {
 			$this->add( self::TYPE_FILTER, false, $hook['hook'], $hook['component'], $hook['callback'], $hook['priority'], $hook['accepted_args'] );
 		}
+		// Register queued actions
 		foreach ( $this->actions as $hook ) {
 			$this->add( self::TYPE_ACTION, false, $hook['hook'], $hook['component'], $hook['callback'], $hook['priority'], $hook['accepted_args'] );
 		}
+		// Reset queues
+		$this->filters = array();
+		$this->actions = array();
 	}
 
 }
