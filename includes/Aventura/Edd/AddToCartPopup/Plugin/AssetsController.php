@@ -154,7 +154,7 @@ class AssetsController {
 		// Register hooks
 		foreach ((array) $where as $location) {
 			$hook = sprintf('%s_enqueue_scripts', $location);
-			$this->getPlugin()->getHookLoader()->queueAction($hook, $callback);
+			$this->getPlugin()->getHookLoader()->queueAction($hook, null, $callback);
 		}
 		return $this;
 	}
