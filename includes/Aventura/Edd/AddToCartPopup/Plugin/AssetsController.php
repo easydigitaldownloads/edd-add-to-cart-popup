@@ -5,7 +5,7 @@ namespace Aventura\Edd\AddToCartPopup\Plugin;
 /**
  * Assets controller class, for registering and enqueueing static assets.
  */
-class Assets {
+class AssetsController {
 
 	const TYPE_SCRIPT = 'script';
 	const TYPE_STYLE = 'style';
@@ -49,7 +49,7 @@ class Assets {
 	 * Sets the parent plugin instance to which this instance belongs to.
 	 * 
 	 * @param Aventura\Edd\AddToCartPopup\Plugin $plugin The plugin instance
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings This instance
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController This instance
 	 */
 	public function setPlugin($plugin) {
 		$this->_plugin = $plugin;
@@ -86,10 +86,10 @@ class Assets {
 	 * @param  array   $deps      An array of script handles that this script depends upon. Default: array()
 	 * @param  boolean $ver       The version of the script. Default: false
 	 * @param  boolean $in_footer If true, the script is added to the footer of the page. If false, it is added to the document head. Default: false
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Assets
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
 	protected function script($where, $enqueue, $handle, $src = null, $deps = array(), $ver = false, $in_footer = false) {
-		$this->queueHookForAsset('script', $where, $enqueue, $handle, $src, $deps, $ver, $in_footer);
+		return $this->queueHookForAsset('script', $where, $enqueue, $handle, $src, $deps, $ver, $in_footer);
 	}
 
 	/**
@@ -122,10 +122,10 @@ class Assets {
 	 * @param  array   $deps    An array of style handles that this style depends upon. Default: array()
 	 * @param  boolean $ver     The version of the style. Default: false
 	 * @param  string  $media   The style's media scope. Default: all
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Assets
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
 	public function style($where, $enqueue, $handle, $src, $deps = array(), $ver = false, $media = 'all') {
-		$this->queueHookForAsset('style', $where, $type, $enqueue, $handle, $src, $deps, $ver, $media);
+		return $this->queueHookForAsset('style', $where, $type, $enqueue, $handle, $src, $deps, $ver, $media);
 	}
 
 
@@ -140,6 +140,7 @@ class Assets {
 	 * @param  array   $deps    Array of other similar asset handles that this asset depends on.
 	 * @param  string  $ver     String version of the asset, for caching purposes.
 	 * @param  mixed   $extra   Extra data to be included, such as style media or script location in document.
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
 	protected function queueHookForAsset($type, $where, $enqueue, $handle, $src, $deps, $ver, $extra) {
 		// Callback for the action
@@ -154,5 +155,6 @@ class Assets {
 			$hook = sprintf('%s_enqueue_scripts', $location);
 			$this->getPlugin()->getHookLoader()->queueAction($hook, $callback);
 		}
+		return $this;
 	}
 }

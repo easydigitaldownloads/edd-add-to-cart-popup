@@ -23,7 +23,7 @@ class Plugin {
 	protected $_settings;
 
 	/**
-	 * @var Aventura\Edd\AddToCartPopup\Plugin\Assets
+	 * @var Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
 	protected $_assets;
 
@@ -35,7 +35,7 @@ class Plugin {
 		$this->_setMainFile($mainFile)
 				->resetHookLoader()
 				->setSettings(new Plugin\Settings($this))
-				->setAssetsController(new Plugin\Assets($this));
+				->setAssetsController(new Plugin\AssetsController($this));
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Plugin {
 	/**
 	 * Gets the assets controller instance.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Assets
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
 	public function getAssetsController() {
 		return $this->_assets;
@@ -109,10 +109,10 @@ class Plugin {
 	/**
 	 * Sets the assets controller instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Plugin\Assets $assetsController
+	 * @param Aventura\Edd\AddToCartPopup\Plugin\AssetsController $assetsController
 	 * @return Aventura\Edd\AddToCartPopup\Plugin
 	 */
-	public function setAssetsController(\Aventura\Edd\AddToCartPopup\Plugin\Assets $assetsController) {
+	public function setAssetsController(\Aventura\Edd\AddToCartPopup\Plugin\AssetsController $assetsController) {
 		$this->_assets = $assetsController;
 		return $this;
 	}
