@@ -1,6 +1,7 @@
 <?php
 
 namespace Aventura\Edd\AddToCartPopup;
+use Aventura\Edd\AddToCartPopup\Plugin\AssetsController;
 
 /**
  * Plugin object class.
@@ -23,13 +24,19 @@ class Plugin {
 	protected $_settings;
 
 	/**
+	 * @var Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 */
+	protected $_assets;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
 				->resetHookLoader()
-				->setSettings(new Plugin\Settings($this));
+				->setSettings(new Plugin\Settings($this))
+				->setAssetsController(new AssetsController($this));
 	}
 
 	/**
@@ -92,15 +99,59 @@ class Plugin {
 	}
 
 	/**
-	 * "Executes" the plugin.
+	 * Gets the assets controller instance.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 */
+	public function getAssetsController() {
+		return $this->_assets;
+	}
+
+	/**
+	 * Sets the assets controller instance.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Plugin\AssetsController $assetsController
+	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 */
+	public function setAssetsController(AssetsController $assetsController) {
+		$this->_assets = $assetsController;
+		return $this;
+	}
+
+	/**
+	 * Loads the assets used on the frontend.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 */
+	public function frontendAssets() {
+		$this->getAssetsController()->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js');
+
+		if (is_singular() && get_post_type() === 'download') {
+			$this->getAssetsController()->enqueueScript('edd_acp_frontend_js');
+		}
+	}
+
+	/**
+	 * Loads the assets used in the backend.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 */
+	public function backendAssets() {
+
+	}
+
+	/**
+	 * Code to execute after all initialization and before any hook triggers
 	 * 
 	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
 	 */
 	public function run() {
-		// Code to execute after all initialization and before any hook triggers
-		
 		// Register settings
 		$this->getSettings()->register();
+
+		// Register scripts
+		$this->getHookLoader()->queueAction(AssetsController::HOOK_FRONTEND, $this, 'frontendAssets');
+		$this->getHookLoader()->queueAction(AssetsController::HOOK_ADMIN, $this, 'backendAssets');
 
 		// Hook all queued hooks
 		$this->getHookLoader()->registerQueue();
