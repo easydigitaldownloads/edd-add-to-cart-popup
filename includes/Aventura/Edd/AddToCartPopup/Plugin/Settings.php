@@ -173,7 +173,10 @@ class Settings {
 	 */
 	public function getValue($sub = null, $default = null) {
 		if ($this->_value === null) {
-			$this->_value = get_option($this->getDbOptionName(), array());
+			$eddSettings = get_option( 'edd_settings', array() );
+			$this->_value = isset($eddSettings[ $this->getDbOptionName() ])
+					? $eddSettings[ $this->getDbOptionName() ]
+					: array();
 		}
 		return ($sub === null)
 				? $this->_value
