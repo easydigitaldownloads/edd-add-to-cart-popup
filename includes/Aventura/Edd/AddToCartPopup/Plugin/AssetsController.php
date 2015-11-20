@@ -11,10 +11,9 @@ class AssetsController {
 	const TYPE_SCRIPT = 'script';
 	const TYPE_STYLE = 'style';
 
-	// Asset hook location constants
-	const ON_FRONTEND = 'wp';
-	const ON_ADMIN = 'admin';
-	const ON_LOGIN = 'login';
+	const HOOK_FRONTEND = 'wp_enqueue_scripts';
+	const HOOK_ADMIN = 'admin_enqueue_scripts';
+	const HOOK_LOGIN = 'login_enqueue_scripts';
 
 	/**
 	 * @var Aventura\Edd\AddToCartPopup\Plugin
@@ -64,8 +63,8 @@ class AssetsController {
 	 * @uses Assets::script()
 	 * @see Assets::script()
 	 */
-	public function registerScript($where, $handle, $src, $deps = array(), $ver = false, $in_footer = false) {
-		return $this->script($where, false, $handle, $src, $deps, $ver, $in_footer);
+	public function registerScript($handle, $src, $deps = array(), $ver = false, $in_footer = false) {
+		return $this->script(false, $handle, $src, $deps, $ver, $in_footer);
 	}
 
 	/**
@@ -74,14 +73,13 @@ class AssetsController {
 	 * @uses Assets::script()
 	 * @see Assets::script()
 	 */
-	public function enqueueScript($where, $handle, $src = null, $deps = array(), $ver = false, $in_footer = false) {
-		return $this->script($where, true, $handle, $src, $deps, $ver, $in_footer);
+	public function enqueueScript($handle, $src = null, $deps = array(), $ver = false, $in_footer = false) {
+		return $this->script(true, $handle, $src, $deps, $ver, $in_footer);
 	}
 
 	/**
 	 * All in one handler method for scripts.
 	 *
-	 * @param  mixed   $where     A string or array of location where to load the script: Assets::ON_FRONTEND, Assets::ON_ADMIN, Assets::ON_LOGIN
 	 * @param  boolean $enqueue   If true, the script is enqueued. If false, the script is only registered.
 	 * @param  string  $handle    The script handle
 	 * @param  string  $src       The path to the source file of the script
@@ -90,8 +88,8 @@ class AssetsController {
 	 * @param  boolean $in_footer If true, the script is added to the footer of the page. If false, it is added to the document head. Default: false
 	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
-	protected function script($where, $enqueue, $handle, $src = null, $deps = array(), $ver = false, $in_footer = false) {
-		return $this->queueHookForAsset('script', $where, $enqueue, $handle, $src, $deps, $ver, $in_footer);
+	protected function script($enqueue, $handle, $src = null, $deps = array(), $ver = false, $in_footer = false) {
+		return $this->handleAsset('script', $enqueue, $handle, $src, $deps, $ver, $in_footer);
 	}
 
 	/**
@@ -100,8 +98,8 @@ class AssetsController {
 	 * @uses Assets::style()
 	 * @see Assets::style()
 	 */
-	public function registerStyle($where, $handle, $src, $deps = array(), $ver = false, $media = 'all') {
-		return $this->style($where, false, $handle, $src, $deps, $ver, $media);
+	public function registerStyle($handle, $src, $deps = array(), $ver = false, $media = 'all') {
+		return $this->style(false, $handle, $src, $deps, $ver, $media);
 	}
 
 	/**
@@ -110,14 +108,13 @@ class AssetsController {
 	 * @uses Assets::style()
 	 * @see Assets::style()
 	 */
-	public function enqueueStyle($where, $handle, $src = null, $deps = array(), $ver = false, $media = 'all') {
-		return $this->style($where, true, $handle, $src, $deps, $ver, $media);
+	public function enqueueStyle($handle, $src = null, $deps = array(), $ver = false, $media = 'all') {
+		return $this->style(true, $handle, $src, $deps, $ver, $media);
 	}
 
 	/**
 	 * All in one handler method for styles.
 	 *
-	 * @param  mixed   $where   A string or array of location where to load the style: Assets::ON_FRONTEND, Assets::ON_ADMIN, Assets::ON_LOGIN
 	 * @param  boolean $enqueue If true, the style is enqueued. If false, the style is only registered.
 	 * @param  string  $handle  The style handle
 	 * @param  string  $src     The path to the source file of the style
@@ -127,14 +124,13 @@ class AssetsController {
 	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
 	public function style($where, $enqueue, $handle, $src, $deps = array(), $ver = false, $media = 'all') {
-		return $this->queueHookForAsset('style', $where, $type, $enqueue, $handle, $src, $deps, $ver, $media);
+		return $this->handleAsset('style', $where, $type, $enqueue, $handle, $src, $deps, $ver, $media);
 	}
 
 	/**
 	 * All in one method for setting up a hook and callback for an asset.
 	 * 
 	 * @param  string  $type    Asset::TYPE_SCRIPT or Asset::TYPE_STYLE
-	 * @param  mixed   $where   Where the asset is to be hooked into: Assets::ON_FRONTEND, Assets::ON_ADMIN or Assets::ON_LOGIN, or an array of any combination.
 	 * @param  boolean $enqueue If true, the asset is enqueued. If false, the asset is only registered.
 	 * @param  string  $handle  The asset's handle string
 	 * @param  string  $src     Path to the asset's source file
@@ -143,19 +139,12 @@ class AssetsController {
 	 * @param  mixed   $extra   Extra data to be included, such as style media or script location in document.
 	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
 	 */
-	protected function queueHookForAsset($type, $where, $enqueue, $handle, $src, $deps, $ver, $extra) {
-		// Callback for the action
-		$callback = function() use ($type, $enqueue, $handle, $src, $deps, $ver, $extra) {
-			// Generate name of function to use (whether for enqueueing or registration)
-			$fn = sprintf('wp_%1$s_%2$s', $enqueue === true? 'enqueue' : 'register', $type);
-			// Call the enqueue/register function
-			call_user_func_array($fn, array($handle, $src, $deps, $ver, $extra));
-		};
-		// Register hooks
-		foreach ((array) $where as $location) {
-			$hook = sprintf('%s_enqueue_scripts', $location);
-			$this->getPlugin()->getHookLoader()->queueAction($hook, null, $callback);
-		}
+	protected function handleAsset($type, $enqueue, $handle, $src, $deps, $ver, $extra) {
+		// Generate name of function to use (whether for enqueueing or registration)
+		$fn = sprintf('wp_%1$s_%2$s', $enqueue === true? 'enqueue' : 'register', $type);
+		// Call the enqueue/register function
+		call_user_func_array($fn, array($handle, $src, $deps, $ver, $extra));
+
 		return $this;
 	}
 }
