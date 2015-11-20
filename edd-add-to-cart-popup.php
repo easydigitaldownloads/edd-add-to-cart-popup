@@ -19,9 +19,10 @@ if ( ! defined('DS') ) define( 'DS', DIRECTORY_SEPARATOR );
 define( 'EDD_ACP', 					__FILE__ );
 define( 'EDD_ACP_DIR',				plugin_dir_path(EDD_ACP) );
 define( 'EDD_ACP_BASE',				plugin_basename(EDD_ACP) );
-define( 'EDD_ACP_ASSETS_DIR',		EDD_ACP_DIR . 'assets' . DS );
-define( 'EDD_ACP_CSS_DIR',			EDD_ACP_ASSETS_DIR . 'css' . DS );
-define( 'EDD_ACP_JS_DIR',			EDD_ACP_ASSETS_DIR . 'js' . DS );
+define( 'EDD_ACP_URL',				plugin_dir_url(EDD_ACP) );
+define( 'EDD_ACP_ASSETS_URL',		EDD_ACP_URL . 'assets/' );
+define( 'EDD_ACP_CSS_URL',			EDD_ACP_ASSETS_URL . 'css/' );
+define( 'EDD_ACP_JS_URL',			EDD_ACP_ASSETS_URL . 'js/' );
 define( 'EDD_ACP_INCLUDES_DIR',		EDD_ACP_DIR . 'includes' . DS );
 
 // Load the autoloader - lol
