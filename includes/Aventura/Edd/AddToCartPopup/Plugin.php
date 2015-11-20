@@ -18,12 +18,18 @@ class Plugin {
 	protected $_hookLoader;
 
 	/**
+	 * @var Aventura\Edd\AddToCartPopup\Plugin\Settings
+	 */
+	protected $_settings;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
-				->resetHookLoader();
+				->resetHookLoader()
+				->setSettings(new Plugin\Settings($this));
 	}
 
 	/**
@@ -62,6 +68,26 @@ class Plugin {
 	 */
 	public function resetHookLoader() {
 		$this->_hookLoader = new HookLoader();
+		return $this;
+	}
+
+	/**
+	 * Gets the settings.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings
+	 */
+	public function getSettings() {
+		return $this->_settings;
+	}
+
+	/**
+	 * Sets the settings instance.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Plugin\Settings $settings
+	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 */
+	public function setSettings($settings) {
+		$this->_settings = $settings;
 		return $this;
 	}
 
