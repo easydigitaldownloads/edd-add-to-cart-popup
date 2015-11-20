@@ -296,8 +296,8 @@ class Settings {
 	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings This instance
 	 */
 	public function register() {
-		$this->getPlugin()->getHookLoader()->addFilter( 'edd_settings_tabs', $this, 'filterEddSettingsTabs' );
-		$this->getPlugin()->getHookLoader()->addFilter( 'edd_registered_settings', $this, 'filterEddSettings' );
+		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_tabs', $this, 'filterEddSettingsTabs' );
+		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_registered_settings', $this, 'filterEddSettings' );
 		return $this;
 	}
 
