@@ -23,13 +23,19 @@ class Plugin {
 	protected $_settings;
 
 	/**
+	 * @var Aventura\Edd\AddToCartPopup\Plugin\Assets
+	 */
+	protected $_assets;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
 				->resetHookLoader()
-				->setSettings(new Plugin\Settings($this));
+				->setSettings(new Plugin\Settings($this))
+				->setAssetsController(new Plugin\Assets($this));
 	}
 
 	/**
@@ -88,6 +94,26 @@ class Plugin {
 	 */
 	public function setSettings($settings) {
 		$this->_settings = $settings;
+		return $this;
+	}
+
+	/**
+	 * Gets the assets controller instance.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin\Assets
+	 */
+	public function getAssetsController() {
+		return $this->_assets;
+	}
+
+	/**
+	 * Sets the assets controller instance.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Plugin\Assets $assetsController
+	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 */
+	public function setAssetsController(\Aventura\Edd\AddToCartPopup\Plugin\Assets $assetsController) {
+		$this->_assets = $assetsController;
 		return $this;
 	}
 
