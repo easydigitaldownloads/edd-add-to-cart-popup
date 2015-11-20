@@ -119,39 +119,12 @@ class Plugin {
 	}
 
 	/**
-	 * Loads the assets used on the frontend.
-	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
-	 */
-	public function frontendAssets() {
-		$this->getAssetsController()->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js');
-
-		if (is_singular() && get_post_type() === 'download') {
-			$this->getAssetsController()->enqueueScript('edd_acp_frontend_js');
-		}
-	}
-
-	/**
-	 * Loads the assets used in the backend.
-	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
-	 */
-	public function backendAssets() {
-
-	}
-
-	/**
 	 * Code to execute after all initialization and before any hook triggers
 	 * 
 	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
 	 */
 	public function run() {
-		// Register settings
-		$this->getSettings()->register();
-
-		// Register scripts
-		$this->getHookLoader()->queueAction(AssetsController::HOOK_FRONTEND, $this, 'frontendAssets');
-		$this->getHookLoader()->queueAction(AssetsController::HOOK_ADMIN, $this, 'backendAssets');
+		do_action('edd_acp_on_run');
 
 		// Hook all queued hooks
 		$this->getHookLoader()->registerQueue();
