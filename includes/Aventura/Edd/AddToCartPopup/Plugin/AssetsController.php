@@ -5,56 +5,56 @@ namespace Aventura\Edd\AddToCartPopup\Plugin;
 /**
  * Assets controller class, for registering and enqueueing static assets.
  */
-class AssetsController {
+class AssetsController extends Module {
 
 	// Asset type constants
 	const TYPE_SCRIPT = 'script';
 	const TYPE_STYLE = 'style';
 
+	// Asset hooks constants
 	const HOOK_FRONTEND = 'wp_enqueue_scripts';
 	const HOOK_ADMIN = 'admin_enqueue_scripts';
 	const HOOK_LOGIN = 'login_enqueue_scripts';
 
 	/**
-	 * @var Aventura\Edd\AddToCartPopup\Plugin
-	 */
-	protected $_plugin;
-
-	/**
 	 * Constructor.
 	 *
-	 * @uses Assets::_construct()
-	 */
-	public function __construct($plugin = null) {
-		$this->setPlugin($plugin)
-				->_construct();
-	}
-
-	/**
-	 * Internal constructor for extending.
-	 * 
 	 * @access protected
 	 */
 	protected function _construct() {}
 
 	/**
-	 * Gets the parent plugin instance to which this istance belongs to.
-	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 * Execution method, run on 'edd_acp_on_run' action.
 	 */
-	public function getPlugin() {
-		return $this->_plugin;
+	public function run() {
+		// Register hooks for loading assets
+		$this->getPlugin()->getHookLoader()
+				->queueAction(AssetsController::HOOK_FRONTEND, $this, 'frontendAssets')
+				->queueAction(AssetsController::HOOK_ADMIN, $this, 'backendAssets');
 	}
 
 	/**
-	 * Sets the parent plugin instance to which this instance belongs to.
+	 * Loads the assets used on the frontend.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Plugin $plugin The plugin instance
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController This instance
+	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
 	 */
-	public function setPlugin($plugin) {
-		$this->_plugin = $plugin;
-		return $this;
+	public function frontendAssets() {
+		// Register front-end scripts
+		$this->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js');
+
+		// Enqueue front-end main script if on a singular download page
+		if (is_singular() && get_post_type() === 'download') {
+			$this->enqueueScript('edd_acp_frontend_js');
+		}
+	}
+
+	/**
+	 * Loads the assets used in the backend.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 */
+	public function backendAssets() {
+
 	}
 
 	/**
