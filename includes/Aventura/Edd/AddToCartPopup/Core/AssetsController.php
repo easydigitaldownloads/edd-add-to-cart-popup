@@ -1,11 +1,11 @@
 <?php
 
-namespace Aventura\Edd\AddToCartPopup\Plugin;
+namespace Aventura\Edd\AddToCartPopup\Core;
 
 /**
  * Assets controller class, for registering and enqueueing static assets.
  */
-class AssetsController extends Module {
+class AssetsController extends Plugin\Module {
 
 	// Asset type constants
 	const TYPE_SCRIPT = 'script';
@@ -36,14 +36,19 @@ class AssetsController extends Module {
 	/**
 	 * Loads the assets used on the frontend.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
 	 */
 	public function frontendAssets() {
 		// Register front-end scripts
-		$this->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js');
+		$this->registerScript('edd_acp_bpopup', EDD_ACP_JS_URL . 'jquery.bpopup.min.js');
+		$this->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js', array('edd_acp_bpopup'));
+
+		// Register front-end styles
+		$this->registerStyle('edd_acp_frontend_css', EDD_ACP_CSS_URL . 'edd-acp-popup.css');
 
 		// Enqueue front-end main script if on a singular download page
 		if (is_singular() && get_post_type() === 'download') {
+			$this->enqueueStyle('edd_acp_frontend_css');
 			$this->enqueueScript('edd_acp_frontend_js');
 		}
 	}
@@ -51,7 +56,7 @@ class AssetsController extends Module {
 	/**
 	 * Loads the assets used in the backend.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
 	 */
 	public function backendAssets() {
 
@@ -86,7 +91,7 @@ class AssetsController extends Module {
 	 * @param  array   $deps      An array of script handles that this script depends upon. Default: array()
 	 * @param  boolean $ver       The version of the script. Default: false
 	 * @param  boolean $in_footer If true, the script is added to the footer of the page. If false, it is added to the document head. Default: false
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 * @return Aventura\Edd\AddToCartPopup\Core\AssetsController
 	 */
 	protected function script($enqueue, $handle, $src = null, $deps = array(), $ver = false, $in_footer = false) {
 		return $this->handleAsset('script', $enqueue, $handle, $src, $deps, $ver, $in_footer);
@@ -121,10 +126,10 @@ class AssetsController extends Module {
 	 * @param  array   $deps    An array of style handles that this style depends upon. Default: array()
 	 * @param  boolean $ver     The version of the style. Default: false
 	 * @param  string  $media   The style's media scope. Default: all
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 * @return Aventura\Edd\AddToCartPopup\Core\AssetsController
 	 */
-	public function style($where, $enqueue, $handle, $src, $deps = array(), $ver = false, $media = 'all') {
-		return $this->handleAsset('style', $where, $type, $enqueue, $handle, $src, $deps, $ver, $media);
+	public function style($enqueue, $handle, $src, $deps = array(), $ver = false, $media = 'all') {
+		return $this->handleAsset('style', $enqueue, $handle, $src, $deps, $ver, $media);
 	}
 
 	/**
@@ -137,7 +142,7 @@ class AssetsController extends Module {
 	 * @param  array   $deps    Array of other similar asset handles that this asset depends on.
 	 * @param  string  $ver     String version of the asset, for caching purposes.
 	 * @param  mixed   $extra   Extra data to be included, such as style media or script location in document.
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 * @return Aventura\Edd\AddToCartPopup\Core\AssetsController
 	 */
 	protected function handleAsset($type, $enqueue, $handle, $src, $deps, $ver, $extra) {
 		// Generate name of function to use (whether for enqueueing or registration)

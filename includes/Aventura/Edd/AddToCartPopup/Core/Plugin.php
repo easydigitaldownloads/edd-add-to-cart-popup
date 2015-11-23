@@ -1,7 +1,7 @@
 <?php
 
-namespace Aventura\Edd\AddToCartPopup;
-use Aventura\Edd\AddToCartPopup\Plugin\AssetsController;
+namespace Aventura\Edd\AddToCartPopup\Core;
+use Aventura\Edd\AddToCartPopup\Core\AssetsController;
 
 /**
  * Plugin object class.
@@ -19,12 +19,12 @@ class Plugin {
 	protected $_hookLoader;
 
 	/**
-	 * @var Aventura\Edd\AddToCartPopup\Plugin\Settings
+	 * @var Aventura\Edd\AddToCartPopup\Core\Settings
 	 */
 	protected $_settings;
 
 	/**
-	 * @var Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 * @var Aventura\Edd\AddToCartPopup\Core\AssetsController
 	 */
 	protected $_assets;
 
@@ -35,7 +35,7 @@ class Plugin {
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
 				->resetHookLoader()
-				->setSettings(new Plugin\Settings($this))
+				->setSettings(new Settings($this))
 				->setAssetsController(new AssetsController($this));
 	}
 
@@ -52,7 +52,7 @@ class Plugin {
 	 * Sets the plugin main file name.
 	 * 
 	 * @param string $mainFile The plugin main file name.
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance.
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance.
 	 */
 	protected function _setMainFile($mainFile) {
 		$this->_mainFile = $mainFile;
@@ -71,7 +71,7 @@ class Plugin {
 	/**
 	 * Resets the hook loader.
 	 *
-	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
 	 */
 	public function resetHookLoader() {
 		$this->_hookLoader = new HookLoader();
@@ -81,7 +81,7 @@ class Plugin {
 	/**
 	 * Gets the settings.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings
 	 */
 	public function getSettings() {
 		return $this->_settings;
@@ -90,8 +90,8 @@ class Plugin {
 	/**
 	 * Sets the settings instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Plugin\Settings $settings
-	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 * @param Aventura\Edd\AddToCartPopup\Core\Settings $settings
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
 	 */
 	public function setSettings($settings) {
 		$this->_settings = $settings;
@@ -101,7 +101,7 @@ class Plugin {
 	/**
 	 * Gets the assets controller instance.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\AssetsController
+	 * @return Aventura\Edd\AddToCartPopup\Core\AssetsController
 	 */
 	public function getAssetsController() {
 		return $this->_assets;
@@ -110,8 +110,8 @@ class Plugin {
 	/**
 	 * Sets the assets controller instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Plugin\AssetsController $assetsController
-	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 * @param Aventura\Edd\AddToCartPopup\Core\AssetsController $assetsController
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
 	 */
 	public function setAssetsController(AssetsController $assetsController) {
 		$this->_assets = $assetsController;
@@ -121,7 +121,7 @@ class Plugin {
 	/**
 	 * Code to execute after all initialization and before any hook triggers
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
 	 */
 	public function run() {
 		do_action('edd_acp_on_run');
