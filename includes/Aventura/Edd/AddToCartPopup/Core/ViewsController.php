@@ -62,10 +62,8 @@ class ViewsController extends Plugin\Module {
 		$viewbag = (object) $viewbag;
 		// Begin output buffering
 		ob_start();
-		// `class_exists` will autoload the class if not found. This will trigger the autoloader, which will require
-		// the view file. Furthermore, since the view name does not resolve to a class, by using `class_exists` we
-		// avoid "unknown class" errors.
-		class_exists($fullName);
+		// Load view file
+		include trailingslashit( realpath(dirname(__FILE__)) ) . 'Views' . DS . $viewName . '.php';
 		// Stop output buffering and return buffered content
 		return ob_get_clean();
 	}
