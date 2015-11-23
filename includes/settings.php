@@ -23,22 +23,52 @@ class EddAcpHtml {
 
 edd_acp()->getSettings()
 
-	->addOption('textcolor', 'Text Color', 'Change the color of the text inside popup box.', function($id, $desc, $args) {
+	->addOption('textcolor', 'Text Color', 'Change the color of the text inside popup box.', '#000000', function($id, $desc, $args) {
 		$settings = edd_acp()->getSettings();
 		echo EddAcpHtml::colorpicker(
 			$id,
 			$desc,
-			$settings->getSubValue($id, '#000000'),
+			$settings->getSubValue($id),
 			$settings->getSubValueOptionName($id)
 		);
 	})
 
-	->addOption('bgcolor', 'Background Color', 'Change the background color of the popup box.', function($id, $desc, $args) {
+	->addOption('bgcolor', 'Background Color', 'Change the background color of the popup box.', '#ffffff', function($id, $desc, $args) {
 		$settings = edd_acp()->getSettings();
 		echo EddAcpHtml::colorpicker(
 			$id,
 			$desc,
 			$settings->getSubValue($id, '#ffffff'),
+			$settings->getSubValueOptionName($id)
+		);
+	})
+
+	->addOption('maintext', 'Popup Text', 'The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', '%s had been added to you cart!', function($id, $desc, $args) {
+		$settings = edd_acp()->getSettings();
+		echo EddAcpHtml::regularTextField(
+			$id,
+			$desc,
+			$settings->getSubValue($id),
+			$settings->getSubValueOptionName($id)
+		);
+	})
+
+	->addOption('checkoutBtnText', 'Checkout Button Text', 'The text of the Checkout button.', 'Proceed to Checkout', function($id, $desc, $args) {
+		$settings = edd_acp()->getSettings();
+		echo EddAcpHtml::regularTextField(
+			$id,
+			$desc,
+			$settings->getSubValue($id),
+			$settings->getSubValueOptionName($id)
+		);
+	})
+
+	->addOption('continueBtnText', 'Continue Button Text', 'The text of the continue shopping button.', 'Continue shopping', function($id, $desc, $args) {
+		$settings = edd_acp()->getSettings();
+		echo EddAcpHtml::regularTextField(
+			$id,
+			$desc,
+			$settings->getSubValue($id),
 			$settings->getSubValueOptionName($id)
 		);
 	})
