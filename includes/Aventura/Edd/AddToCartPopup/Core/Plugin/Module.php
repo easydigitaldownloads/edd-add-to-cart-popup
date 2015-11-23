@@ -1,6 +1,6 @@
 <?php
 
-namespace Aventura\Edd\AddToCartPopup\Plugin;
+namespace Aventura\Edd\AddToCartPopup\Core\Plugin;
 
 /**
  * Plugin module class.
@@ -8,7 +8,7 @@ namespace Aventura\Edd\AddToCartPopup\Plugin;
 abstract class Module {
 	
 	/**
-	 * @var Aventura\Edd\AddToCartPopup\Plugin
+	 * @var Aventura\Edd\AddToCartPopup\Core\Plugin
 	 */
 	protected $_plugin;
 
@@ -29,7 +29,7 @@ abstract class Module {
 	/**
 	 * Gets the parent plugin instance to which this istance belongs to.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
 	 */
 	public function getPlugin() {
 		return $this->_plugin;
@@ -38,8 +38,8 @@ abstract class Module {
 	/**
 	 * Sets the parent plugin instance to which this instance belongs to.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Plugin $plugin The plugin instance
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings This instance
+	 * @param Aventura\Edd\AddToCartPopup\Core\Plugin $plugin The plugin instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function setPlugin($plugin) {
 		$this->_plugin = $plugin;

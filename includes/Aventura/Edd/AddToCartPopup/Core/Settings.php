@@ -1,11 +1,11 @@
 <?php
 
-namespace Aventura\Edd\AddToCartPopup\Plugin;
+namespace Aventura\Edd\AddToCartPopup\Core;
 
 /**
  * Settings controller class, which acts as a wrapper for the database option.
  */
-class Settings extends Module {
+class Settings extends Plugin\Module {
 
 	/**
 	 * Default name of the db option
@@ -69,7 +69,7 @@ class Settings extends Module {
 	 * Sets the name of the DB option.
 	 *
 	 * @param string $dbOptionName The name of the DB option
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings This instance.
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance.
 	 */
 	public function setDbOptionName($dbOptionName) {
 		$this->_dbOptionName = $dbOptionName;
@@ -89,7 +89,7 @@ class Settings extends Module {
 	 * Sets the tab slug.
 	 * 
 	 * @param string $tabSlug The new tab slug.
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function setTabSlug($tabSlug) {
 		$this->_tabSlug = $tabSlug;
@@ -109,7 +109,7 @@ class Settings extends Module {
 	 * Sets the settings tabs label.
 	 * 
 	 * @param string $tabLabel The new label text
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function setTabLabel($tabLabel) {
 		$this->_tabLabel = $tabLabel;
@@ -129,7 +129,7 @@ class Settings extends Module {
 	 * Sets the settings tab position.
 	 * 
 	 * @param integer $tabPosition
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function setTabPosition($tabPosition) {
 		$this->_tabPosition = $tabPosition;
@@ -176,7 +176,7 @@ class Settings extends Module {
 	 * @param string   $title    The section title.
 	 * @param string   $desc     The section description.
 	 * @param callable $callback The callback that renders the section.
-	 * @return Aventura\Edd\AddToCartPopup\Plugin This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function addSection($id, $title, $desc, $callback) {
 		$this->_sections[$id] = (object) compact('id', 'title', 'desc', 'callback');
@@ -269,7 +269,7 @@ class Settings extends Module {
 	/**
 	 * Registers the settings with EDD.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Plugin\Settings This instance
+	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function register() {
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_tabs', $this, 'filterEddSettingsTabs' );
