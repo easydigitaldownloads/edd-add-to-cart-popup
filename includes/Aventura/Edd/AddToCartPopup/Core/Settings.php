@@ -181,7 +181,9 @@ class Settings extends Plugin\Module {
 	public function getSubValue($sub, $default = null) {
 		return isset($this->_value[$sub])
 				? $this->_value[$sub]
-				: $default;
+				: ( isset($this->_options[$sub])
+							? $this->_options[$sub]->default
+							: $default );
 	}
 
 	/**
@@ -190,11 +192,12 @@ class Settings extends Plugin\Module {
 	 * @param string   $id       The option ID.
 	 * @param string   $title    The option title.
 	 * @param string   $desc     The option description.
+	 * @param mixed    $default  The default value of the option.
 	 * @param callable $callback The callback that renders the option.
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function addOption($id, $title, $desc, $callback) {
-		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'callback');
+	public function addOption($id, $title, $desc, $default, $callback) {
+		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'default', 'callback');
 		return $this;
 	}
 
