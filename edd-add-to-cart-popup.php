@@ -43,5 +43,13 @@ function edd_acp() {
 		: $instance;
 }
 
+// Hotload all files in the includes directory
+$entries = glob(sprintf('%s*.%s', EDD_ACP_INCLUDES_DIR, 'php'));
+if (is_array($entries)) {
+	foreach ($entries as $filename) {
+		include_once $filename;
+	}
+}
+
 // "Execute" the plugin functionality
 edd_acp()->run();
