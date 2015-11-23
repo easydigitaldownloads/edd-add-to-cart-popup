@@ -1,0 +1,17 @@
+div#edd-acp-popup {
+	position: fixed;
+	display: none;
+	padding: 30px;
+	background-color: white !important;
+	border: 1px solid #444;
+	border-radius: 1px;
+	z-index: 9999999 !important;
+}
+
+div#edd-acp-popup p:last-child {
+	margin-bottom: 0;
+}
+
+div#edd-acp-popup a.edd-acp-goto-checkout {
+	margin-right: 5px;
+}

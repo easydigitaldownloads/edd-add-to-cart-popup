@@ -29,6 +29,16 @@ class Plugin {
 	protected $_assets;
 
 	/**
+	 * @var Aventura\Edd\AddToCartPopup\Core\ViewsController
+	 */
+	protected $_views;
+
+	/**
+	 * @var Aventura\Edd\AddToCartPopup\Core\Popup
+	 */
+	protected $_popup;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
@@ -36,7 +46,9 @@ class Plugin {
 		$this->_setMainFile($mainFile)
 				->resetHookLoader()
 				->setSettings(new Settings($this))
-				->setAssetsController(new AssetsController($this));
+				->setAssetsController(new AssetsController($this))
+				->setViewsController(new ViewsController($this))
+				->setPopup(new Popup($this));
 	}
 
 	/**
@@ -115,6 +127,46 @@ class Plugin {
 	 */
 	public function setAssetsController(AssetsController $assetsController) {
 		$this->_assets = $assetsController;
+		return $this;
+	}
+
+	/**
+	 * Gets the views controller instance.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Core\ViewsController
+	 */
+	public function getViewsController() {
+		return $this->_views;
+	}
+
+	/**
+	 * Sets the views controller instance.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Core\ViewsController $viewsController
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 */
+	public function setViewsController(ViewsController $viewsController) {
+		$this->_views = $viewsController;
+		return $this;
+	}
+
+	/**
+	 * Gets the popup instance.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Core\Popup
+	 */
+	public function getPopup() {
+		return $this->_popup;
+	}
+
+	/**
+	 * Sets the popup instance.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Core\Popup $popup
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 */
+	public function setPopup(Popup $popup) {
+		$this->_popup = $popup;
 		return $this;
 	}
 
