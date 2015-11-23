@@ -27,11 +27,11 @@ class Settings extends Plugin\Module {
 	protected $_value = null;
 
 	/**
-	 * The settings fields.
+	 * The settings options.
 	 * 
 	 * @var array
 	 */
-	protected $_sections = array();
+	protected $_options = array();
 
 	/**
 	 * Settings tab label.
@@ -146,7 +146,7 @@ class Settings extends Plugin\Module {
 	 */
 	public function getValue($sub = null, $default = null) {
 		if ($this->_value === null) {
-			$eddSettings = get_option( 'edd_settings', array() );
+			$eddSettings = get_option( self::EDD_SETTINGS_OPTION_NAME, array() );
 			$this->_value = isset($eddSettings[ $this->getDbOptionName() ])
 					? $eddSettings[ $this->getDbOptionName() ]
 					: array();
@@ -170,47 +170,47 @@ class Settings extends Plugin\Module {
 	}
 
 	/**
-	 * Adds a settings section.
+	 * Adds a settings option.
 	 * 
-	 * @param string   $id       The section ID.
-	 * @param string   $title    The section title.
-	 * @param string   $desc     The section description.
-	 * @param callable $callback The callback that renders the section.
+	 * @param string   $id       The option ID.
+	 * @param string   $title    The option title.
+	 * @param string   $desc     The option description.
+	 * @param callable $callback The callback that renders the option.
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function addSection($id, $title, $desc, $callback) {
-		$this->_sections[$id] = (object) compact('id', 'title', 'desc', 'callback');
+	public function addOption($id, $title, $desc, $callback) {
+		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'callback');
 		return $this;
 	}
 
 	/**
-	 * Checks if a settings section has been registered.
+	 * Checks if a settings option has been registered.
 	 * 
-	 * @param  string  $id The ID of the section to search for.
-	 * @return boolean     True if the sectipon is found, false otherwise.
+	 * @param  string  $id The ID of the option to search for.
+	 * @return boolean     True if the option is found, false otherwise.
 	 */
-	public function hasSection($id) {
-		return isset($this->_sections[$id]);
+	public function hasOption($id) {
+		return isset($this->_options[$id]);
 	}
 
 	/**
-	 * Removes a settings section.
+	 * Removes a settings option.
 	 * 
-	 * @param  string $id The ID of the section to remove.
+	 * @param  string $id The ID of the option to remove.
 	 */
-	public function removeSection($id) {
-		unset($this->_sections[$id]);
+	public function removeOption($id) {
+		unset($this->_options[$id]);
 	}
 
 	/**
-	 * Gets a settings sections.
+	 * Gets a settings options.
 	 * 
-	 * @param  string $id The ID of the settings section to return.
-	 * @return mixed      The settings section as an array or null if a section did not match the given $id.
+	 * @param  string $id The ID of the settings option to return.
+	 * @return mixed      The settings option as an array or null if a option did not match the given $id.
 	 */
-	public function getSection($id) {
-		return $this->hasSection($id)
-				? $this->_sections[$id]
+	public function getOption($id) {
+		return $this->hasOption($id)
+				? $this->_options[$id]
 				: null;
 	}
 
@@ -236,33 +236,35 @@ class Settings extends Plugin\Module {
 		// Create new entry for our settings tab
 		$tab = $this->getTabSlug();
 		$settings[$tab] = array();
-		// Iterate sections
-		foreach ($this->_sections as $_sectionId => $_section) {
-			// Add the section to the EDD settings
-			$settings[$tab][$_sectionId] = array(
-				'id'		=>	$_sectionId,
-				'name'		=>	$_section->title,
-				'desc'		=>	$_section->desc,
+		// Iterate options
+		foreach ($this->_options as $_optionId => $_option) {
+			// Add the option to the EDD settings
+			$settings[$tab][$_optionId] = array(
+				'id'		=>	$_optionId,
+				'name'		=>	$_option->title,
+				'desc'		=>	$_option->desc,
 				'type'		=>	'hook',
 			);
-			// Add the action for the callback that renders this section
-			$actionHook = sprintf('edd_%s', $_sectionId);
-			$this->getPlugin()->getHookLoader()->addAction($actionHook, $this, 'renderSection');
+			// Add the action for the callback that renders this option
+			$actionHook = sprintf('edd_%s', $_optionId);
+			$this->getPlugin()->getHookLoader()->addAction($actionHook, $this, 'renderOption');
 		}
 		return $settings;
 	}
 
 	/**
-	 * Renders a settings section, by calling its registered callback.
+	 * Renders a settings option, by calling its registered callback.
 	 * 
-	 * @param array $args Section information provided by EDD's settings API.
+	 * @param array $args Option information provided by EDD's settings API.
 	 */
-	public function renderSection($args) {
-		$section = $this->getSection($args['id']);
-		if ($section !== null) {
-			call_user_func($section->callback, $args);
+	public function renderOption($args) {
+		$option = $this->getOption($args['id']);
+		if ($option !== null) {
+			call_user_func_array($option->callback,
+				array($args['id'], $args['desc'], $args)
+			);
 		} else {
-			trigger_error(sprintf('Invalid callback given for settings section "%s"', $args['id']));
+			trigger_error(sprintf('Invalid callback given for settings option "%s"', $args['id']));
 		}
 	}
 
