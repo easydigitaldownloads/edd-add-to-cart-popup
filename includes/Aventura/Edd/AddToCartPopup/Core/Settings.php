@@ -8,9 +8,14 @@ namespace Aventura\Edd\AddToCartPopup\Core;
 class Settings extends Plugin\Module {
 
 	/**
+	 * The name of the option that EDD uses.
+	 */
+	const EDD_SETTINGS_OPTION_NAME = 'edd_settings';
+
+	/**
 	 * Default name of the db option
 	 */
-	const DEFAULT_DB_OPTION_NAME = '';
+	const DEFAULT_DB_OPTION_NAME = 'acp';
 
 	/**
 	 * The name of the db option.
@@ -74,6 +79,16 @@ class Settings extends Plugin\Module {
 	public function setDbOptionName($dbOptionName) {
 		$this->_dbOptionName = $dbOptionName;
 		return $this;
+	}
+
+	/**
+	 * Gets the option name for a subvalue.
+	 * 
+	 * @param  string $subName The name of the subvalue.
+	 * @return string
+	 */
+	public function getSubValueOptionName($subName) {
+		return sprintf('%1$s[%2$s][%3$s]', self::EDD_SETTINGS_OPTION_NAME, $this->getDbOptionName(), $subName);
 	}
 
 	/**
