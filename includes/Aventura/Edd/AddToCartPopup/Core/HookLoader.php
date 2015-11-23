@@ -1,6 +1,6 @@
 <?php
 
-namespace Aventura\Edd\AddToCartPopup;
+namespace Aventura\Edd\AddToCartPopup\Core;
 
 /**
  * Register all actions and filters for the plugin.
