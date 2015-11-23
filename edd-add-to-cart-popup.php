@@ -39,7 +39,7 @@ edd_acp_autoloader()->add( 'Aventura\\Edd\\AddToCartPopup', EDD_ACP_INCLUDES_DIR
 function edd_acp() {
 	static $instance = null;
 	return is_null($instance)
-		? $instance = new Aventura\Edd\AddToCartPopup\Plugin(EDD_ACP)
+		? $instance = new Aventura\Edd\AddToCartPopup\Core\Plugin(EDD_ACP)
 		: $instance;
 }
 
