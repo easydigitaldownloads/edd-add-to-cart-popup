@@ -1,7 +1,6 @@
 <?php
 
 namespace Aventura\Edd\AddToCartPopup\Core;
-use Aventura\Edd\AddToCartPopup\Core\AssetsController;
 
 /**
  * Plugin object class.
