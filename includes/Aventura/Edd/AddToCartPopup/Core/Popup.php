@@ -65,6 +65,27 @@ class Popup extends Plugin\Module {
 	}
 
 	/**
+	 * Checks for the EDD AJAX option and shows a notice if needed.
+	 */
+	public function checkEddAjax() {
+		global $typenow;
+		if ( $typenow === 'download' ) {
+			$eddSettings = get_option(Settings::EDD_SETTINGS_OPTION_NAME, array());
+			if ( !isset($eddSettings['enable_ajax_cart']) || $eddSettings['enable_ajax_cart'] == '0' ) {
+				ob_start(); ?>
+				<div class="error settings-error notice is-dismissible">
+					<p>%s</p>
+					<button type="button" class="notice-dismiss">
+						<span class="screen-reader-text">Dismiss this notice.</span>
+					</button>
+				</div>
+				<?php
+				printf( ob_get_clean(), __( 'The Add to Cart Popup requires the "Enable Ajax" option (in the Misc settings page) to be enabled for the plugin to work correctly.') );
+			}
+		}
+	}
+
+	/**
 	 * Execution method, run on 'edd_acp_on_run' action.
 	 */
 	public function run() {
@@ -74,6 +95,10 @@ class Popup extends Plugin\Module {
 					// Hook in the popup render
 					->queueAction( 'edd_purchase_link_top', $this, 'render' )
 					->queueAction( AssetsController::HOOK_FRONTEND, $this, 'enqueueAssets' );
+		}
+		// Check for EDD's AJAX option
+		if ( is_admin() ) {
+			$this->getPlugin()->getHookLoader()->queueAction('admin_notices', $this, 'checkEddAjax');
 		}
 	}
 
