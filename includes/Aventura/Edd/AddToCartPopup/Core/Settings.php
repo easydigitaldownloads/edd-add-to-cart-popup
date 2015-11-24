@@ -43,7 +43,7 @@ class Settings extends Plugin\Module {
 	 * 
 	 * @var string
 	 */
-	protected $_tabLabel = 'Add to Cart Popup';
+	protected $_tabLabel = '';
 	protected $_tabPosition = -1;
 	protected $_tabSlug = 'acp';
 
@@ -51,7 +51,8 @@ class Settings extends Plugin\Module {
 	 * Constructor.
 	 */
 	protected function _construct() {
-		$this->setDbOptionName(self::DEFAULT_DB_OPTION_NAME);
+		$this->setDbOptionName(self::DEFAULT_DB_OPTION_NAME)
+				->setTabLabel( __('Add to Cart Popup', Plugin::TEXT_DOMAIN) );
 	}
 
 	/**
@@ -282,7 +283,12 @@ class Settings extends Plugin\Module {
 				array($this, $args['id'], $args)
 			);
 		} else {
-			trigger_error(sprintf('Invalid callback given for settings option "%s"', $args['id']));
+			trigger_error(
+				sprintf(
+					__('Invalid callback given for settings option "%s"', self::TEXT_DOMAIN),
+					$args['id']
+				)
+			);
 		}
 	}
 
