@@ -15,6 +15,9 @@ if ( ! defined('WPINC') || defined('EDD_ACP') ) die;
 // Define short-hand directory separator if not already defined
 if ( ! defined('DS') ) define( 'DS', DIRECTORY_SEPARATOR );
 
+define( 'EDD_ACP_MIN_PHP_VERSION',	'5.3' );
+define( 'EDD_ACP_MIN_WP_VERSION',	'4.0' );
+
 // Directory and path constant definitions
 define( 'EDD_ACP', 					__FILE__ );
 define( 'EDD_ACP_DIR',				plugin_dir_path(EDD_ACP) );
@@ -43,6 +46,10 @@ function edd_acp() {
 		: $instance;
 }
 
+// Activation/Deactivation hooks
+register_activation_hook( __FILE__, array( edd_acp(), 'onActivate' ) );
+register_deactivation_hook( __FILE__, array( edd_acp(), 'onDeactivate' ) );
+
 // Hotload all files in the includes directory
 $entries = glob(sprintf('%s*.%s', EDD_ACP_INCLUDES_DIR, 'php'));
 if (is_array($entries)) {
@@ -53,3 +60,4 @@ if (is_array($entries)) {
 
 // "Execute" the plugin functionality
 edd_acp()->run();
+
