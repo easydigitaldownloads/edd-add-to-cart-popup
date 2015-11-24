@@ -23,8 +23,7 @@ class EddAcpHtml {
 
 edd_acp()->getSettings()
 
-	->addOption('textcolor', 'Text Color', 'Change the color of the text inside popup box.', '#000000', function($id, $desc, $args) {
-		$settings = edd_acp()->getSettings();
+	->addOption('textcolor', 'Text Color', 'Change the color of the text inside popup box.', '#000000', function($settings, $id, $desc, $args) {
 		echo EddAcpHtml::colorpicker(
 			$id,
 			$desc,
@@ -33,8 +32,7 @@ edd_acp()->getSettings()
 		);
 	})
 
-	->addOption('bgcolor', 'Background Color', 'Change the background color of the popup box.', '#ffffff', function($id, $desc, $args) {
-		$settings = edd_acp()->getSettings();
+	->addOption('bgcolor', 'Background Color', 'Change the background color of the popup box.', '#ffffff', function($settings, $id, $desc, $args) {
 		echo EddAcpHtml::colorpicker(
 			$id,
 			$desc,
@@ -43,8 +41,7 @@ edd_acp()->getSettings()
 		);
 	})
 
-	->addOption('maintext', 'Popup Text', 'The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', '%s had been added to you cart!', function($id, $desc, $args) {
-		$settings = edd_acp()->getSettings();
+	->addOption('maintext', 'Popup Text', 'The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', '%s had been added to you cart!', function($settings, $id, $desc, $args) {
 		echo EddAcpHtml::regularTextField(
 			$id,
 			$desc,
@@ -53,8 +50,7 @@ edd_acp()->getSettings()
 		);
 	})
 
-	->addOption('checkoutBtnText', 'Checkout Button Text', 'The text of the Checkout button.', 'Proceed to Checkout', function($id, $desc, $args) {
-		$settings = edd_acp()->getSettings();
+	->addOption('checkoutBtnText', 'Checkout Button Text', 'The text of the Checkout button.', 'Proceed to Checkout', function($settings, $id, $desc, $args) {
 		echo EddAcpHtml::regularTextField(
 			$id,
 			$desc,
@@ -63,8 +59,7 @@ edd_acp()->getSettings()
 		);
 	})
 
-	->addOption('continueBtnText', 'Continue Button Text', 'The text of the continue shopping button.', 'Continue shopping', function($id, $desc, $args) {
-		$settings = edd_acp()->getSettings();
+	->addOption('continueBtnText', 'Continue Button Text', 'The text of the continue shopping button.', 'Continue shopping', function($settings, $id, $desc, $args) {
 		echo EddAcpHtml::regularTextField(
 			$id,
 			$desc,
