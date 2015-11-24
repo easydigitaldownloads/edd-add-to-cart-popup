@@ -69,7 +69,7 @@ class Popup extends Plugin\Module {
 	 */
 	public function checkEddAjax() {
 		global $typenow;
-		if ( $typenow === 'download' ) {
+		if ( $typenow === 'download' && $this->getPlugin()->getSettings()->getValue('enabled') == '1' ) {
 			$eddSettings = get_option(Settings::EDD_SETTINGS_OPTION_NAME, array());
 			if ( !isset($eddSettings['enable_ajax_cart']) || $eddSettings['enable_ajax_cart'] == '0' ) {
 				ob_start(); ?>
