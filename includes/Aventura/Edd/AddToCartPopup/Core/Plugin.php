@@ -41,6 +41,11 @@ class Plugin {
 	protected $_popup;
 
 	/**
+	 * @var string
+	 */
+	protected $_deactivationReason = '';
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
