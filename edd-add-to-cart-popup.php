@@ -46,6 +46,10 @@ function edd_acp() {
 		: $instance;
 }
 
+// Activation/Deactivation hooks
+register_activation_hook( __FILE__, array( edd_acp(), 'onActivate' ) );
+register_deactivation_hook( __FILE__, array( edd_acp(), 'onDeactivate' ) );
+
 // Hotload all files in the includes directory
 $entries = glob(sprintf('%s*.%s', EDD_ACP_INCLUDES_DIR, 'php'));
 if (is_array($entries)) {
