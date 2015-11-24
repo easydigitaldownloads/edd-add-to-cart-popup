@@ -178,12 +178,56 @@ class Plugin {
 	}
 
 	/**
+	 * Checks for dependancies.
+	 */
+	public function checkDependancies() {
+		if (!class_exists(self::PARENT_PLUGIN_CLASS)) {
+			$this->deactivate( 'The <strong>Add to Cart Popup</strong> extension requires the <strong>Easy Digital Downloads</strong> plugin to be installed and activated.' );
+		}
+	}
+
+	/**
+	 * Deactivates this plugin.
+	 *
+	 * @param callbable|string $arg The notice callback function, that will be hooked on `admin_notices` after deactivation, or a string specifying the reason for deactivation.
+	 */
+	public function deactivate( $arg = NULL ) {
+		// load plugins.php file from WordPress if not loaded
+		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		// Deactivate this plugin
+		deactivate_plugins( EDD_ACP );
+		// If no arg is given, stop
+		if ( $arg === NULL ) {
+			return;
+		}
+		// If arg is a callabe, hook it into admin_notices
+		if (is_callable($arg)) {
+			$this->getHookLoader()->addAction('admin_notices', null, $arg);
+		}
+		// Otherwise, we use the "deactivation reason" buffer and callback
+		else {
+			$this->_deactivationReason = $arg;
+			$this->getHookLoader()->addAction('admin_notices', $this, 'showDeactivationNotice');
+		}
+	}
+
+	/**
+	 * Shows the deactivation notice, stating the reason.
+	 */
+	public function showDeactivationNotice() {
+		printf('<div class="error"><p>%s</p></div>', strval($this->_deactivationReason));
+	}
+
+	/**
 	 * Code to execute after all initialization and before any hook triggers
 	 * 
 	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
 	 */
 	public function run() {
 		do_action('edd_acp_on_run');
+
+		// Check for EDD core plugin
+		$this->getHookLoader()->queueAction('admin_init', $this, 'checkDependancies');
 
 		// Hook all queued hooks
 		$this->getHookLoader()->registerQueue();
