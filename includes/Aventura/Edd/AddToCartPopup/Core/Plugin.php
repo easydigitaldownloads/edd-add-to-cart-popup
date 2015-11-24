@@ -51,6 +51,11 @@ class Plugin {
 	protected $_deactivationReason = '';
 
 	/**
+	 * @var EDD_License
+	 */
+	protected $_license;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
@@ -204,6 +209,25 @@ class Plugin {
 	}
 
 	/**
+	 * Gets the license.
+	 * 
+	 * @return EDD_License
+	 */
+	public function getLicense() {
+		return $this->_license;
+	}
+
+	/**
+	 * Sets the license.
+	 * 
+	 * @param EDD_License $license
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 */
+	protected function _setLicense($license) {
+		$this->_license = $license;
+		return $this;
+	}
+
 	 * Callback function triggered when the plugin is activated.
 	 */
 	public function onActivate() {
