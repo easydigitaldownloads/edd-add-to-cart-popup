@@ -73,6 +73,10 @@ class Plugin {
 				->setViewsController(new ViewsController($this))
 				->setPopup(new Popup($this))
 				->setTextDomain(new TextDomain($this, self::TEXT_DOMAIN, EDD_ACP_LANG_DIR));
+		// Set EDD License if the class exists
+		if ( class_exists('EDD_License') ) {
+			$this->_setLicense(new \EDD_License($this->getMainFile(), $this->getInfo('Name'), $this->getInfo('Version'), $this->getInfo('Author')));
+		}
 	}
 
 	/**
