@@ -39,6 +39,9 @@ class EddAcpSettingsHtml {
 
 edd_acp()->getSettings()
 
+	->addOption('enabled', 'Enable Popup', 'Tick this box to enable the popup. Untick it to disable it.', '1', function($settings, $id, $args) {
+		echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
+	})
 
 	->addOption('textcolor', 'Text Color', 'Change the color of the text inside popup box.', '#000000', function($settings, $id, $args) {
 		echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
