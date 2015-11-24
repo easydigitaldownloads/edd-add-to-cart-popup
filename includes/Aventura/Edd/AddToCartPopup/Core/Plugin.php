@@ -8,6 +8,8 @@ use Aventura\Edd\AddToCartPopup\Core\AssetsController;
  */
 class Plugin {
 
+	const PARENT_PLUGIN_CLASS = 'Easy_Digital_Downloads';
+
 	/**
 	 * @var string
 	 */
