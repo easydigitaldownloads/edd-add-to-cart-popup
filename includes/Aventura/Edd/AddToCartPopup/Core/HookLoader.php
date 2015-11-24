@@ -129,7 +129,7 @@ class HookLoader {
 		} else {
 			// Call function for hooking
 			$fn = sprintf('add_%s', $type);
-			$fullCallback = (($callback instanceof Closure) || is_null($callback))
+			$fullCallback = (($callback instanceof Closure) || is_null($component))
 					? $callback
 					: array($component, $callback);
 			$args = array($hook, $fullCallback, $priority, $accepted_args);
