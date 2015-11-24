@@ -16,6 +16,11 @@ class Plugin {
 	protected $_mainFile;
 
 	/**
+	 * @var array
+	 */
+	protected $_info;
+
+	/**
 	 * @var Aventura\Edd\AddToCartPopup\HookLoader
 	 */
 	protected $_hookLoader;
@@ -228,6 +233,38 @@ class Plugin {
 		return $this;
 	}
 
+	/**
+	 * Loads the plugin info from its header in the main file.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 */
+	protected function _loadInfo() {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		}
+		$this->_info = get_plugin_data( $this->getMainFile() );
+		return $this;
+	}
+
+	/**
+	 * Gets the plugin data, a single data entry or a given default as a fallback if given.
+	 * 
+	 * @param  string $key     The key of the data entry to return. Default: null
+	 * @param  mixed  $default The value to return if the data entry is not found. Default: null
+	 * @return mixed           If the $key arg is null, the entire data set is returned. Otherwise, the
+	 *                         data entry with that key will be returned, or $default if not found.
+	 */
+	public function getInfo($key = null, $default = null) {
+		if ( $key === null ) {
+			return $this->_info;
+		}
+		if ( isset( $this->_info[ $key ] ) ) {
+			return $this->_info[ $key ];
+		}
+		return $default;
+	}
+
+	/**
 	 * Callback function triggered when the plugin is activated.
 	 */
 	public function onActivate() {
