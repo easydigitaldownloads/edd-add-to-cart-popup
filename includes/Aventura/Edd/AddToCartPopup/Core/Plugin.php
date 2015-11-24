@@ -211,16 +211,22 @@ class Plugin {
 		if ( version_compare( phpversion(), EDD_ACP_MIN_PHP_VERSION, '<' ) ) {
 			$this->deactivate();
 			wp_die(
-				sprintf('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: PHP version must be %s or later.', EDD_ACP_MIN_PHP_VERSION),
-				'Error',
+				sprintf(
+					__('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: PHP version must be %s or later.', self::TEXT_DOMAIN),
+					EDD_ACP_MIN_PHP_VERSION
+				),
+				__('Error'),
 				array('back_link' => true)
 			);
 		}
 		if ( version_compare( get_bloginfo('version'), EDD_ACP_MIN_WP_VERSION, '<' ) ) {
 			$this->deactivate();
 			wp_die(
-				sprintf('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: WordPress version must be %s or later.', EDD_ACP_MIN_WP_VERSION),
-				'Error',
+				sprintf(
+					__('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: WordPress version must be %s or later.', self::TEXT_DOMAIN),
+					EDD_ACP_MIN_WP_VERSION
+				),
+				__('Error'),
 				array('back_link' => true)
 			);
 		}
@@ -238,7 +244,9 @@ class Plugin {
 	 */
 	public function checkDependancies() {
 		if (!class_exists(self::PARENT_PLUGIN_CLASS)) {
-			$this->deactivate( 'The <strong>Add to Cart Popup</strong> extension requires the <strong>Easy Digital Downloads</strong> plugin to be installed and activated.' );
+			$this->deactivate(
+				__('The <strong>Add to Cart Popup</strong> extension requires the <strong>Easy Digital Downloads</strong> plugin to be installed and activated.', self::TEXT_DOMAIN)
+			);
 		}
 	}
 
