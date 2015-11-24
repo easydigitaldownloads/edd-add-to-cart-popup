@@ -9,6 +9,7 @@ use Aventura\Edd\AddToCartPopup\Core\AssetsController;
 class Plugin {
 
 	const PARENT_PLUGIN_CLASS = 'Easy_Digital_Downloads';
+	const TEXT_DOMAIN = 'edd_acp';
 
 	/**
 	 * @var string
@@ -41,6 +42,11 @@ class Plugin {
 	protected $_popup;
 
 	/**
+	 * @var Aventura\Edd\AddToCartPopup\Core\TextDomain
+	 */
+	protected $_textDomain;
+
+	/**
 	 * @var string
 	 */
 	protected $_deactivationReason = '';
@@ -55,7 +61,8 @@ class Plugin {
 				->setSettings(new Settings($this))
 				->setAssetsController(new AssetsController($this))
 				->setViewsController(new ViewsController($this))
-				->setPopup(new Popup($this));
+				->setPopup(new Popup($this))
+				->setTextDomain(new TextDomain($this, self::TEXT_DOMAIN, EDD_ACP_LANG_DIR));
 	}
 
 	/**
@@ -174,6 +181,26 @@ class Plugin {
 	 */
 	public function setPopup(Popup $popup) {
 		$this->_popup = $popup;
+		return $this;
+	}
+
+	/**
+	 * Gets the text domain.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Core\TextDomain
+	 */
+	public function getTextDomain() {
+		return $this->_textDomain;
+	}
+
+	/**
+	 * Sets the text domain.
+	 * 
+	 * @param Aventura\Edd\AddToCartPopup\Core\TextDomain $textDomain
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 */
+	public function setTextDomain($textDomain) {
+		$this->_textDomain = $textDomain;
 		return $this;
 	}
 
