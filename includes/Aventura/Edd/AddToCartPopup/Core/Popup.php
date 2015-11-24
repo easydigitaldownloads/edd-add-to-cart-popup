@@ -76,11 +76,14 @@ class Popup extends Plugin\Module {
 				<div class="error settings-error notice is-dismissible">
 					<p>%s</p>
 					<button type="button" class="notice-dismiss">
-						<span class="screen-reader-text">Dismiss this notice.</span>
+						<span class="screen-reader-text"><?php _e('Dismiss this notice.'); ?></span>
 					</button>
 				</div>
 				<?php
-				printf( ob_get_clean(), __( 'The Add to Cart Popup requires the "Enable Ajax" option (in the Misc settings page) to be enabled for the plugin to work correctly.') );
+				printf(
+					ob_get_clean(),
+					__('The Add to Cart Popup requires the "Enable Ajax" option (in the Misc settings page) to be enabled for the plugin to work correctly.', Plugin::TEXT_DOMAIN)
+				);
 			}
 		}
 	}

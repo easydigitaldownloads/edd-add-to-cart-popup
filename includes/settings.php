@@ -37,29 +37,69 @@ class EddAcpSettingsHtml {
 
 }
 
+// Get text domain
+$textDomain = edd_acp()->getTextDomain()->getName();
+
+// Get settings instance to add options to it
 edd_acp()->getSettings()
 
-	->addOption('enabled', 'Enable Popup', 'Tick this box to enable the popup. Untick it to disable it.', '1', function($settings, $id, $args) {
-		echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
-	})
+	->addOption(
+			'enabled',
+			__('Enable Popup', $textDomain),
+			__('Tick this box to enable the popup. Untick it to disable it.', $textDomain),
+			'1',
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
+			}
+		)
 
-	->addOption('textcolor', 'Text Color', 'Change the color of the text inside popup box.', '#000000', function($settings, $id, $args) {
-		echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
-	})
+	->addOption(
+			'textcolor',
+			__('Text Color', $textDomain),
+			__('Change the color of the text inside popup box.', $textDomain),
+			'#000000',
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+			}
+		)
 
-	->addOption('bgcolor', 'Background Color', 'Change the background color of the popup box.', '#ffffff', function($settings, $id, $args) {
-		echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
-	})
+	->addOption(
+			'bgcolor',
+			__('Background Color', $textDomain),
+			__('Change the background color of the popup box.', $textDomain),
+			'#ffffff',
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+			}
+		)
 
-	->addOption('maintext', 'Popup Text', 'The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', '%s had been added to you cart!', function($settings, $id, $args) {
-		echo EddAcpSettingsHtml::renderField('text', $settings, $id);
-	})
+	->addOption(
+			'maintext',
+			__('Popup Text', $textDomain),
+			__('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', $textDomain),
+			__('%s had been added to you cart!', $textDomain),
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+			}
+		)
 
-	->addOption('checkoutBtnText', 'Checkout Button Text', 'The text of the Checkout button.', 'Proceed to Checkout', function($settings, $id, $args) {
-		echo EddAcpSettingsHtml::renderField('text', $settings, $id);
-	})
+	->addOption(
+			'checkoutBtnText',
+			__('Checkout Button Text', $textDomain),
+			__('The text of the Checkout button.', $textDomain),
+			__('Proceed to Checkout', $textDomain),
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+			}
+		)
 
-	->addOption('continueBtnText', 'Continue Button Text', 'The text of the continue shopping button.', 'Continue shopping', function($settings, $id, $args) {
-		echo EddAcpSettingsHtml::renderField('text', $settings, $id);
-	})
+	->addOption(
+			'continueBtnText',
+			__('Continue Button Text', $textDomain),
+			__('The text of the continue shopping button.', $textDomain),
+			__('Continue shopping', $textDomain),
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+			}
+		)
 ;

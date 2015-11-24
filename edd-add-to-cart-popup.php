@@ -27,6 +27,7 @@ define( 'EDD_ACP_ASSETS_URL',		EDD_ACP_URL . 'assets/' );
 define( 'EDD_ACP_CSS_URL',			EDD_ACP_ASSETS_URL . 'css/' );
 define( 'EDD_ACP_JS_URL',			EDD_ACP_ASSETS_URL . 'js/' );
 define( 'EDD_ACP_INCLUDES_DIR',		EDD_ACP_DIR . 'includes' . DS );
+define( 'EDD_ACP_LANG_DIR',			EDD_ACP_DIR . 'languages' . DS );
 
 // Load the autoloader - lol
 require EDD_ACP_DIR . 'autoload.php';
