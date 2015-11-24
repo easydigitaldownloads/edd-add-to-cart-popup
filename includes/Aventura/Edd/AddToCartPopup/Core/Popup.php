@@ -50,11 +50,31 @@ class Popup extends Plugin\Module {
 		echo $this->getPlugin()->getViewsController()->renderView('Popup');
 	}
 
+	public function enqueueAssets() {
+		// Register assets
+		$this->getPlugin()->getAssetsController()
+				->registerScript('edd_acp_bpopup', EDD_ACP_JS_URL . 'jquery.bpopup.min.js')
+				->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js', array('edd_acp_bpopup'))
+				->registerStyle('edd_acp_frontend_css', EDD_ACP_CSS_URL . 'edd-acp-popup.css');
+		// Enqueue front-end main script if on a singular download page
+		if (is_singular() && get_post_type() === 'download') {
+			$this->getPlugin()->getAssetsController()
+					->enqueueStyle('edd_acp_frontend_css')
+					->enqueueScript('edd_acp_frontend_js');
+		}
+	}
+
 	/**
 	 * Execution method, run on 'edd_acp_on_run' action.
 	 */
 	public function run() {
-		$this->getPlugin()->getHookLoader()->queueAction( 'edd_purchase_link_top', $this, 'render' );
+		// If the enabled toggle option is turned on
+		if ($this->getPlugin()->getSettings()->getValue('enabled') == '1') {
+			$this->getPlugin()->getHookLoader()
+					// Hook in the popup render
+					->queueAction( 'edd_purchase_link_top', $this, 'render' )
+					->queueAction( AssetsController::HOOK_FRONTEND, $this, 'enqueueAssets' );
+		}
 	}
 
 }
