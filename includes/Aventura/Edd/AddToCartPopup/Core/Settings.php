@@ -279,7 +279,7 @@ class Settings extends Plugin\Module {
 		$option = $this->getOption($args['id']);
 		if ($option !== null) {
 			call_user_func_array($option->callback,
-				array($args['id'], $args['desc'], $args)
+				array($this, $args['id'], $args['desc'], $args)
 			);
 		} else {
 			trigger_error(sprintf('Invalid callback given for settings option "%s"', $args['id']));
