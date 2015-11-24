@@ -1,7 +1,6 @@
 <?php
 
 namespace Aventura\Edd\AddToCartPopup\Core;
-use Aventura\Edd\AddToCartPopup\Core\AssetsController;
 
 /**
  * Plugin object class.
@@ -15,6 +14,11 @@ class Plugin {
 	 * @var string
 	 */
 	protected $_mainFile;
+
+	/**
+	 * @var array
+	 */
+	protected $_info;
 
 	/**
 	 * @var Aventura\Edd\AddToCartPopup\HookLoader
@@ -52,17 +56,27 @@ class Plugin {
 	protected $_deactivationReason = '';
 
 	/**
+	 * @var EDD_License
+	 */
+	protected $_license;
+
+	/**
 	 * Constructor
 	 * @param string $mainFile The plugin main file name.
 	 */
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
+				->_loadInfo()
 				->resetHookLoader()
 				->setSettings(new Settings($this))
 				->setAssetsController(new AssetsController($this))
 				->setViewsController(new ViewsController($this))
 				->setPopup(new Popup($this))
 				->setTextDomain(new TextDomain($this, self::TEXT_DOMAIN, EDD_ACP_LANG_DIR));
+		// Set EDD License if the class exists
+		if ( class_exists('EDD_License') ) {
+			$this->_setLicense(new \EDD_License($this->getMainFile(), $this->getInfo('Name'), $this->getInfo('Version'), $this->getInfo('Author')));
+		}
 	}
 
 	/**
@@ -202,6 +216,57 @@ class Plugin {
 	public function setTextDomain($textDomain) {
 		$this->_textDomain = $textDomain;
 		return $this;
+	}
+
+	/**
+	 * Gets the license.
+	 * 
+	 * @return EDD_License
+	 */
+	public function getLicense() {
+		return $this->_license;
+	}
+
+	/**
+	 * Sets the license.
+	 * 
+	 * @param EDD_License $license
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 */
+	protected function _setLicense($license) {
+		$this->_license = $license;
+		return $this;
+	}
+
+	/**
+	 * Loads the plugin info from its header in the main file.
+	 * 
+	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 */
+	protected function _loadInfo() {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		}
+		$this->_info = get_plugin_data( $this->getMainFile() );
+		return $this;
+	}
+
+	/**
+	 * Gets the plugin data, a single data entry or a given default as a fallback if given.
+	 * 
+	 * @param  string $key     The key of the data entry to return. Default: null
+	 * @param  mixed  $default The value to return if the data entry is not found. Default: null
+	 * @return mixed           If the $key arg is null, the entire data set is returned. Otherwise, the
+	 *                         data entry with that key will be returned, or $default if not found.
+	 */
+	public function getInfo($key = null, $default = null) {
+		if ( $key === null ) {
+			return $this->_info;
+		}
+		if ( isset( $this->_info[ $key ] ) ) {
+			return $this->_info[ $key ];
+		}
+		return $default;
 	}
 
 	/**
