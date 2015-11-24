@@ -66,6 +66,7 @@ class Plugin {
 	 */
 	public function __construct($mainFile) {
 		$this->_setMainFile($mainFile)
+				->_loadInfo()
 				->resetHookLoader()
 				->setSettings(new Settings($this))
 				->setAssetsController(new AssetsController($this))
