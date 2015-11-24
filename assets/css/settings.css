@@ -1,0 +1,19 @@
+div.edd-acp-colorpicker {
+	position: relative;
+	display: inline-block;
+	margin-right: 5px;
+	vertical-align: middle;
+	top: 0;
+	left: -3px;
+	width: 36px;
+	height: 36px;
+}
+
+div.edd-acp-colorpicker > div.edd-acp-colorpicker-preview {
+	position: relative;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: url(../imgs/colorpicker/select2.png) center;
+}

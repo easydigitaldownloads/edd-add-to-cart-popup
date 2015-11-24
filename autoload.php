@@ -13,7 +13,7 @@ if (!function_exists('edd_acp_autoloader')) {
 		$className = 'Aventura\\Edd\\AddToCartPopup\\Loader';
 		// If the class does not exist, attempt to load it's class file
 		if (!class_exists($className)){
-			$dir = dirname(__FILE__);
+			$dir = EDD_ACP_INCLUDES_DIR;
 			$classPath = str_replace('\\', DIRECTORY_SEPARATOR, $className);
 			$classPath = "{$dir}/{$classPath}.php";
 			require_once($classPath);

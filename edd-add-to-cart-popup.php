@@ -26,7 +26,7 @@ define( 'EDD_ACP_JS_URL',			EDD_ACP_ASSETS_URL . 'js/' );
 define( 'EDD_ACP_INCLUDES_DIR',		EDD_ACP_DIR . 'includes' . DS );
 
 // Load the autoloader - lol
-require EDD_ACP_INCLUDES_DIR . 'autoload.php';
+require EDD_ACP_DIR . 'autoload.php';
 // Add autoloading paths
 edd_acp_autoloader()->add( 'Aventura\\Edd\\AddToCartPopup', EDD_ACP_INCLUDES_DIR );
 
@@ -41,6 +41,14 @@ function edd_acp() {
 	return is_null($instance)
 		? $instance = new Aventura\Edd\AddToCartPopup\Core\Plugin(EDD_ACP)
 		: $instance;
+}
+
+// Hotload all files in the includes directory
+$entries = glob(sprintf('%s*.%s', EDD_ACP_INCLUDES_DIR, 'php'));
+if (is_array($entries)) {
+	foreach ($entries as $filename) {
+		include_once $filename;
+	}
 }
 
 // "Execute" the plugin functionality

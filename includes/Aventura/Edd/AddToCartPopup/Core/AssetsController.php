@@ -59,7 +59,19 @@ class AssetsController extends Plugin\Module {
 	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
 	 */
 	public function backendAssets() {
+		// Settings
+		$this->registerScript('edd_acp_settings', EDD_ACP_JS_URL . 'settings.js');
+		$this->registerStyle('edd_acp_settings', EDD_ACP_CSS_URL . 'settings.css');
+		// Colorpicker
+		$this->registerScript('edd_acp_colorpicker', EDD_ACP_JS_URL . 'colorpicker.js');
+		$this->registerStyle('edd_acp_colorpicker', EDD_ACP_CSS_URL . 'colorpicker.css');
 
+		if (isset($_GET['tab']) && $_GET['tab'] === 'acp') {
+			$this->enqueueScript('edd_acp_colorpicker');
+			$this->enqueueStyle('edd_acp_colorpicker');
+			$this->enqueueScript('edd_acp_settings');
+			$this->enqueueStyle('edd_acp_settings');
+		}
 	}
 
 	/**
