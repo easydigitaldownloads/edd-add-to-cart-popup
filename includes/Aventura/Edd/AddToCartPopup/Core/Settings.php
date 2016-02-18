@@ -277,7 +277,7 @@ class Settings extends Plugin\Module {
 	 */
 	public function register() {
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_sections_extensions', $this, 'filterEddSettingsSubsection' );
-		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_registered_settings', $this, 'filterEddSettings' );
+		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions', $this, 'filterEddSettings' );
 		return $this;
 	}
 
