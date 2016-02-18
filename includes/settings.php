@@ -9,20 +9,20 @@ class EddAcpSettingsHtml {
 		ob_start();
 		echo self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
 		$desc = $settings->getOption($id)->desc;
-		printf('<label for="%1$s">%2$s</label>', $id, $desc);
+		printf('<label for="%1$s">%2$s</label>', esc_attr($id), esc_attr($desc));
 		return ob_get_clean();
 	}
 
 	public static function text($id, $name, $value) {
 		ob_start(); ?>
-		<input type="text" class="regular-text" id="<?php echo $id; ?>" name="<?php echo $name; ?>" value="<?php echo esc_attr($value); ?>" />
+		<input type="text" class="regular-text" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>" />
 		<?php return ob_get_clean();
 	}
 
 	public static function colorpicker($id, $name, $value) {
 		ob_start(); ?>
 		<div class="edd-acp-colorpicker">
-			<input type="hidden" class="edd-acp-colorpicker-value" id="<?php echo $id; ?>" name="<?php echo $name; ?>" value="<?php echo esc_attr($value); ?>" />
+			<input type="hidden" class="edd-acp-colorpicker-value" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>" />
 			<div class="edd-acp-colorpicker-preview"></div>
 		</div>
 		<?php return ob_get_clean();
@@ -30,8 +30,8 @@ class EddAcpSettingsHtml {
 
 	public static function checkbox($id, $name, $value) {
 		ob_start(); ?>
-		<input type="hidden" name="<?php echo $name; ?>" value="0" />
-		<input type="checkbox" id="<?php echo $id; ?>" name="<?php echo $name; ?>" <?php checked($value, '1'); ?> value="1" />
+		<input type="hidden" name="<?php echo esc_attr($name); ?>" value="0" />
+		<input type="checkbox" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>" <?php checked($value, '1'); ?> value="1" />
 		<?php return ob_get_clean();
 	}
 
@@ -47,7 +47,7 @@ edd_acp()->getSettings()
 			'enabled',
 			__('Enable Popup', $textDomain),
 			__('Tick this box to enable the popup. Untick it to disable it.', $textDomain),
-			'1',
+			'0',
 			function($settings, $id, $args) {
 				echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
 			}
