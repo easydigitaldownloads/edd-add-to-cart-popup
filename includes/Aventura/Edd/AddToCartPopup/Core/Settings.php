@@ -213,15 +213,14 @@ class Settings extends Plugin\Module {
 	}
 
 	/**
-	 * Registers the tab in the EDD settings page.
+	 * Registers the subsection in the EDD settings page Extensions tab.
 	 * 
-	 * @param  array $tabs The original EDD tabs array
-	 * @return array       The tabs with the added messages tab
+	 * @param  array $sections The subsections in the Extensions tab
+	 * @return array           The sections with the added messages section
 	 */
-	public function filterEddSettingsTabs($tabs) {
-		$last = array_splice($tabs, $this->getTabPosition());
-		$mid = array($this->getTabSlug() => $this->getTabLabel());
-		return array_merge($tabs, $mid, $last);
+	public function filterEddSettingsSubsection($sections) {
+		$sections[ $this->getSectionSlug() ] = $this->getSectionLabel();
+		return $sections;
 	}
 
 	/**
@@ -277,7 +276,7 @@ class Settings extends Plugin\Module {
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function register() {
-		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_tabs', $this, 'filterEddSettingsTabs' );
+		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_sections_extensions', $this, 'filterEddSettingsSubsection' );
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_registered_settings', $this, 'filterEddSettings' );
 		return $this;
 	}
