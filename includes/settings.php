@@ -77,7 +77,7 @@ edd_acp()->getSettings()
 			'maintext',
 			__('Popup Text', $textDomain),
 			__('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', $textDomain),
-			__('%s had been added to you cart!', $textDomain),
+			__('%s had been added to your cart!', $textDomain),
 			function($settings, $id, $args) {
 				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
 			}
