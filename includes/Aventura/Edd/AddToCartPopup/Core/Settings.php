@@ -44,7 +44,6 @@ class Settings extends Plugin\Module {
 	 * @var string
 	 */
 	protected $_tabLabel = '';
-	protected $_tabPosition = -1;
 	protected $_tabSlug = 'acp';
 
 	/**
@@ -132,23 +131,6 @@ class Settings extends Plugin\Module {
 		return $this;
 	}
 
-	/**
-	 * Gets the settings tab position.
-	 * 
-	 * @return integer
-	 */
-	public function getTabPosition() {
-		return $this->_tabPosition;
-	}
-
-	/**
-	 * Sets the settings tab position.
-	 * 
-	 * @param integer $tabPosition
-	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
-	 */
-	public function setTabPosition($tabPosition) {
-		$this->_tabPosition = $tabPosition;
 		return $this;
 	}
 
