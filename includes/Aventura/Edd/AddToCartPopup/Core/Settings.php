@@ -43,15 +43,15 @@ class Settings extends Plugin\Module {
 	 * 
 	 * @var string
 	 */
-	protected $_tabLabel = '';
-	protected $_tabSlug = 'acp';
+	protected $_sectionLabel = '';
+	protected $_sectionSlug = 'acp';
 
 	/**
 	 * Constructor.
 	 */
 	protected function _construct() {
 		$this->setDbOptionName(self::DEFAULT_DB_OPTION_NAME)
-				->setTabLabel( __('Add to Cart Popup', Plugin::TEXT_DOMAIN) );
+				->setSectionLabel( __('Add to Cart Popup', Plugin::TEXT_DOMAIN) );
 	}
 
 	/**
@@ -92,45 +92,42 @@ class Settings extends Plugin\Module {
 	}
 
 	/**
-	 * Gets the tab slug.
+	 * Gets the section slug.
 	 * 
 	 * @return string
 	 */
-	public function getTabSlug() {
-		return $this->_tabSlug;
+	public function getSectionSlug() {
+		return $this->_sectionSlug;
 	}
 
 	/**
-	 * Sets the tab slug.
+	 * Sets the section slug.
 	 * 
-	 * @param string $tabSlug The new tab slug.
+	 * @param string $sectionSlug The new section slug.
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function setTabSlug($tabSlug) {
-		$this->_tabSlug = $tabSlug;
+	public function setSectionSlug($sectionSlug) {
+		$this->_sectionSlug = $sectionSlug;
 		return $this;
 	}
 
 	/**
-	 * Gets the settings tab label text.
+	 * Gets the settings section label text.
 	 * 
 	 * @return string
 	 */
-	public function getTabLabel() {
-		return $this->_tabLabel;
+	public function getSectionLabel() {
+		return $this->_sectionLabel;
 	}
 
 	/**
-	 * Sets the settings tabs label.
+	 * Sets the settings section label.
 	 * 
-	 * @param string $tabLabel The new label text
+	 * @param string $sectionLabel The new label text
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function setTabLabel($tabLabel) {
-		$this->_tabLabel = $tabLabel;
-		return $this;
-	}
-
+	public function setSectionLabel($sectionLabel) {
+		$this->_sectionLabel = $sectionLabel;
 		return $this;
 	}
 
