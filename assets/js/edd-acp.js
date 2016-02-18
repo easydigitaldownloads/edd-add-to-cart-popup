@@ -39,5 +39,11 @@ var EddAcp = (function EddAcpClass() {
 }());
 
 jQuery(document).ready( function() {
-	window.eddAcp = new EddAcp();
+	window.edd_acp = {};
+	// Instances array
+	window.edd_acp.instances = [];
+	// Go through each download and init instance
+	jQuery('form.edd_download_purchase_form').each( function() {
+		window.edd_acp.instances.push( new EddAcp( jQuery(this) ) );
+	});
 });
