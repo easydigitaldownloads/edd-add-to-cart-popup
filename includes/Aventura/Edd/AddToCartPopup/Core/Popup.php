@@ -46,22 +46,20 @@ class Popup extends Plugin\Module {
 	 * 
 	 * @return string The rendered popup
 	 */
-	public function render() {
-		echo $this->getPlugin()->getViewsController()->renderView('Popup');
+	public function render($downloadId) {
+		echo $this->getPlugin()->getViewsController()->renderView('Popup', array('downloadId' => $downloadId));
 	}
 
 	public function enqueueAssets() {
 		// Register assets
 		$this->getPlugin()->getAssetsController()
-				->registerScript('edd_acp_bpopup', EDD_ACP_JS_URL . 'jquery.bpopup.min.js')
+				->registerScript('edd_acp_bpopup', EDD_ACP_JS_URL . 'jquery.bpopup.min.js', array('jquery'))
 				->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js', array('edd_acp_bpopup'))
 				->registerStyle('edd_acp_frontend_css', EDD_ACP_CSS_URL . 'edd-acp-popup.css');
-		// Enqueue front-end main script if on a singular download page
-		if (is_singular() && get_post_type() === 'download') {
-			$this->getPlugin()->getAssetsController()
-					->enqueueStyle('edd_acp_frontend_css')
-					->enqueueScript('edd_acp_frontend_js');
-		}
+		// Enqueue front-end main script
+		$this->getPlugin()->getAssetsController()
+				->enqueueStyle('edd_acp_frontend_css')
+				->enqueueScript('edd_acp_frontend_js');
 	}
 
 	/**

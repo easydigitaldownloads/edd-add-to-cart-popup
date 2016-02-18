@@ -1,4 +1,4 @@
-div#edd-acp-popup {
+div.edd-acp-popup {
 	position: fixed;
 	display: none;
 	padding: 30px;
@@ -7,10 +7,10 @@ div#edd-acp-popup {
 	z-index: 9999999 !important;
 }
 
-div#edd-acp-popup p:last-child {
+div.edd-acp-popup p:last-child {
 	margin-bottom: 0;
 }
 
-div#edd-acp-popup a.edd-acp-goto-checkout {
+div.edd-acp-popup a.edd-acp-goto-checkout {
 	margin-right: 5px;
 }
