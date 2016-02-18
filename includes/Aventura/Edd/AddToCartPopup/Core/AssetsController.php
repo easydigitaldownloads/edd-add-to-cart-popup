@@ -55,7 +55,7 @@ class AssetsController extends Plugin\Module {
 		$this->registerScript('edd_acp_colorpicker', EDD_ACP_JS_URL . 'colorpicker.js');
 		$this->registerStyle('edd_acp_colorpicker', EDD_ACP_CSS_URL . 'colorpicker.css');
 
-		if (isset($_GET['tab']) && $_GET['tab'] === 'acp') {
+		if (isset($_GET['tab'], $_GET['section']) && $_GET['tab'] === 'extensions' && $_GET['section'] === 'acp') {
 			$this->enqueueScript('edd_acp_colorpicker');
 			$this->enqueueStyle('edd_acp_colorpicker');
 			$this->enqueueScript('edd_acp_settings');
