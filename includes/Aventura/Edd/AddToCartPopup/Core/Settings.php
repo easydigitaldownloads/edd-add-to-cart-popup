@@ -43,16 +43,15 @@ class Settings extends Plugin\Module {
 	 * 
 	 * @var string
 	 */
-	protected $_tabLabel = '';
-	protected $_tabPosition = -1;
-	protected $_tabSlug = 'acp';
+	protected $_sectionLabel = '';
+	protected $_sectionSlug = 'acp';
 
 	/**
 	 * Constructor.
 	 */
 	protected function _construct() {
 		$this->setDbOptionName(self::DEFAULT_DB_OPTION_NAME)
-				->setTabLabel( __('Add to Cart Popup', Plugin::TEXT_DOMAIN) );
+				->setSectionLabel( __('Add to Cart Popup', Plugin::TEXT_DOMAIN) );
 	}
 
 	/**
@@ -93,62 +92,42 @@ class Settings extends Plugin\Module {
 	}
 
 	/**
-	 * Gets the tab slug.
+	 * Gets the section slug.
 	 * 
 	 * @return string
 	 */
-	public function getTabSlug() {
-		return $this->_tabSlug;
+	public function getSectionSlug() {
+		return $this->_sectionSlug;
 	}
 
 	/**
-	 * Sets the tab slug.
+	 * Sets the section slug.
 	 * 
-	 * @param string $tabSlug The new tab slug.
+	 * @param string $sectionSlug The new section slug.
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function setTabSlug($tabSlug) {
-		$this->_tabSlug = $tabSlug;
+	public function setSectionSlug($sectionSlug) {
+		$this->_sectionSlug = $sectionSlug;
 		return $this;
 	}
 
 	/**
-	 * Gets the settings tab label text.
+	 * Gets the settings section label text.
 	 * 
 	 * @return string
 	 */
-	public function getTabLabel() {
-		return $this->_tabLabel;
+	public function getSectionLabel() {
+		return $this->_sectionLabel;
 	}
 
 	/**
-	 * Sets the settings tabs label.
+	 * Sets the settings section label.
 	 * 
-	 * @param string $tabLabel The new label text
+	 * @param string $sectionLabel The new label text
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function setTabLabel($tabLabel) {
-		$this->_tabLabel = $tabLabel;
-		return $this;
-	}
-
-	/**
-	 * Gets the settings tab position.
-	 * 
-	 * @return integer
-	 */
-	public function getTabPosition() {
-		return $this->_tabPosition;
-	}
-
-	/**
-	 * Sets the settings tab position.
-	 * 
-	 * @param integer $tabPosition
-	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
-	 */
-	public function setTabPosition($tabPosition) {
-		$this->_tabPosition = $tabPosition;
+	public function setSectionLabel($sectionLabel) {
+		$this->_sectionLabel = $sectionLabel;
 		return $this;
 	}
 
@@ -234,15 +213,14 @@ class Settings extends Plugin\Module {
 	}
 
 	/**
-	 * Registers the tab in the EDD settings page.
+	 * Registers the subsection in the EDD settings page Extensions tab.
 	 * 
-	 * @param  array $tabs The original EDD tabs array
-	 * @return array       The tabs with the added messages tab
+	 * @param  array $sections The subsections in the Extensions tab
+	 * @return array           The sections with the added messages section
 	 */
-	public function filterEddSettingsTabs($tabs) {
-		$last = array_splice($tabs, $this->getTabPosition());
-		$mid = array($this->getTabSlug() => $this->getTabLabel());
-		return array_merge($tabs, $mid, $last);
+	public function filterEddSettingsSubsection($sections) {
+		$sections[ $this->getSectionSlug() ] = $this->getSectionLabel();
+		return $sections;
 	}
 
 	/**
@@ -252,13 +230,13 @@ class Settings extends Plugin\Module {
 	 * @return array
 	 */
 	public function filterEddSettings($settings) {
-		// Create new entry for our settings tab
-		$tab = $this->getTabSlug();
-		$settings[$tab] = array();
+		// Create new entry for our settings section
+		$section = $this->getSectionSlug();
+		$acpSettings = array();
 		// Iterate options
 		foreach ($this->_options as $_optionId => $_option) {
 			// Add the option to the EDD settings
-			$settings[$tab][$_optionId] = array(
+			$acpSettings[$_optionId] = array(
 				'id'		=>	$_optionId,
 				'name'		=>	$_option->title,
 				'desc'		=>	$_option->desc,
@@ -268,7 +246,12 @@ class Settings extends Plugin\Module {
 			$actionHook = sprintf('edd_%s', $_optionId);
 			$this->getPlugin()->getHookLoader()->addAction($actionHook, $this, 'renderOption');
 		}
-		return $settings;
+		// If EDD is at version 2.5 or later...
+		if ( version_compare( EDD_VERSION, 2.5, '>=' ) ) {
+			// Use the previously noted array key as an array key again and next your settings
+			$acpSettings = array( $this->getSectionSlug() => $acpSettings );
+		}
+		return array_merge($settings, $acpSettings);
 	}
 
 	/**
@@ -298,8 +281,8 @@ class Settings extends Plugin\Module {
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
 	public function register() {
-		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_tabs', $this, 'filterEddSettingsTabs' );
-		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_registered_settings', $this, 'filterEddSettings' );
+		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_sections_extensions', $this, 'filterEddSettingsSubsection' );
+		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions', $this, 'filterEddSettings' );
 		return $this;
 	}
 

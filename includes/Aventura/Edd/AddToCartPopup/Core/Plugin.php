@@ -8,6 +8,7 @@ namespace Aventura\Edd\AddToCartPopup\Core;
 class Plugin {
 
 	const PARENT_PLUGIN_CLASS = 'Easy_Digital_Downloads';
+	const PARENT_MIN_VERSION = 2.5;
 	const TEXT_DOMAIN = 'edd_acp';
 
 	/**
@@ -308,9 +309,15 @@ class Plugin {
 	 * Checks for dependancies.
 	 */
 	public function checkDependancies() {
-		if (!class_exists(self::PARENT_PLUGIN_CLASS)) {
+		if (!class_exists(self::PARENT_PLUGIN_CLASS) || version_compare(EDD_VERSION, self::PARENT_MIN_VERSION, '<')) {
 			$this->deactivate(
-				__('The <strong>Add to Cart Popup</strong> extension requires the <strong>Easy Digital Downloads</strong> plugin to be installed and activated.', self::TEXT_DOMAIN)
+				sprintf(
+					__(
+						'The <strong>Add to Cart Popup</strong> extension has been deactivated, because it requires the <strong>Easy Digital Downloads</strong> plugin (at version <strong>%s</strong> or later) to be installed and activated.',
+						self::TEXT_DOMAIN
+					),
+					self::PARENT_MIN_VERSION
+				)
 			);
 		}
 	}
