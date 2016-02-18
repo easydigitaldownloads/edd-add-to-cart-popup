@@ -8,7 +8,6 @@ namespace Aventura\Edd\AddToCartPopup\Core;
 class Plugin {
 
 	const PARENT_PLUGIN_CLASS = 'Easy_Digital_Downloads';
-	const PARENT_VERSION = EDD_VERSION;
 	const PARENT_MIN_VERSION = 2.5;
 	const TEXT_DOMAIN = 'edd_acp';
 
@@ -310,7 +309,7 @@ class Plugin {
 	 * Checks for dependancies.
 	 */
 	public function checkDependancies() {
-		if (!class_exists(self::PARENT_PLUGIN_CLASS) || version_compare(self::PARENT_VERSION, self::PARENT_MIN_VERSION, '<')) {
+		if (!class_exists(self::PARENT_PLUGIN_CLASS) || version_compare(EDD_VERSION, self::PARENT_MIN_VERSION, '<')) {
 			$this->deactivate(
 				sprintf(
 					__(
