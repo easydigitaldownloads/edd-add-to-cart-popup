@@ -46,8 +46,8 @@ class Popup extends Plugin\Module {
 	 * 
 	 * @return string The rendered popup
 	 */
-	public function render() {
-		echo $this->getPlugin()->getViewsController()->renderView('Popup');
+	public function render($downloadId) {
+		echo $this->getPlugin()->getViewsController()->renderView('Popup', array('downloadId' => $downloadId));
 	}
 
 	public function enqueueAssets() {

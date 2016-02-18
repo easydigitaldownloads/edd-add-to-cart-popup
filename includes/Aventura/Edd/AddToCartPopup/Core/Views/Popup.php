@@ -1,13 +1,22 @@
 <?php $settings = $this->getPlugin()->getSettings(); ?>
 
 <style type="text/css">
-	div#edd-acp-popup {
+	div.edd-acp-popup {
 		color: <?php echo $settings->getSubValue('textcolor'); ?>;
 		background: <?php echo $settings->getSubValue('bgcolor'); ?>;
 	}
 </style>
 
-<div id="edd-acp-popup">
+<div class="edd-acp-popup">
+	<?php
+		$itemName = the_title_attribute(array(
+			'before'	=>	'',
+			'after'		=>	'',
+			'echo'		=>	false,
+			'post'		=>	$viewbag->downloadId
+		));
+	?>
+	<input type="hidden" class="edd-acp-item-name" value="<?php echo $itemName ?>" />
 	<p>
 		<?php printf($settings->getSubValue('maintext'), '<strong class="item-name"></strong>'); ?>
 	</p>
