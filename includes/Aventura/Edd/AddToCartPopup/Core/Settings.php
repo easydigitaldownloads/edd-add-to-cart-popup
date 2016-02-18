@@ -230,13 +230,13 @@ class Settings extends Plugin\Module {
 	 * @return array
 	 */
 	public function filterEddSettings($settings) {
-		// Create new entry for our settings tab
-		$tab = $this->getTabSlug();
-		$settings[$tab] = array();
+		// Create new entry for our settings section
+		$section = $this->getSectionSlug();
+		$acpSettings = array();
 		// Iterate options
 		foreach ($this->_options as $_optionId => $_option) {
 			// Add the option to the EDD settings
-			$settings[$tab][$_optionId] = array(
+			$acpSettings[$_optionId] = array(
 				'id'		=>	$_optionId,
 				'name'		=>	$_option->title,
 				'desc'		=>	$_option->desc,
@@ -246,7 +246,12 @@ class Settings extends Plugin\Module {
 			$actionHook = sprintf('edd_%s', $_optionId);
 			$this->getPlugin()->getHookLoader()->addAction($actionHook, $this, 'renderOption');
 		}
-		return $settings;
+		// If EDD is at version 2.5 or later...
+		if ( version_compare( EDD_VERSION, 2.5, '>=' ) ) {
+			// Use the previously noted array key as an array key again and next your settings
+			$acpSettings = array( $this->getSectionSlug() => $acpSettings );
+		}
+		return array_merge($settings, $acpSettings);
 	}
 
 	/**
