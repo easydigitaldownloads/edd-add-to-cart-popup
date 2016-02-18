@@ -53,7 +53,7 @@ class Popup extends Plugin\Module {
 	public function enqueueAssets() {
 		// Register assets
 		$this->getPlugin()->getAssetsController()
-				->registerScript('edd_acp_bpopup', EDD_ACP_JS_URL . 'jquery.bpopup.min.js')
+				->registerScript('edd_acp_bpopup', EDD_ACP_JS_URL . 'jquery.bpopup.min.js', array('jquery'))
 				->registerScript('edd_acp_frontend_js', EDD_ACP_JS_URL . 'edd-acp.js', array('edd_acp_bpopup'))
 				->registerStyle('edd_acp_frontend_css', EDD_ACP_CSS_URL . 'edd-acp-popup.css');
 		// Enqueue front-end main script
