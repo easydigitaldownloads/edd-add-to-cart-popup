@@ -1,13 +1,15 @@
-<?php $settings = $this->getPlugin()->getSettings(); ?>
+<?php
+	// Get settings instance
+	$settings = $this->getPlugin()->getSettings();
+	// Prepare style attribute value
+	$style = sprintf(
+		'color: %1$s; background: %2$s;',
+		$settings->getSubValue('textcolor'),
+		$settings->getSubValue('bgcolor')
+	);
+?>
 
-<style type="text/css">
-	div.edd-acp-popup {
-		color: <?php echo $settings->getSubValue('textcolor'); ?>;
-		background: <?php echo $settings->getSubValue('bgcolor'); ?>;
-	}
-</style>
-
-<div class="edd-acp-popup">
+<div class="edd-acp-popup" style="<?php echo esc_attr($style); ?>">
 	<?php
 		$itemName = the_title_attribute(array(
 			'before'	=>	'',
@@ -21,9 +23,11 @@
 		<?php printf($settings->getSubValue('maintext'), '<strong class="item-name"></strong>'); ?>
 	</p>
 	<p>
-		<a href="#" class="edd-acp-goto-checkout"><button class="button"><?php echo $settings->getSubValue('checkoutBtnText'); ?></button></a>
+		<a href="#" class="edd-acp-goto-checkout"><button class="button">
+			<?php echo htmlentities( $settings->getSubValue('checkoutBtnText') ); ?>
+		</button></a>
 		<button class="button edd-acp-close-popup">
-			<?php echo $settings->getSubValue('continueBtnText'); ?>
+			<?php echo htmlentities( $settings->getSubValue('continueBtnText') ); ?>
 		</button>
 	</p>
 </div>
