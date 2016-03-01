@@ -18,16 +18,16 @@
 			'post'		=>	$viewbag->downloadId
 		));
 	?>
-	<input type="hidden" class="edd-acp-item-name" value="<?php echo $itemName ?>" />
+	<input type="hidden" class="edd-acp-item-name" value="<?php echo esc_attr($itemName); ?>" />
 	<p>
 		<?php printf($settings->getSubValue('maintext'), '<strong class="item-name"></strong>'); ?>
 	</p>
 	<p>
 		<a href="#" class="edd-acp-goto-checkout"><button class="button">
-			<?php echo htmlentities( $settings->getSubValue('checkoutBtnText') ); ?>
+			<?php echo esc_html( $settings->getSubValue('checkoutBtnText') ); ?>
 		</button></a>
 		<button class="button edd-acp-close-popup">
-			<?php echo htmlentities( $settings->getSubValue('continueBtnText') ); ?>
+			<?php echo esc_html( $settings->getSubValue('continueBtnText') ); ?>
 		</button>
 	</p>
 </div>
