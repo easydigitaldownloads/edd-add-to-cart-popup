@@ -1,24 +1,56 @@
 <?php
 
-class EddAcpSettingsHtml {
+/**
+ * Settings HTML rendering static class.
+ */
+abstract class EddAcpSettingsHtml {
 
+	/**
+	 * Renders a generic HTML field.
+	 * 
+	 * @param  string $type The type of the field to render. This should translate to a static method for this class.
+	 * @param  Aventura\Edd\AddToCartPopup\Core\Settings $settings The settings class instance.
+	 * @param  string $id The ID of the option. Used to get the value to use when rendering the field.
+	 * @return string The HTML output.
+	 */
 	public static function renderField($type, $settings, $id) {
+		// Checks if method for this type exists, and the settings instance has the option with the given id.
 		if (!method_exists(__CLASS__, $type) || !$settings->hasOption($id)) {
 			return;
 		}
+		// Begin buffering
 		ob_start();
+		// Call the static method for the field's type, pasing the ID, option name and option value.
 		echo self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
+		// Get the option description and output a label for the option field.
 		$desc = $settings->getOption($id)->desc;
 		printf('<label for="%1$s">%2$s</label>', esc_attr($id), esc_attr($desc));
+		// Return the buffered output
 		return ob_get_clean();
 	}
 
+	/**
+	 * Renders a regular text field.
+	 * 
+	 * @param  string $id The field ID.
+	 * @param  string $name The name attribute of the field.
+	 * @param  string $value The value of the field.
+	 * @return string The HTML output.
+	 */
 	public static function text($id, $name, $value) {
 		ob_start(); ?>
 		<input type="text" class="regular-text" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>" />
 		<?php return ob_get_clean();
 	}
 
+	/**
+	 * Renders a colorpicker field.
+	 * 
+	 * @param  string $id The field ID.
+	 * @param  string $name The name attribute of the field.
+	 * @param  string $value The value of the field.
+	 * @return string The HTML output.
+	 */
 	public static function colorpicker($id, $name, $value) {
 		ob_start(); ?>
 		<div class="edd-acp-colorpicker">
@@ -28,6 +60,14 @@ class EddAcpSettingsHtml {
 		<?php return ob_get_clean();
 	}
 
+	/**
+	 * Renders a checkbox field.
+	 * 
+	 * @param  string $id The field ID.
+	 * @param  string $name The name attribute of the field.
+	 * @param  string $value The value of the field.
+	 * @return string The HTML output.
+	 */
 	public static function checkbox($id, $name, $value) {
 		ob_start(); ?>
 		<input type="hidden" name="<?php echo esc_attr($name); ?>" value="0" />
