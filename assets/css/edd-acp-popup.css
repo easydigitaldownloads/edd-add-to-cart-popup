@@ -14,3 +14,19 @@ div.edd-acp-popup p:last-child {
 div.edd-acp-popup a.edd-acp-goto-checkout {
 	margin-right: 5px;
 }
+
+@media screen and (max-width: 700px) {
+	div.edd-acp-popup p:last-child  > a {
+		display: inline-block;
+		width: 100%;
+		margin: 0;
+	}
+	div.edd-acp-popup p:last-child button {
+		display: block;
+		width: 100%;
+		margin: 10px 0;
+	}
+	div.edd-acp-popup p:last-child  > button:last-child {
+		margin-bottom: 0;
+	}
+}
