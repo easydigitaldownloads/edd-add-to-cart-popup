@@ -62,6 +62,8 @@ var EddAcp = (function EddAcpClass() {
 			}
 			// Join options by comma and add to item name
 			name += optionStrings.join(', ');
+		} else if (singleQty > 1) {
+			name += ' - x' + singleQty;
 		}
 		// Set the item name on popup element
 		this.popup.find('strong.item-name').text(name);
