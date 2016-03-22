@@ -118,6 +118,12 @@ edd_acp()->getSettings()
 			__('Popup Text', $textDomain),
 			__('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', $textDomain),
 			__('%s had been added to your cart!', $textDomain),
+
+	->addOption(
+			'pluraltext',
+			__('Popup Plural Text', $textDomain),
+			__('The text shown on the popup when multiple items have been added to the cart. The "%s" will be replaced with a comma separated list of the added item names.', $textDomain),
+			__('%s have been added to your cart!', $textDomain),
 			function($settings, $id, $args) {
 				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
 			}
