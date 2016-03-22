@@ -24,7 +24,7 @@ abstract class EddAcpSettingsHtml {
 		echo self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
 		// Get the option description and output a label for the option field.
 		$desc = $settings->getOption($id)->desc;
-		printf('<label for="%1$s">%2$s</label>', esc_attr($id), esc_attr($desc));
+		printf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
 		// Return the buffered output
 		return ob_get_clean();
 	}
