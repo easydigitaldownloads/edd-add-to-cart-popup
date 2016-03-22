@@ -36,14 +36,16 @@ var EddAcp = (function EddAcpClass() {
 	EddAcp.prototype.onPurchaseClick = function(event) {
 		// Item name to show on popup
 		var name = this.itemName;
+		// Get the default quantity field
+		var eddQtyField = this.element.find('.edd-item-quantity');
+		var singleQty = eddQtyField.length > 0? parseInt(eddQtyField.val()) : 0;
 		// Get selected price options
 		var priceOptions = this.getSelectedPriceOption();
-		// If no selection, or variable pricing disabled
-		if (priceOptions !== null) {
+		var numItemsSelected = priceOptions.length > 0? priceOptions.length : 1;
+		// If no selection, or variable pricing disabled, skip the below block
+		if (priceOptions.length > 0) {
 			// Use hyphen between item name and selected options
 			name += ' - ';
-			// Get the default quantity field
-			var eddQtyField = this.element.find('.edd-item-quantity');
 			// Put selections in array, to join by comma later
 			var optionStrings = [];
 			for (var i in priceOptions) {
@@ -51,8 +53,8 @@ var EddAcp = (function EddAcpClass() {
 				var qtyStr = '';
 				if (priceOptions[i].qty > 1 || priceOptions.length > 1) {
 					qtyStr = ' x' + priceOptions[i].qty;
-				} else if (eddQtyField.length > 0 && parseInt(eddQtyField.val()) > 1) {
-					qtyStr = ' x' + eddQtyField.val();
+				} else if (eddQtyField.length > 0 && singleQty > 1) {
+					qtyStr = ' x' + singleQty;
 				}
 				// Generate string for selected price option and add to array
 				var optionString = ' ' + priceOptions[i].name + qtyStr;
@@ -63,6 +65,15 @@ var EddAcp = (function EddAcpClass() {
 		}
 		// Set the item name on popup element
 		this.popup.find('strong.item-name').text(name);
+		// Hide both singular and plural texts
+		this.popup.find('p.edd-acp-popup-singular, p.edd-acp-popup-plural').hide();
+
+		if (numItemsSelected > 1 || singleQty > 1) {
+			this.popup.find('p.edd-acp-popup-plural').show();
+		} else {
+			this.popup.find('p.edd-acp-popup-singular').show();
+		}
+
 		// Show the popup
 		this.popup.bPopup({
 			positionStyle: 'fixed',
@@ -77,7 +88,7 @@ var EddAcp = (function EddAcpClass() {
 
 	EddAcp.prototype.getSelectedPriceOption = function() {
 		if (this.priceOptions.length === 0) {
-			return null;
+			return [];
 		}
 		var selected = [];
 		// For each price option
