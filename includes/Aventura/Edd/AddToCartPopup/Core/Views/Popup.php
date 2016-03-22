@@ -19,8 +19,11 @@
 		));
 	?>
 	<input type="hidden" class="edd-acp-item-name" value="<?php echo esc_attr($itemName); ?>" />
-	<p>
+	<p class="edd-acp-popup-singular">
 		<?php printf($settings->getSubValue('maintext'), '<strong class="item-name"></strong>'); ?>
+	</p>
+	<p class="edd-acp-popup-plural">
+		<?php printf($settings->getSubValue('pluraltext'), '<strong class="item-name"></strong>'); ?>
 	</p>
 	<p>
 		<a href="#" class="edd-acp-goto-checkout"><button class="button">

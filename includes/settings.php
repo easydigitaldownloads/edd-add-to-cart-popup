@@ -24,7 +24,7 @@ abstract class EddAcpSettingsHtml {
 		echo self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
 		// Get the option description and output a label for the option field.
 		$desc = $settings->getOption($id)->desc;
-		printf('<label for="%1$s">%2$s</label>', esc_attr($id), esc_attr($desc));
+		printf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
 		// Return the buffered output
 		return ob_get_clean();
 	}
@@ -117,7 +117,18 @@ edd_acp()->getSettings()
 			'maintext',
 			__('Popup Text', $textDomain),
 			__('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.', $textDomain),
-			__('%s had been added to your cart!', $textDomain),
+			__('%s has been added to your cart!', $textDomain),
+			function($settings, $id, $args) {
+				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+			}
+		)
+
+	->addOption(
+			'pluraltext',
+			__('Popup Plural Text', $textDomain),
+			__("The text shown on the popup when multiple items have been added to the cart.\n"
+				."The \"%s\" will be replaced with a comma separated list of the names of the added items.", $textDomain),
+			__('%s have been added to your cart!', $textDomain),
 			function($settings, $id, $args) {
 				echo EddAcpSettingsHtml::renderField('text', $settings, $id);
 			}
