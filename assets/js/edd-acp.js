@@ -29,11 +29,13 @@ var EddAcp = (function EddAcpClass() {
 
 	EddAcp.prototype.initEvents = function() {
 		this.eddPurchaseButton.click(this.onPurchaseClick.bind(this));
-
 		return this;
 	};
 
 	EddAcp.prototype.onPurchaseClick = function(event) {
+		if (this.element.find('.edd_action_input').val() !== 'add_to_cart') {
+			return;
+		}
 		// Item name to show on popup
 		var name = this.itemName;
 		// Get the default quantity field
