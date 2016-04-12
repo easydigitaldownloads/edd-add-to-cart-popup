@@ -51,7 +51,7 @@ class Settings extends Plugin\Module {
 	 */
 	protected function _construct() {
 		$this->setDbOptionName(self::DEFAULT_DB_OPTION_NAME)
-				->setSectionLabel( __('Add to Cart Popup', Plugin::TEXT_DOMAIN) );
+				->setSectionLabel( __('Add to Cart Popup', 'edd_acp') );
 	}
 
 	/**
@@ -268,7 +268,7 @@ class Settings extends Plugin\Module {
 		} else {
 			trigger_error(
 				sprintf(
-					__('Invalid callback given for settings option "%s"', self::TEXT_DOMAIN),
+					__('Invalid callback given for settings option "%s"', 'edd_acp'),
 					$args['id']
 				)
 			);

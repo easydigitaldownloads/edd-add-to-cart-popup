@@ -80,7 +80,7 @@ class Popup extends Plugin\Module {
 				<?php
 				printf(
 					ob_get_clean(),
-					__('The Add to Cart Popup requires the "Enable Ajax" option (in the Misc settings page) to be enabled for the plugin to work correctly.', Plugin::TEXT_DOMAIN)
+					__('The Add to Cart Popup requires the "Enable Ajax" option (in the Misc settings page) to be enabled for the plugin to work correctly.', 'edd_acp')
 				);
 			}
 		}
