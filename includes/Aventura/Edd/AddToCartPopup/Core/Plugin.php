@@ -7,6 +7,7 @@ namespace Aventura\Edd\AddToCartPopup\Core;
  */
 class Plugin {
 
+	const EDD_SL_ITEM_NAME = 'Add to Cart Popup';
 	const PARENT_PLUGIN_CLASS = 'Easy_Digital_Downloads';
 	const PARENT_MIN_VERSION = 2.5;
 	const TEXT_DOMAIN = 'edd_acp';
@@ -76,7 +77,7 @@ class Plugin {
 				->setTextDomain(new TextDomain($this, self::TEXT_DOMAIN, EDD_ACP_LANG_DIR));
 		// Set EDD License if the class exists
 		if ( class_exists('EDD_License') ) {
-			$this->_setLicense(new \EDD_License($this->getMainFile(), $this->getInfo('Name'), $this->getInfo('Version'), $this->getInfo('Author')));
+			$this->_setLicense(new \EDD_License($this->getMainFile(), self::EDD_SL_ITEM_NAME, $this->getInfo('Version'), $this->getInfo('Author')));
 		}
 	}
 
@@ -278,7 +279,7 @@ class Plugin {
 			$this->deactivate();
 			wp_die(
 				sprintf(
-					__('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: PHP version must be %s or later.', self::TEXT_DOMAIN),
+					__('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: PHP version must be %s or later.', 'edd_acp'),
 					EDD_ACP_MIN_PHP_VERSION
 				),
 				__('Error'),
@@ -289,7 +290,7 @@ class Plugin {
 			$this->deactivate();
 			wp_die(
 				sprintf(
-					__('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: WordPress version must be %s or later.', self::TEXT_DOMAIN),
+					__('The Easy Digital Downloads - Add to Cart Popup plugin failed to activate: WordPress version must be %s or later.', 'edd_acp'),
 					EDD_ACP_MIN_WP_VERSION
 				),
 				__('Error'),
@@ -313,8 +314,7 @@ class Plugin {
 			$this->deactivate(
 				sprintf(
 					__(
-						'The <strong>Add to Cart Popup</strong> extension has been deactivated, because it requires the <strong>Easy Digital Downloads</strong> plugin (at version <strong>%s</strong> or later) to be installed and activated.',
-						self::TEXT_DOMAIN
+						'The <strong>Add to Cart Popup</strong> extension has been deactivated, because it requires the <strong>Easy Digital Downloads</strong> plugin (at version <strong>%s</strong> or later) to be installed and activated.', 'edd_acp'
 					),
 					self::PARENT_MIN_VERSION
 				)
