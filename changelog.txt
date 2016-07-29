@@ -1,2 +1,5 @@
+= 1.0.1 (2016-July-29) =
+* Changed plugin copyright and ownership to RebelCode Ltd.
+
 = 1.0.0 (2016-April-05) =
 * Initial Release
