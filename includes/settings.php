@@ -141,7 +141,7 @@ edd_acp()->getSettings()
         __('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.',
             'edd_acp'), __('%s has been added to your cart!', 'edd_acp'),
         function($settings, $id, $args) {
-            echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+            echo EddAcpSettingsHtml::renderField('editor', $settings, $id);
         }
     )
     ->addOption(
@@ -150,7 +150,7 @@ edd_acp()->getSettings()
             . "The \"%s\" will be replaced with a comma separated list of the names of the added items.", 'edd_acp'),
         __('%s have been added to your cart!', 'edd_acp'),
         function($settings, $id, $args) {
-            echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+            echo EddAcpSettingsHtml::renderField('editor', $settings, $id);
         }
     )
     ->addOption(
