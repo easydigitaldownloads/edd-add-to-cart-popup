@@ -49,6 +49,27 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a WP Editor field.
+     * 
+     * @param string $id The field ID.
+     * @param string $name The name attribute of the field.
+     * @param string $value The value of the field.
+     * @param array $args [optional] Array of arguments to pass to the wp_editor() function.
+     * @return string The HTML output.
+     */
+    public static function editor($id, $name, $value, $args = array())
+    {
+        ob_start();
+        $defaults = array(
+            'textarea_rows' => 5
+        );
+        $settings = wp_parse_args($args, $defaults);
+        $settings['textarea_name'] = $name;
+        wp_editor($value, $id, $settings);
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a colorpicker field.
      * 
      * @param  string $id The field ID.
