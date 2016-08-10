@@ -148,6 +148,9 @@ class AssetsController extends Plugin\Module {
 	protected function handleAsset($type, $enqueue, $handle, $src, $deps, $ver, $extra) {
 		// Generate name of function to use (whether for enqueueing or registration)
 		$fn = sprintf('wp_%1$s_%2$s', $enqueue === true? 'enqueue' : 'register', $type);
+                if (!$ver) {
+                    $ver = $this->getPlugin()->getInfo('Version');
+                }
 		// Call the enqueue/register function
 		call_user_func_array($fn, array($handle, $src, $deps, $ver, $extra));
 
