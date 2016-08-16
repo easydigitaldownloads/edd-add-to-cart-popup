@@ -73,12 +73,12 @@ var EddAcp = (function EddAcpClass() {
 		// Set the item name on popup element
 		this.popup.find('strong.item-name').text(name);
 		// Hide both singular and plural texts
-		this.popup.find('p.edd-acp-popup-singular, p.edd-acp-popup-plural').hide();
+		this.popup.find('div.edd-acp-popup-singular, div.edd-acp-popup-plural').hide();
 
 		if (numItemsSelected > 1 || singleQty > 1) {
-			this.popup.find('p.edd-acp-popup-plural').show();
+			this.popup.find('div.edd-acp-popup-plural').show();
 		} else {
-			this.popup.find('p.edd-acp-popup-singular').show();
+			this.popup.find('div.edd-acp-popup-singular').show();
 		}
 
 		// Show the popup
