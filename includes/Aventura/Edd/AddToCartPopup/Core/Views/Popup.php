@@ -1,10 +1,10 @@
 <?php
+
+use \Aventura\Edd\AddToCartPopup\Core\StyleRenderer;
+
 // Get settings instance
 $settings = $this->getPlugin()->getSettings();
-// Prepare style attribute value
-$style = sprintf(
-    'color: %1$s; background: %2$s;', $settings->getSubValue('textcolor'), $settings->getSubValue('bgcolor')
-);
+
 // Get item name
 $itemName = the_title_attribute(array(
     'before' => '',
@@ -16,9 +16,21 @@ $itemName = the_title_attribute(array(
 $filteredItemName = apply_filters('edd_acp_item_name', $itemName, $viewbag->downloadId, $settings);
 
 do_action('edd_acp_before_popup_view', $viewbag->downloadId, $settings);
+
+/**
+ * Print styles.
+ */
+$styles = array(
+    '' => array(
+        'color'            => $settings->getSubValue('textcolor'),
+        'background-color' => $settings->getSubValue('bgcolor')
+    )
+);
+$stylesFiltered = apply_filters('edd_acp_popup_styles', $styles, $settings);
+echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true);
 ?>
 
-<div class="edd-acp-popup" style="<?php echo esc_attr($style); ?>">
+<div class="edd-acp-popup">
 
     <?php do_action('edd_acp_inside_popup_view_top', $viewbag->downloadId, $settings); ?>
 
