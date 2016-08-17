@@ -136,11 +136,31 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
+        'showCheckoutBtn',
+        __('Show Checkout Button', 'edd_acp'),
+        __('Tick to show the Checkout button', 'edd_acp'),
+        '1',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
+        }
+    )
+    ->addOption(
         'checkoutBtnText', __('Checkout Button Text', 'edd_acp'), __('The text of the Checkout button.', 'edd_acp'),
         __('Proceed to Checkout', 'edd_acp'),
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+        }
+    )
+    ->addOption(
+        'showContinueBtn',
+        __('Show Continue Button', 'edd_acp'),
+        __('Tick to show the Continue Shopping button', 'edd_acp'),
+        '1',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
         }
     )
     ->addOption(
