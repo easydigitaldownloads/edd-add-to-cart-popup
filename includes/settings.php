@@ -163,4 +163,20 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('text', $settings, $id);
         }
     )
+    ->addOption(
+        'textcolor', __('Text Color', 'edd_acp'), __('Change the color of the text inside popup box.', 'edd_acp'),
+        '#000000',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
+        'bgcolor', __('Background Color', 'edd_acp'), __('Change the background color of the popup box.', 'edd_acp'),
+        '#ffffff',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
 ;
