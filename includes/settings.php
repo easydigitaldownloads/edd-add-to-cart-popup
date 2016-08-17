@@ -179,6 +179,15 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
+        'fontsize', __('Font Size', 'edd_acp'),
+        __('The font size for the popup text, in one of these formats: 10px, 2em, 50%. Leave empty to use the theme default font size.'),
+        '',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
+        }
+    )
+    ->addOption(
         'showCheckoutBtn',
         __('Show Checkout Button', 'edd_acp'),
         __('Tick to show the Checkout button', 'edd_acp'),
