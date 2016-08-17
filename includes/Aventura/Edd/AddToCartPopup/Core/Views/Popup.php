@@ -25,6 +25,14 @@ $styles = array(
         'color'            => $settings->getSubValue('textcolor'),
         'background-color' => $settings->getSubValue('bgcolor'),
         'font-size'        => $settings->getSubValue('fontsize')
+    ),
+    'button.edd-acp-checkout-btn' => array(
+        'color'            => $settings->getSubValue('checkoutBtnTextColor'),
+        'background'       => $settings->getSubValue('checkoutBtnBgColor')
+    ),
+    'button.edd-acp-continue-btn' => array(
+        'color'            => $settings->getSubValue('continueBtnTextColor'),
+        'background'       => $settings->getSubValue('continueBtnBgColor')
     )
 );
 $stylesFiltered = apply_filters('edd_acp_popup_styles', $styles, $settings);
