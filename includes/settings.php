@@ -54,6 +54,28 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a small text field.
+     * 
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function smalltext($id, $name, $value)
+    {
+        ob_start();
+        ?>
+        <input type="text"
+               class="small-text"
+               id="<?php echo esc_attr($id); ?>"
+               name="<?php echo esc_attr($name); ?>"
+               value="<?php echo esc_attr($value); ?>"
+               />
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a WP Editor field.
      * 
      * @param string $id The field ID.
