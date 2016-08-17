@@ -17,3 +17,7 @@ div.edd-acp-colorpicker > div.edd-acp-colorpicker-preview {
 	height: 28px;
 	background: url(../imgs/colorpicker/select2.png) center;
 }
+
+input.small-text {
+    width: 80px;
+}
