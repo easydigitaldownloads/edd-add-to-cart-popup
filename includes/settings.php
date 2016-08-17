@@ -247,6 +247,22 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
+        'checkoutBtnTextColor', __('Checkout Button Text Color', 'edd_acp'),
+        __('The text color for the Checkout button', 'edd_acp'), '#fff',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
+        'checkoutBtnBgColor', __('Checkout Button Background', 'edd_acp'),
+        __('The background color for the Checkout button.', 'edd_acp'), '#444',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
         'showContinueBtn',
         __('Show Continue Button', 'edd_acp'),
         __('Tick to show the Continue Shopping button', 'edd_acp'),
