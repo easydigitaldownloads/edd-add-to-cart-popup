@@ -91,8 +91,12 @@ abstract class EddAcpSettingsHtml
         ob_start();
         ?>
         <input type="hidden" name="<?php echo esc_attr($name); ?>" value="0" />
-        <input type="checkbox" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>"
-            <?php checked($value, '1'); ?> value="1" />
+        <input type="checkbox"
+               id="<?php echo esc_attr($id); ?>"
+               name="<?php echo esc_attr($name); ?>"
+               <?php checked($value, '1'); ?>
+               value="1"
+               />
         <?php
         return ob_get_clean();
     }
