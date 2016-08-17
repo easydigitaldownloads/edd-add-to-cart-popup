@@ -43,13 +43,29 @@ do_action('edd_acp_before_popup_view', $viewbag->downloadId, $settings);
     </div>
     <div>
         <?php
-        $checkoutButtonText = apply_filters('edd_acp_popup_checkout_button_text',
-            $settings->getSubValue('checkoutBtnText'), $viewbag->downloadId, $settings);
-        $continueButtonText = apply_filters('edd_acp_popup_continue_button_text',
-            $settings->getSubValue('continueBtnText'), $viewbag->downloadId, $settings);
+        // If Checkout button is enabled
+        if (boolval($settings->getSubValue('showCheckoutBtn'))) {
+            // Filter the text
+            $checkoutBtnText = apply_filters('edd_acp_popup_checkout_button_text',
+                $settings->getSubValue('checkoutBtnText'),
+                $viewbag->downloadId,
+                $settings
+            );
+            $checkoutBtnEscapedText = esc_html($checkoutBtnText);
+            printf('<a href="#" class="edd-acp-goto-checkout"><button class="button">%s</button></a>', $checkoutBtnEscapedText);
+        }
+        // If Continue Shopping button is enabled
+        if (boolval($settings->getSubValue('showContinueBtn'))) {
+            // Filter the text
+            $continueBtnText = apply_filters('edd_acp_popup_continue_button_text',
+                $settings->getSubValue('continueBtnText'),
+                $viewbag->downloadId,
+                $settings
+            );
+            $continueBtnEscapedText = esc_html($continueBtnText);
+            printf('<button class="button edd-acp-close-popup">%s</button>', $continueBtnEscapedText);
+        }
         ?>
-        <a href="#" class="edd-acp-goto-checkout"><button class="button"><?php echo esc_html($checkoutButtonText); ?></button></a>
-        <button class="button edd-acp-close-popup"><?php echo esc_html($continueButtonText); ?></button>
     </div>
 
 <?php do_action('edd_acp_inside_popup_view_bottom', $viewbag->downloadId, $settings); ?>
