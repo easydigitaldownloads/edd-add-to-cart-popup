@@ -23,7 +23,8 @@ do_action('edd_acp_before_popup_view', $viewbag->downloadId, $settings);
 $styles = array(
     '' => array(
         'color'            => $settings->getSubValue('textcolor'),
-        'background-color' => $settings->getSubValue('bgcolor')
+        'background-color' => $settings->getSubValue('bgcolor'),
+        'font-size'        => $settings->getSubValue('fontsize')
     )
 );
 $stylesFiltered = apply_filters('edd_acp_popup_styles', $styles, $settings);
