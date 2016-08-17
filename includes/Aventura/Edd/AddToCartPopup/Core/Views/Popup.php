@@ -73,7 +73,7 @@ echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true
                 $settings
             );
             $checkoutBtnEscapedText = esc_html($checkoutBtnText);
-            printf('<a href="#" class="edd-acp-goto-checkout"><button class="button">%s</button></a>', $checkoutBtnEscapedText);
+            printf('<a href="#" class="edd-acp-goto-checkout"><button class="button edd-acp-checkout-btn">%s</button></a>', $checkoutBtnEscapedText);
         }
         // If Continue Shopping button is enabled
         if (boolval($settings->getSubValue('showContinueBtn'))) {
@@ -84,7 +84,7 @@ echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true
                 $settings
             );
             $continueBtnEscapedText = esc_html($continueBtnText);
-            printf('<button class="button edd-acp-close-popup">%s</button>', $continueBtnEscapedText);
+            printf('<button class="button edd-acp-close-popup edd-acp-continue-btn">%s</button>', $continueBtnEscapedText);
         }
         ?>
     </div>
