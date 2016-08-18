@@ -280,4 +280,20 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('text', $settings, $id);
         }
     )
+    ->addOption(
+        'continueBtnTextColor', __('Continue Button Text Color', 'edd_acp'),
+        __('The text color for the Continue Shopping button', 'edd_acp'), '#fff',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
+        'continueBtnBgColor', __('Continue Button Background', 'edd_acp'),
+        __('The background color for the Continue Shopping button.', 'edd_acp'), '#444',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
 ;
