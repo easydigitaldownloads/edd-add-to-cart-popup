@@ -228,10 +228,14 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
+
+    /**
+     * Options for the Checkout Button
+     */
     ->addOption('checkoutBtnHeader', __('Checkout Button', 'edd_acp'))
     ->addOption(
         'showCheckoutBtn',
-        __('Show Checkout Button', 'edd_acp'),
+        __('Enabled', 'edd_acp'),
         __('Tick to show the Checkout button', 'edd_acp'),
         '1',
         function($settings, $id, $args)
@@ -240,7 +244,9 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
-        'checkoutBtnText', __('Checkout Button Text', 'edd_acp'), __('The text of the Checkout button.', 'edd_acp'),
+        'checkoutBtnText',
+        __('Text', 'edd_acp'),
+        __('The text of the Checkout button.', 'edd_acp'),
         __('Proceed to Checkout', 'edd_acp'),
         function($settings, $id, $args)
         {
@@ -248,7 +254,8 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
-        'checkoutBtnTextColor', __('Checkout Button Text Color', 'edd_acp'),
+        'checkoutBtnTextColor',
+        __('Text Color', 'edd_acp'),
         __('The text color for the Checkout button', 'edd_acp'), '#fff',
         function($settings, $id, $args)
         {
@@ -256,8 +263,15 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
-        'checkoutBtnBgColor', __('Checkout Button Background', 'edd_acp'),
-        __('The background color for the Checkout button.', 'edd_acp'), '#444',
+        'checkoutBtnBgColor',
+        __('Background Color', 'edd_acp'),
+        __('The background color for the Checkout button.', 'edd_acp'),
+        '#444',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
     ->addOption(
         'checkoutBtnHoverTextColor',
         __('Text Color on Hover', 'edd_acp'),
@@ -278,10 +292,14 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
+
+    /**
+     * Options for the Continue Shopping Button
+     */
     ->addOption('continueBtnHeader', __('Continue Button', 'edd_acp'))
     ->addOption(
         'showContinueBtn',
-        __('Show Continue Button', 'edd_acp'),
+        __('Enabled', 'edd_acp'),
         __('Tick to show the Continue Shopping button', 'edd_acp'),
         '1',
         function($settings, $id, $args)
@@ -290,24 +308,30 @@ edd_acp()->getSettings()
         }
     )
     ->addOption(
-        'continueBtnText', __('Continue Button Text', 'edd_acp'),
-        __('The text of the continue shopping button.', 'edd_acp'), __('Continue shopping', 'edd_acp'),
+        'continueBtnText',
+        __('Text', 'edd_acp'),
+        __('The text of the continue shopping button.', 'edd_acp'),
+        __('Continue shopping', 'edd_acp'),
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('text', $settings, $id);
         }
     )
     ->addOption(
-        'continueBtnTextColor', __('Continue Button Text Color', 'edd_acp'),
-        __('The text color for the Continue Shopping button', 'edd_acp'), '#fff',
+        'continueBtnTextColor',
+        __('Text Color', 'edd_acp'),
+        __('The text color for the Continue Shopping button', 'edd_acp'),
+        '#fff',
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
     ->addOption(
-        'continueBtnBgColor', __('Continue Button Background', 'edd_acp'),
-        __('The background color for the Continue Shopping button.', 'edd_acp'), '#444',
+        'continueBtnBgColor',
+        __('Background Color', 'edd_acp'),
+        __('The background color for the Continue Shopping button.', 'edd_acp'),
+        '#444',
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
@@ -333,10 +357,14 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
+
+    /**
+     * Options for generic button styles
+     */
     ->addOption('btnStylesHeader', __('Button Styles', 'edd_acp'))
     ->addOption(
         'btnBorder', __('Button Border', 'edd_acp'),
-        __('The button border CSS rule. Example: "1px solid black". Leave empty to use the theme defaults.'),
+        __('The button border CSS rule. Example: "1px solid #000". Leave empty to use the theme defaults.'),
         '1px solid red',
         function($settings, $id, $args)
         {
@@ -345,7 +373,7 @@ edd_acp()->getSettings()
     )
     ->addOption(
         'btnBorderRadius', __('Border Radius', 'edd_acp'),
-        __('The border radius, in pixels. Leave empty to use the theme default.', 'edd_acp'),
+        __('The border radius, in pixels. For example: "2", "5", etc. Leave empty to use the theme default.', 'edd_acp'),
         '2',
         function($settings, $id, $args)
         {
@@ -354,7 +382,7 @@ edd_acp()->getSettings()
     )
     ->addOption(
         'btnPadding', __('Button Padding', 'edd_acp'),
-        __('The inner padding for the popup buttons. Leave empty to use the theme defaults.', 'edd_acp'),
+        __('The inner padding for the popup buttons, in pixels. For example: "15px", "6px 10px", etc. Leave empty to use the theme defaults.', 'edd_acp'),
         '',
         function($settings, $id, $args)
         {
