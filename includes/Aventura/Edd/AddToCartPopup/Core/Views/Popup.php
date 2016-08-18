@@ -35,10 +35,18 @@ $styles = array(
         'color'            => $settings->getSubValue('checkoutBtnTextColor'),
         'background'       => $settings->getSubValue('checkoutBtnBgColor')
     ),
+    'button.edd-acp-checkout-btn:hover' => array(
+        'color'            => $settings->getSubValue('checkoutBtnHoverTextColor'),
+        'background'       => $settings->getSubValue('checkoutBtnHoverBgColor')
+    ),
     'button.edd-acp-continue-btn' => array(
         'color'            => $settings->getSubValue('continueBtnTextColor'),
         'background'       => $settings->getSubValue('continueBtnBgColor')
-    )
+    ),
+    'button.edd-acp-continue-btn:hover' => array(
+        'color'            => $settings->getSubValue('continueBtnHoverTextColor'),
+        'background'       => $settings->getSubValue('continueBtnHoverBgColor')
+    ),
 );
 $stylesFiltered = apply_filters('edd_acp_popup_styles', $styles, $settings);
 echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true);
