@@ -228,6 +228,7 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
+    ->addOption('checkoutBtnHeader', __('Checkout Button', 'edd_acp'))
     ->addOption(
         'showCheckoutBtn',
         __('Show Checkout Button', 'edd_acp'),
@@ -262,6 +263,7 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
+    ->addOption('continueBtnHeader', __('Continue Button', 'edd_acp'))
     ->addOption(
         'showContinueBtn',
         __('Show Continue Button', 'edd_acp'),
