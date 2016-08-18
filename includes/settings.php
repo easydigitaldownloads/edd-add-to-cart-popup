@@ -298,4 +298,32 @@ edd_acp()->getSettings()
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
         }
     )
+    ->addOption('btnStylesHeader', __('Button Styles', 'edd_acp'))
+    ->addOption(
+        'btnBorder', __('Button Border', 'edd_acp'),
+        __('The button border CSS rule. Example: "1px solid black". Leave empty to use the theme defaults.'),
+        '1px solid red',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+        }
+    )
+    ->addOption(
+        'btnBorderRadius', __('Border Radius', 'edd_acp'),
+        __('The border radius, in pixels. Leave empty to use the theme default.', 'edd_acp'),
+        '2',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('number', $settings, $id);
+        }
+    )
+    ->addOption(
+        'btnPadding', __('Button Padding', 'edd_acp'),
+        __('The inner padding for the popup buttons. Leave empty to use the theme defaults.', 'edd_acp'),
+        '',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
+        }
+    )
 ;
