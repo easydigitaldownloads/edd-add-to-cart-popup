@@ -26,6 +26,11 @@ $styles = array(
         'background-color' => $settings->getSubValue('bgcolor'),
         'font-size'        => $settings->getSubValue('fontsize')
     ),
+    'button' => array(
+        'padding'          => $settings->getSubValue('btnPadding'),
+        'border'           => $settings->getSubValue('btnBorder'),
+        'border-radius'    => sprintf('%spx', $settings->getSubValue('btnBorderRadius'))
+    ),
     'button.edd-acp-checkout-btn' => array(
         'color'            => $settings->getSubValue('checkoutBtnTextColor'),
         'background'       => $settings->getSubValue('checkoutBtnBgColor')
