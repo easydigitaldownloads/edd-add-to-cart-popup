@@ -258,6 +258,21 @@ edd_acp()->getSettings()
     ->addOption(
         'checkoutBtnBgColor', __('Checkout Button Background', 'edd_acp'),
         __('The background color for the Checkout button.', 'edd_acp'), '#444',
+    ->addOption(
+        'checkoutBtnHoverTextColor',
+        __('Text Color on Hover', 'edd_acp'),
+        __('The text color for the Checkout button when hovered.', 'edd_acp'),
+        '#fff',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
+        'checkoutBtnHoverBgColor',
+        __('Background Color on Hover', 'edd_acp'),
+        __('The background color for the Checkout button when hovered.', 'edd_acp'),
+        '#444',
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
@@ -293,6 +308,26 @@ edd_acp()->getSettings()
     ->addOption(
         'continueBtnBgColor', __('Continue Button Background', 'edd_acp'),
         __('The background color for the Continue Shopping button.', 'edd_acp'), '#444',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
+        'continueBtnHoverTextColor',
+        __('Text Color on Hover', 'edd_acp'),
+        __('The text color for the Continue Shopping button when hovered.', 'edd_acp'),
+        '#fff',
+        function($settings, $id, $args)
+        {
+            echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+        }
+    )
+    ->addOption(
+        'continueBtnHoverBgColor',
+        __('Background Color on Hover', 'edd_acp'),
+        __('The background color for the Continue Shopping button when hovered.', 'edd_acp'),
+        '#444',
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
