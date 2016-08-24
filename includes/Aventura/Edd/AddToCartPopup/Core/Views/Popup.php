@@ -6,12 +6,16 @@ use \Aventura\Edd\AddToCartPopup\Core\StyleRenderer;
 $settings = $this->getPlugin()->getSettings();
 
 // Get item name
-$itemName = the_title_attribute(array(
-    'before' => '',
-    'after'  => '',
-    'echo'   => false,
-    'post'   => $viewbag->downloadId
-));
+if ($viewbag->downloadId === 0) {
+    $itemName = __('Test', 'edd_acp');
+} else {
+    $itemName = the_title_attribute(array(
+        'before' => '',
+        'after'  => '',
+        'echo'   => false,
+        'post'   => $viewbag->downloadId
+    ));
+}
 // Filter it
 $filteredItemName = apply_filters('edd_acp_item_name', $itemName, $viewbag->downloadId, $settings);
 
