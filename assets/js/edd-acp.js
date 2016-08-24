@@ -22,7 +22,7 @@ var EddAcp = (function EddAcpClass() {
 		// Get the variable price option element, if available
 		this.priceOptions = this.element.find('div.edd_price_options');
 		// Set the url of the "continue to checkout button" to the checkout page
-		this.popup.find('a.edd-acp-goto-checkout').attr('href', edd_scripts.checkout_page);
+		this.popup.find('a.edd-acp-goto-checkout').attr('href', window.edd_scripts? edd_scripts.checkout_page : '#');
 
 		return this;
 	};
