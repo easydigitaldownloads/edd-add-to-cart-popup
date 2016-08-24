@@ -3,7 +3,9 @@
 use \Aventura\Edd\AddToCartPopup\Core\StyleRenderer;
 
 // Get settings instance
-$settings = $this->getPlugin()->getSettings();
+$settings = !is_null($viewbag->settings)
+    ? $viewbag->settings
+    : $this->getPlugin()->getSettings();
 
 // Get item name
 if ($viewbag->downloadId === 0) {
