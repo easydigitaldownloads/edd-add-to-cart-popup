@@ -218,6 +218,16 @@ class Settings extends Plugin\Module {
 				: null;
 	}
 
+    /**
+     * Gets the registered options.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->_options;
+    }
+
 	/**
 	 * Registers the subsection in the EDD settings page Extensions tab.
 	 * 
