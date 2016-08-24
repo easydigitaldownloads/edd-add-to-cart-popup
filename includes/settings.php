@@ -1,5 +1,7 @@
 <?php
 
+use \Aventura\Edd\AddToCartPopup\Core\Settings;
+
 /**
  * Settings HTML rendering static class.
  */
@@ -10,7 +12,7 @@ abstract class EddAcpSettingsHtml
      * Renders a generic HTML field.
      * 
      * @param  string $type The type of the field to render. This should translate to a static method for this class.
-     * @param  Aventura\Edd\AddToCartPopup\Core\Settings $settings The settings class instance.
+     * @param  Settings $settings The settings class instance.
      * @param  string $id The ID of the option. Used to get the value to use when rendering the field.
      * @return string The HTML output.
      */
@@ -207,17 +209,20 @@ abstract class EddAcpSettingsHtml
             <input type="hidden" class="edd_action_input" value="add_to_cart" />
             <input type="hidden" class="edd-item-quantity" value="1" />
             <div class="edd_purchase_submit_wrapper">
-                <?php
-                    echo EddAcpSettingsHtml::button(
-                        'edd-acp-preview',
-                        __('Preview', 'edd_acp'),
-                        'button button-secondary edd-add-to-cart'
-                    );
-                ?>
+                <p>
+                    <label>
+                        <?php
+                            echo EddAcpSettingsHtml::button(
+                                'edd-acp-preview',
+                                __('Preview', 'edd_acp'),
+                                'button button-secondary edd-add-to-cart'
+                            );
+                        ?>
+                        <?php _e('Click the button to preview your settings before saving.', 'edd_acp'); ?>
+                    </label>
+                </p>
             </div>
-            <?php
-                echo edd_acp()->getPopup()->render(0);
-            ?>
+            <div id="edd-acp-preview-popup-container"></div>
         </div>
         <?php
         return ob_get_clean();
