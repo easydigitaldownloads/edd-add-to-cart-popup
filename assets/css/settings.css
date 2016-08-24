@@ -21,3 +21,8 @@ div.edd-acp-colorpicker > div.edd-acp-colorpicker-preview {
 input.small-text {
     width: 80px;
 }
+
+#wp-admin-bar-edd-acp-preview-admin-bar a.ab-item:before {
+    content: '\f472';
+    top: 2px;
+}
