@@ -101,6 +101,7 @@ var EddAcp = (function EddAcpClass() {
                     closeClass: 'edd-acp-close-popup'
             });
         };
+
 	EddAcp.prototype.getSelectedPriceOption = function() {
 		if (this.priceOptions.length === 0) {
 			return [];
