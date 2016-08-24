@@ -42,7 +42,7 @@
         /**
          * Click handler for when the preview button is clicked.
          */
-        $('#edd-acp-preview').click(function(e) {
+        $('.edd-acp-preview').click(function(e) {
             var settings = getSettings();
             var container = $('#edd-acp-preview-popup-container');
             getPreview(settings, function(response) {
@@ -63,6 +63,7 @@
                 // Save the instance for future destruction
                 container.data('popup', popup);
             });
+            e.preventDefault();
         });
 
         /**

@@ -215,7 +215,7 @@ abstract class EddAcpSettingsHtml
                             echo EddAcpSettingsHtml::button(
                                 'edd-acp-preview',
                                 __('Preview', 'edd_acp'),
-                                'button button-secondary edd-add-to-cart'
+                                'button button-secondary edd-add-to-cart edd-acp-preview'
                             );
                         ?>
                         <?php _e('Click the button to preview your settings before saving.', 'edd_acp'); ?>
