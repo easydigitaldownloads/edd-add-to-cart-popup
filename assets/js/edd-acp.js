@@ -85,17 +85,22 @@ var EddAcp = (function EddAcpClass() {
 		}
 
 		// Show the popup
-		this.popup.bPopup({
-			positionStyle: 'fixed',
-			speed: 100,
-			closeClass: 'edd-acp-close-popup'
-		});
+		this.showPopup();
+
 		if (this.testing) {
 			event.stopPropagation();
 			event.preventDefault();
 		}
 	};
 
+        EddAcp.prototype.showPopup = function() {
+            // Show the popup
+            this.popup.bPopup({
+                    positionStyle: 'fixed',
+                    speed: 100,
+                    closeClass: 'edd-acp-close-popup'
+            });
+        };
 	EddAcp.prototype.getSelectedPriceOption = function() {
 		if (this.priceOptions.length === 0) {
 			return [];
