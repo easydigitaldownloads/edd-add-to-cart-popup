@@ -4,11 +4,14 @@ var EddAcp = (function EddAcpClass() {
 
 	var $ = jQuery;
 
-	function EddAcp(element) {
+	function EddAcp(element, nobind) {
 		this.element = element;
 		this.testing = false;
-		this.initElems()
-			.initEvents();
+		this.initElems();
+                nobind = (typeof nobind === 'undefined')? false : true;
+                if (!nobind) {
+                        this.initEvents();
+                }
 	}
 
 	EddAcp.prototype.initElems = function() {
