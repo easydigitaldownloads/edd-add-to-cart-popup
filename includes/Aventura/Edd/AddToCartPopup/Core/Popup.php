@@ -51,6 +51,31 @@ class Popup extends Plugin\Module {
 		echo $this->getPlugin()->getViewsController()->renderView('Popup', $args);
 	}
 
+    /**
+     * Generates a preview.
+     */
+    public function generatePreview(array $settings = array()) {
+        // Create a dummy instance
+        $dummyInstance = new Settings($this->getPlugin());
+        $dummyInstance->setDbOptionName('acp_preview');
+        // Register the options to the dummy instance
+        eddAcpRegisterOptions($dummyInstance);
+        $dummyInstance->setValuesCache($settings);
+        // Generate the render using the dummy settings instance
+        return $this->render(0, $dummyInstance);
+    }
+
+    /**
+     * Generates a preview for an AJAX event.
+     *
+     * Expects the POST 'settings' index to contain an array of the settings values.
+     */
+    public function ajaxPreview() {
+        $settings = filter_input(INPUT_POST, 'settings', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+        echo $this->generatePreview($settings);
+        die;
+    }
+
 	public function enqueueAssets() {
 		// Register assets
 		$this->getPlugin()->getAssetsController()
@@ -102,6 +127,7 @@ class Popup extends Plugin\Module {
 		// Check for EDD's AJAX option
 		if ( is_admin() ) {
 			$this->getPlugin()->getHookLoader()->queueAction('admin_notices', $this, 'checkEddAjax');
+            $this->getPlugin()->getHookLoader()->queueAction('wp_ajax_edd_acp_preview', $this, 'ajaxPreview');
 		}
 	}
 
