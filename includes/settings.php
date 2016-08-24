@@ -191,6 +191,38 @@ abstract class EddAcpSettingsHtml
         return ob_get_clean();
     }
 
+    /**
+     * Renders a Preview button inside a fake EDD purchase form.
+     *
+     * The preview button will trigger a popup for viewing purposes.
+     *
+     * @return string The HTML render.
+     */
+    public static function renderPreview()
+    {
+        ob_start();
+        ?>
+        <hr/>
+        <div class="edd-acp-fake-purchase-form">
+            <input type="hidden" class="edd_action_input" value="add_to_cart" />
+            <input type="hidden" class="edd-item-quantity" value="1" />
+            <div class="edd_purchase_submit_wrapper">
+                <?php
+                    echo EddAcpSettingsHtml::button(
+                        'edd-acp-preview',
+                        __('Preview', 'edd_acp'),
+                        'button button-secondary edd-add-to-cart'
+                    );
+                ?>
+            </div>
+            <?php
+                echo edd_acp()->getPopup()->render(0);
+            ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
 }
 
 // Get text domain
@@ -204,6 +236,7 @@ edd_acp()->getSettings()
         function($settings, $id, $args)
         {
             echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
+            echo EddAcpSettingsHtml::renderPreview();
         }
     )
     ->addOption(
