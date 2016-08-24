@@ -28,14 +28,17 @@ do_action('edd_acp_before_popup_view', $viewbag->downloadId, $settings);
  */
 $styles = array(
     '' => array(
-        'color'            => $settings->getSubValue('textcolor'),
         'background-color' => $settings->getSubValue('bgcolor'),
-        'font-size'        => $settings->getSubValue('fontsize')
     ),
-    'button' => array(
+    'p' => array(
+        'color'            => $settings->getSubValue('textcolor'),
+        'font-size'        => $settings->getSubValue('fontsize'),
+    ),
+    'button.button' => array(
         'padding'          => $settings->getSubValue('btnPadding'),
         'border'           => $settings->getSubValue('btnBorder'),
-        'border-radius'    => sprintf('%spx', $settings->getSubValue('btnBorderRadius'))
+        'border-radius'    => sprintf('%spx', $settings->getSubValue('btnBorderRadius')),
+        'font-size'        => $settings->getSubValue('fontsize'),
     ),
     'button.edd-acp-checkout-btn' => array(
         'color'            => $settings->getSubValue('checkoutBtnTextColor'),
