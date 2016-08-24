@@ -169,6 +169,28 @@ abstract class EddAcpSettingsHtml
         return ob_get_clean();
     }
 
+    /**
+     * Renders an HTML button.
+     *
+     * @param string $id The button ID.
+     * @param string $text The button text.
+     * @param string $class The HTML class attribute.
+     * @return string The rendered HTML.
+     */
+    public static function button($id, $text, $class)
+    {
+        ob_start();
+        ?>
+        <button
+            id="<?php echo esc_attr($id); ?>"
+            class="<?php echo esc_attr($class); ?>"
+            type="button">
+            <?php echo $text; ?>
+        </button>
+        <?php
+        return ob_get_clean();
+    }
+
 }
 
 // Get text domain
