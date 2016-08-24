@@ -42,7 +42,7 @@ abstract class StyleRenderer
         foreach ($rules as $attribute => $value) {
             $attributes .= static::renderRule($attribute, $value);
         }
-        return sprintf("%s {\n%s\n}", $selector, $attributes);
+        return sprintf("%s {\n%s}\n", $selector, $attributes);
     }
 
     /**
