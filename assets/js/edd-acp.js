@@ -129,7 +129,7 @@ jQuery(document).ready( function() {
 	// Instances array
 	window.edd_acp.instances = [];
 	// Go through each download and init instance
-	jQuery('form.edd_download_purchase_form').each( function() {
+	jQuery('form.edd_download_purchase_form, div.edd-acp-fake-purchase-form').each( function() {
 		window.edd_acp.instances.push( new EddAcp( jQuery(this) ) );
 	});
 });
