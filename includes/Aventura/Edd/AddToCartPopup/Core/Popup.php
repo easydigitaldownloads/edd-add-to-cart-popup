@@ -112,6 +112,34 @@ class Popup extends Plugin\Module {
 		}
 	}
 
+    /**
+     * Adds the "Preview Popup" entry to the admin menu bar.
+     *
+     * @global WP_Admin_Bar $wp_admin_bar
+     */
+    public function previewAdminBarMenu() {
+        if (!current_user_can('manage_shop_settings')) {
+            return;
+        }
+        $screen = get_current_screen();
+        if ($screen->id !== 'download_page_edd-settings') {
+            return;
+        }
+        if (filter_input(INPUT_GET, 'tab', FILTER_SANITIZE_STRING) !== 'extensions') {
+            return;
+        }
+        global $wp_admin_bar;
+        $previewLink = array(
+            'id'    => 'edd-acp-preview-admin-bar',
+            'title' => __('Preview Popup', 'edd_acp'),
+            'href'  => '#',
+            'meta'  => array(
+                'class' => 'edd-acp-preview',
+            )
+        );
+        $wp_admin_bar->add_menu($previewLink);
+    }
+
 	/**
 	 * Execution method, run on 'edd_acp_on_run' action.
 	 */
@@ -126,8 +154,10 @@ class Popup extends Plugin\Module {
 		}
 		// Check for EDD's AJAX option
 		if ( is_admin() ) {
-			$this->getPlugin()->getHookLoader()->queueAction('admin_notices', $this, 'checkEddAjax');
-            $this->getPlugin()->getHookLoader()->queueAction('wp_ajax_edd_acp_preview', $this, 'ajaxPreview');
+			$this->getPlugin()->getHookLoader()
+                ->queueAction('admin_notices', $this, 'checkEddAjax')
+                ->queueAction('wp_ajax_edd_acp_preview', $this, 'ajaxPreview')
+                ->queueAction('admin_bar_menu', $this, 'previewAdminBarMenu', 999999);
 		}
 	}
 
