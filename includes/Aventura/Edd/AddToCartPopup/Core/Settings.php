@@ -166,6 +166,18 @@ class Settings extends Plugin\Module {
 							: $default );
 	}
 
+    /**
+     * Sets the interal values cache array.
+     *
+     * @param array $values The values array. Default: array
+     * @return Settings This instance.
+     */
+    public function setValuesCache(array $values = array())
+    {
+        $this->_value = $values;
+        return $this;
+    }
+
 	/**
 	 * Adds a settings option.
 	 * 
