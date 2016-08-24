@@ -7,12 +7,27 @@ div.edd-acp-popup {
     z-index: 9999999 !important;
 }
 
+div.edd-acp-popup div.edd-acp-popup-singular p:first-of-type,
+div.edd-acp-popup div.edd-acp-popup-plural p:first-of-type {
+    margin-top: 0;
+}
+
 div.edd-acp-popup div.edd-acp-popup-singular p,
 div.edd-acp-popup div.edd-acp-popup-plural p {
     margin-bottom: 15px;
 }
 
+div.edd-acp-popup button.button {
+    -webkit-box-shadow: 0 0 0 transparent;
+    -moz-box-shadow: 0 0 0 transparent;
+    -o-box-shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent;
+    height: auto;
+    line-height: 1.5em;
+}
+
 div.edd-acp-popup a.edd-acp-goto-checkout {
+    display: inline-block;
     margin-right: 5px;
 }
 
