@@ -42,7 +42,7 @@ abstract class EddAcpSettingsHtml
      * @param  array  $composition The field's properties as an assoc array of property IDs and field types.
      * @return string The HTML output.
      */
-    public static function renderCompositeField($id, $name, $value, array $composition = array())
+    public static function renderCompositeField($id, $name, $value, array $composition = array(), $labels = false)
     {
         ob_start();
         foreach ($composition as $propertyKey => $fieldType) {
@@ -52,6 +52,10 @@ abstract class EddAcpSettingsHtml
                 ? $value[$propertyKey]
                 : '';
             echo static::$fieldType($propertyId, $propertName, $propertyValue);
+            if (is_array($labels) && isset($labels[$propertyKey])) {
+                printf('<label for="%s">%s</label>', $propertyId, $labels[$propertyKey]);
+                echo '<br/>';
+            }
         }
         return ob_get_clean();
     }
