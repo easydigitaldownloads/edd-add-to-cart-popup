@@ -560,6 +560,15 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
             }
         )
+        ->addOption(
+            'btnAlignment', __('Button Alignment', 'edd_acp'),
+            __('The button alignment.', 'edd_acp'),
+            'horizontal',
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('alignment', $settings, $id);
+            }
+        )
 
         /**
          * Options for the Checkout Button
