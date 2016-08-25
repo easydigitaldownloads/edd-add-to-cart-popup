@@ -568,6 +568,19 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('colorpickerWithOpacity', $settings, $id);
             }
         )
+        ->addOption('padding', __('Padding', 'edd_acp'),
+            __('The inner padding for the popup', 'edd_acp'),
+            array(
+                'top'    => '20',
+                'bottom' => '20',
+                'left'   => '25',
+                'right'  => '25',
+            ),
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('padding', $settings, $id);
+            }
+        )
 
         /**
          * Options for generic button styles
