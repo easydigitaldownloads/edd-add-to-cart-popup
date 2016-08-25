@@ -33,35 +33,35 @@ $shadowColor = StyleRenderer::colorHexToRgba($shadow['color'], $shadow['opacity'
  */
 $popupStyles = array(
     '' => array(
-        'background-color' => $settings->getSubValue('bgcolor'),
+        'background-color' => $settings->getValue('bgcolor'),
         'box-shadow'       => sprintf('0 0 %spx %s', $shadow['blur'], $shadowColor),
         'border'           => sprintf('%dpx %s %s', $border['width'], $border['style'], $border['color']),
     ),
     'p' => array(
-        'color'            => $settings->getSubValue('textcolor'),
-        'font-size'        => $settings->getSubValue('fontsize'),
+        'color'            => $settings->getValue('textcolor'),
+        'font-size'        => $settings->getValue('fontsize'),
     ),
     'button.button' => array(
-        'padding'          => $settings->getSubValue('btnPadding'),
-        'border'           => $settings->getSubValue('btnBorder'),
-        'border-radius'    => sprintf('%spx', $settings->getSubValue('btnBorderRadius')),
-        'font-size'        => $settings->getSubValue('fontsize'),
+        'padding'          => $settings->getValue('btnPadding'),
+        'border'           => $settings->getValue('btnBorder'),
+        'border-radius'    => sprintf('%spx', $settings->getValue('btnBorderRadius')),
+        'font-size'        => $settings->getValue('fontsize'),
     ),
     'button.edd-acp-checkout-btn' => array(
-        'color'            => $settings->getSubValue('checkoutBtnTextColor'),
-        'background'       => $settings->getSubValue('checkoutBtnBgColor')
+        'color'            => $settings->getValue('checkoutBtnTextColor'),
+        'background'       => $settings->getValue('checkoutBtnBgColor')
     ),
     'button.edd-acp-checkout-btn:hover' => array(
-        'color'            => $settings->getSubValue('checkoutBtnHoverTextColor'),
-        'background'       => $settings->getSubValue('checkoutBtnHoverBgColor')
+        'color'            => $settings->getValue('checkoutBtnHoverTextColor'),
+        'background'       => $settings->getValue('checkoutBtnHoverBgColor')
     ),
     'button.edd-acp-continue-btn' => array(
-        'color'            => $settings->getSubValue('continueBtnTextColor'),
-        'background'       => $settings->getSubValue('continueBtnBgColor')
+        'color'            => $settings->getValue('continueBtnTextColor'),
+        'background'       => $settings->getValue('continueBtnBgColor')
     ),
     'button.edd-acp-continue-btn:hover' => array(
-        'color'            => $settings->getSubValue('continueBtnHoverTextColor'),
-        'background'       => $settings->getSubValue('continueBtnHoverBgColor')
+        'color'            => $settings->getValue('continueBtnHoverTextColor'),
+        'background'       => $settings->getValue('continueBtnHoverBgColor')
     ),
 );
 $popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
@@ -80,7 +80,7 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
     <input type="hidden" class="edd-acp-item-name" value="<?php echo esc_attr($filteredItemName); ?>" />
     <div class="edd-acp-popup-singular">
         <?php
-        $singularText = apply_filters('edd_acp_popup_singular_text', $settings->getSubValue('maintext'),
+        $singularText = apply_filters('edd_acp_popup_singular_text', $settings->getValue('maintext'),
             $viewbag->downloadId, $settings);
         $singularTextFormatted = sprintf($singularText, '<strong class="item-name"></strong>');
         $formattedSingular = apply_filters('edd_acp_popup_singular_text_formatted', $singularTextFormatted, $viewbag->downloadId,
@@ -90,7 +90,7 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
     </div>
     <div class="edd-acp-popup-plural">
         <?php
-        $pluralText = apply_filters('edd_acp_popup_plural_text', $settings->getSubValue('pluraltext'),
+        $pluralText = apply_filters('edd_acp_popup_plural_text', $settings->getValue('pluraltext'),
             $viewbag->downloadId, $settings);
         $pluralTextFormatted = sprintf($pluralText, '<strong class="item-name"></strong>');
         echo apply_filters('edd_acp_popup_plural_text_formatted', $pluralTextFormatted, $viewbag->downloadId, $settings);
@@ -99,10 +99,10 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
     <div>
         <?php
         // If Checkout button is enabled
-        if ((bool)($settings->getSubValue('showCheckoutBtn'))) {
+        if ((bool)($settings->getValue('showCheckoutBtn'))) {
             // Filter the text
             $checkoutBtnText = apply_filters('edd_acp_popup_checkout_button_text',
-                $settings->getSubValue('checkoutBtnText'),
+                $settings->getValue('checkoutBtnText'),
                 $viewbag->downloadId,
                 $settings
             );
@@ -110,10 +110,10 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
             printf('<a href="#" class="edd-acp-goto-checkout"><button class="button edd-acp-checkout-btn">%s</button></a>', $checkoutBtnEscapedText);
         }
         // If Continue Shopping button is enabled
-        if ((bool)($settings->getSubValue('showContinueBtn'))) {
+        if ((bool)($settings->getValue('showContinueBtn'))) {
             // Filter the text
             $continueBtnText = apply_filters('edd_acp_popup_continue_button_text',
-                $settings->getSubValue('continueBtnText'),
+                $settings->getValue('continueBtnText'),
                 $viewbag->downloadId,
                 $settings
             );
