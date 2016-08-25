@@ -104,7 +104,7 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
         echo apply_filters('edd_acp_popup_plural_text_formatted', $pluralTextFormatted, $viewbag->downloadId, $settings);
         ?>
     </div>
-    <div>
+    <div class="edd-acp-button-container edd-acp-buttons-<?php echo esc_attr($settings->getValue('btnAlignment')) ?>">
         <?php
         // If Checkout button is enabled
         if ((bool)($settings->getValue('showCheckoutBtn'))) {
