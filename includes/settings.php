@@ -463,6 +463,15 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption(
+            'borderRadius', __('Border Radius', 'edd_acp'),
+            __('The radius of the popup border, in pixels. The radius will still apply even if no border is visible.', 'edd_acp'),
+            '0',
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('number', $settings, $id);
+            }
+        )
+        ->addOption(
             'shadow', __('Shadow', 'edd_acp'),
             __('The shadow blur amount, color and opacity respectively.', 'edd_acp'),
             array(
