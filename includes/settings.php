@@ -213,6 +213,32 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a colorpicker with an opacity value.
+     *
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function colorpickerWithOpacity($id, $name, $value)
+    {
+        ob_start();
+        $properties = array(
+            'color'   => 'colorpicker',
+            'opacity' => 'opacity'
+        );
+        foreach($properties as $property => $fieldType) {
+            $propId = sprintf('%s-%s', $id, $property);
+            $propName = sprintf('%s[%s]', $name, $property);
+            $propValue = isset($value[$property])
+                ? $value[$property]
+                : '';
+            echo static::$fieldType($propId, $propName, $propValue);
+        }
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a composite field for border properties.
      *
      * @param  string $id The field ID.
