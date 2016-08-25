@@ -24,6 +24,7 @@ $filteredItemName = apply_filters('edd_acp_item_name', $itemName, $viewbag->down
 do_action('edd_acp_before_popup_view', $viewbag->downloadId, $settings);
 
 // Prepare some style vars
+$border = $settings->getValue('border');
 $shadow = $settings->getValue('shadow');
 $shadowColor = StyleRenderer::colorHexToRgba($shadow['color'], $shadow['opacity']);
 
@@ -34,6 +35,7 @@ $styles = array(
     '' => array(
         'background-color' => $settings->getSubValue('bgcolor'),
         'box-shadow'       => sprintf('0 0 %spx %s', $shadow['blur'], $shadowColor),
+        'border'           => sprintf('%dpx %s %s', $border['width'], $border['style'], $border['color']),
     ),
     'p' => array(
         'color'            => $settings->getSubValue('textcolor'),
