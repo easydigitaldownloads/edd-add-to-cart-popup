@@ -213,6 +213,66 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a composite field for border properties.
+     *
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function border($id, $name, $value)
+    {
+        ob_start();
+        $properties = array(
+            'width' => 'numberPx',
+            'style' => 'borderStyle',
+            'color' => 'colorpicker'
+        );
+        foreach($properties as $property => $fieldType) {
+            $propId = sprintf('%s-%s', $id, $property);
+            $propName = sprintf('%s[%s]', $name, $property);
+            $propValue = isset($value[$property])
+                ? $value[$property]
+                : '';
+            echo static::$fieldType($propId, $propName, $propValue);
+        }
+        return ob_get_clean();
+    }
+
+    /**
+     * Renders a border style select element.
+     * 
+     * @staticvar type $borderStyles
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function borderStyle($id, $name, $value)
+    {
+        // Static border styles variable
+        static $borderStyles = null;
+        if (is_null($borderStyles)) {
+            $borderStyles = array('none', 'solid', 'dashed', 'dotted', 'double', 'groove', 'ridge', 'inset', 'outset');
+        }
+        // Field output
+        ob_start();
+        ?>
+        <select id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>">
+            <?php foreach($borderStyles as $style) : ?>
+            <option
+                value="<?php echo esc_attr($style); ?>"
+                <?php selected($value, $style); ?>
+                >
+                <?php echo $style; ?>
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a composite field for box shadow properties.
      * 
      * @param  string $id The field ID.
