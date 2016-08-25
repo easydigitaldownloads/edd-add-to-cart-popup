@@ -30,12 +30,15 @@ $shadowColor = StyleRenderer::colorHexToRgba($shadow['color'], $shadow['opacity'
 $btnBorder = $settings->getValue('btnBorder');
 $padding = $settings->getValue('padding');
 $btnPadding = $settings->getValue('btnPadding');
+$size = $settings->getValue('size');
 
 /**
  * Print styles.
  */
 $popupStyles = array(
     '' => array(
+        'width'            => $size['width'],
+        'height'           => $size['height'],
         'background-color' => $settings->getValue('bgcolor'),
         'box-shadow'       => sprintf('0 0 %spx %s', $shadow['blur'], $shadowColor),
         'border'           => sprintf('%dpx %s %s', $border['width'], $border['style'], $border['color']),
