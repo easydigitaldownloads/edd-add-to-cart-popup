@@ -396,6 +396,31 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a set of input fields for padding.
+     *
+     * @param string $id The button ID.
+     * @param string $text The button text.
+     * @param string $class The HTML class attribute.
+     * @return string The rendered HTML.
+     */
+    public static function padding($id, $name, $value)
+    {
+        ob_start();
+        echo static::renderCompositeField($id, $name, $value, array(
+            'top'    => 'number',
+            'bottom' => 'number',
+            'left'   => 'number',
+            'right'  => 'number',
+        ), array(
+            'top'    => __('Top', 'edd_acp'),
+            'bottom' => __('Bottom', 'edd_acp'),
+            'left'   => __('Left', 'edd_acp'),
+            'right'  => __('Right', 'edd_acp'),
+        ));
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a Preview button inside a fake EDD purchase form.
      *
      * The preview button will trigger a popup for viewing purposes.
