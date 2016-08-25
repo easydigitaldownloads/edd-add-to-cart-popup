@@ -588,7 +588,20 @@ function eddAcpRegisterOptions(Settings $settings)
         /**
          * Options for generic button styles
          */
-        ->addOption('shadowStylesHeader', __('Popup Shadow', 'edd_acp'))
+        ->addOption('shadowStylesHeader', __('Popup Border and Shadow', 'edd_acp'))
+        ->addOption(
+            'border', __('Border', 'edd_acp'),
+            __('The border thickness, style and color respectively.', 'edd_acp'),
+            array(
+                'width' => '0',
+                'style' => 'solid',
+                'color' => '#000'
+            ),
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('border', $settings, $id);
+            }
+        )
         ->addOption(
             'shadow', __('Shadow', 'edd_acp'),
             __('The shadow blur amount, color and opacity respectively.', 'edd_acp'),
