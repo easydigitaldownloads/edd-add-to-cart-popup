@@ -36,6 +36,7 @@ $popupStyles = array(
         'background-color' => $settings->getValue('bgcolor'),
         'box-shadow'       => sprintf('0 0 %spx %s', $shadow['blur'], $shadowColor),
         'border'           => sprintf('%dpx %s %s', $border['width'], $border['style'], $border['color']),
+        'border-radius'    => sprintf('%dpx', $settings->getValue('borderRadius')),
     ),
     'p' => array(
         'color'            => $settings->getValue('textcolor'),
