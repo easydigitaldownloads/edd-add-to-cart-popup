@@ -34,6 +34,29 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a composite field.
+     *
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @param  array  $composition The field's properties as an assoc array of property IDs and field types.
+     * @return string The HTML output.
+     */
+    public static function renderCompositeField($id, $name, $value, array $composition = array())
+    {
+        ob_start();
+        foreach ($composition as $propertyKey => $fieldType) {
+            $propertyId = sprintf('%s-%s', $id, $propertyKey);
+            $propertName = sprintf('%s[%s]', $name, $propertyKey);
+            $propertyValue = (is_array($value) && isset($value[$propertyKey]))
+                ? $value[$propertyKey]
+                : '';
+            echo static::$fieldType($propertyId, $propertName, $propertyValue);
+        }
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a regular text field.
      * 
      * @param  string $id The field ID.
