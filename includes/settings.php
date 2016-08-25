@@ -560,10 +560,14 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'btnBorder', __('Button Border', 'edd_acp'),
             __('The button border CSS rule. Example: "1px solid #000". Leave empty to use the theme defaults.'),
-            '1px solid red',
+            array(
+                'width' => '1',
+                'style' => 'solid',
+                'color' => '#000'
+            ),
             function($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('text', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('border', $settings, $id);
             }
         )
         ->addOption(
