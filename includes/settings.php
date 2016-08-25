@@ -480,6 +480,38 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
             }
         )
+
+        /**
+         * Options for generic button styles
+         */
+        ->addOption('shadowStylesHeader', __('Popup Shadow', 'edd_acp'))
+        ->addOption(
+            'shadowColor', __('Shadow Color', 'edd_acp'),
+            __('The color of the shadow', 'edd_acp'),
+            '#000',
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+            }
+        )
+        ->addOption(
+            'shadowOpacity', __('Shadow Opacity', 'edd_acp'),
+            __('The opacity of the shadow', 'edd_acp'),
+            '0.5',
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('opacity', $settings, $id);
+            }
+        )
+        ->addOption(
+            'shadowBlur', __('Shadow Blur Amount', 'edd_acp'),
+            __('The amount of blur to apply to the shadow.', 'edd_acp'),
+            '3',
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('number', $settings, $id);
+            }
+        )
     ;
     return $settings;
 }
