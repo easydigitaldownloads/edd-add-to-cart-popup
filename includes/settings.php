@@ -572,6 +572,22 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('colorpickerWithOpacity', $settings, $id);
             }
         )
+
+        /**
+         * Options for popup size.
+         */
+        ->addOption('popupSizeHeader', __('Popup Dimensions', 'edd_acp'))
+        ->addOption('size', __('Size', 'edd_acp'),
+            __('The width and height for the popup, in pixels (10px), percentages (20%) or other accepted CSS formats. Leave blank for auto-sizing.', 'edd_acp'),
+            array(
+                'width'  => '',
+                'height' => '',
+            ),
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('size', $settings, $id);
+            }
+        )
         ->addOption('padding', __('Padding', 'edd_acp'),
             __('The inner padding for the popup', 'edd_acp'),
             array(
