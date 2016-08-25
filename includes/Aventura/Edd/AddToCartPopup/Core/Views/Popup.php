@@ -66,6 +66,11 @@ $popupStyles = array(
 );
 $popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
 echo StyleRenderer::renderStyles($popupStylesFiltered, 'body div.edd-acp-popup', true);
+
+$overlayStyles = array(
+);
+$overlayStylesFiltered = apply_filters('edd_acp_overlay_styles', $overlayStyles, $settings);
+echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
 ?>
 
 <div class="edd-acp-popup">
