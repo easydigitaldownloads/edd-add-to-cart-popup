@@ -530,30 +530,16 @@ function eddAcpRegisterOptions(Settings $settings)
          */
         ->addOption('shadowStylesHeader', __('Popup Shadow', 'edd_acp'))
         ->addOption(
-            'shadowColor', __('Shadow Color', 'edd_acp'),
-            __('The color of the shadow', 'edd_acp'),
-            '#000',
+            'shadow', __('Shadow', 'edd_acp'),
+            __('The shadow blur amount, color and opacity respectively.', 'edd_acp'),
+            array(
+                'blur'    => '0',
+                'color'   => '#000',
+                'opacity' => '0.5'
+            ),
             function ($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
-            }
-        )
-        ->addOption(
-            'shadowOpacity', __('Shadow Opacity', 'edd_acp'),
-            __('The opacity of the shadow', 'edd_acp'),
-            '0.5',
-            function ($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('opacity', $settings, $id);
-            }
-        )
-        ->addOption(
-            'shadowBlur', __('Shadow Blur Amount', 'edd_acp'),
-            __('The amount of blur to apply to the shadow.', 'edd_acp'),
-            '3',
-            function ($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('number', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('shadow', $settings, $id);
             }
         )
     ;
