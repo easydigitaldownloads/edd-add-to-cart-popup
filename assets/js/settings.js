@@ -78,17 +78,45 @@
                 if (option.type === 'header') {
                     continue;
                 }
-                var optionElem = $('[name="edd_settings[acp]['+option.id+']"]');
-                var value = optionElem.val();
-                if (optionElem.length > 1 && $(optionElem.get(1)).is(':checked')) {
-                    value = $(optionElem.get(1)).val();
+                var optionElem = $('[name^="edd_settings[acp]['+option.id+']"]');
+                // check for composite options
+                if (optionElem.length > 1 && typeof option.default === 'object') {
+                    settings[key] = {};
+                    var properties = Object.getOwnPropertyNames(option.default);
+                    for (var i in properties) {
+                        var property = properties[i];
+                        var propertyElem = $('[name="edd_settings[acp]['+option.id+']['+property+']"]');
+                        settings[key][property] = getSettingValue(option.id + '-' + property, propertyElem);
+                    }
+                } else {
+                    settings[key] = getSettingValue(option.id, optionElem);
                 }
-                if (optionElem.is('textarea')) {
-                    value = tinymce.get(option.id).getContent();
-                }
-                settings[key] = value;
             }
             return settings;
+        }
+
+        /**
+         * Gets a setting's value from its element.
+         * 
+         * @param {string} id The ID of the option element.
+         * @param {Element} optionElem The element.
+         * @returns The value
+         */
+        function getSettingValue(id, optionElem) {
+            var value = optionElem.val();
+            // Check if checbox
+            if (optionElem.length > 1 && $(optionElem.get(1)).is(':checked')) {
+                value = $(optionElem.get(1)).val();
+            }
+            // Check for textarea editors
+            if (optionElem.is('textarea')) {
+                value = tinymce.get(id).getContent();
+            }
+            // Check for select elements
+            if (optionElem.is('select')) {
+                value = optionElem.find('option:selected').val();
+            }
+            return value;
         }
 
         /**
