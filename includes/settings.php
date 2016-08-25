@@ -423,6 +423,68 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
             }
         )
+        ->addOption(
+            'border', __('Border', 'edd_acp'),
+            __('The border thickness, style and color respectively.', 'edd_acp'),
+            array(
+                'width' => '0',
+                'style' => 'solid',
+                'color' => '#000'
+            ),
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('border', $settings, $id);
+            }
+        )
+        ->addOption(
+            'shadow', __('Shadow', 'edd_acp'),
+            __('The shadow blur amount, color and opacity respectively.', 'edd_acp'),
+            array(
+                'blur'    => '0',
+                'color'   => '#000',
+                'opacity' => '0.5'
+            ),
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('shadow', $settings, $id);
+            }
+        )
+
+        /**
+         * Options for generic button styles
+         */
+        ->addOption('btnStylesHeader', __('Button Styles', 'edd_acp'))
+        ->addOption(
+            'btnBorder', __('Button Border', 'edd_acp'),
+            __('The button border CSS rule. Example: "1px solid #000". Leave empty to use the theme defaults.'),
+            array(
+                'width' => '1',
+                'style' => 'solid',
+                'color' => '#000'
+            ),
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('border', $settings, $id);
+            }
+        )
+        ->addOption(
+            'btnBorderRadius', __('Border Radius', 'edd_acp'),
+            __('The border radius, in pixels. For example: "2", "5", etc. Leave empty to use the theme default.', 'edd_acp'),
+            '2',
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('number', $settings, $id);
+            }
+        )
+        ->addOption(
+            'btnPadding', __('Button Padding', 'edd_acp'),
+            __('The inner padding for the popup buttons, in pixels. For example: "15px", "6px 10px", etc. Leave empty to use the theme defaults.', 'edd_acp'),
+            '',
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
+            }
+        )
 
         /**
          * Options for the Checkout Button
@@ -550,73 +612,6 @@ function eddAcpRegisterOptions(Settings $settings)
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
-            }
-        )
-
-        /**
-         * Options for generic button styles
-         */
-        ->addOption('btnStylesHeader', __('Button Styles', 'edd_acp'))
-        ->addOption(
-            'btnBorder', __('Button Border', 'edd_acp'),
-            __('The button border CSS rule. Example: "1px solid #000". Leave empty to use the theme defaults.'),
-            array(
-                'width' => '1',
-                'style' => 'solid',
-                'color' => '#000'
-            ),
-            function($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('border', $settings, $id);
-            }
-        )
-        ->addOption(
-            'btnBorderRadius', __('Border Radius', 'edd_acp'),
-            __('The border radius, in pixels. For example: "2", "5", etc. Leave empty to use the theme default.', 'edd_acp'),
-            '2',
-            function($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('number', $settings, $id);
-            }
-        )
-        ->addOption(
-            'btnPadding', __('Button Padding', 'edd_acp'),
-            __('The inner padding for the popup buttons, in pixels. For example: "15px", "6px 10px", etc. Leave empty to use the theme defaults.', 'edd_acp'),
-            '',
-            function($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
-            }
-        )
-
-        /**
-         * Options for generic button styles
-         */
-        ->addOption('shadowStylesHeader', __('Popup Border and Shadow', 'edd_acp'))
-        ->addOption(
-            'border', __('Border', 'edd_acp'),
-            __('The border thickness, style and color respectively.', 'edd_acp'),
-            array(
-                'width' => '0',
-                'style' => 'solid',
-                'color' => '#000'
-            ),
-            function ($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('border', $settings, $id);
-            }
-        )
-        ->addOption(
-            'shadow', __('Shadow', 'edd_acp'),
-            __('The shadow blur amount, color and opacity respectively.', 'edd_acp'),
-            array(
-                'blur'    => '0',
-                'color'   => '#000',
-                'opacity' => '0.5'
-            ),
-            function ($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('shadow', $settings, $id);
             }
         )
     ;
