@@ -17,6 +17,23 @@ div.edd-acp-popup div.edd-acp-popup-plural p {
     margin-bottom: 15px;
 }
 
+div.edd-acp-popup div.edd-acp-button-container a {
+    text-decoration: none;
+}
+
+/* Button alignment */
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-horizontal a,
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-horizontal button {
+    display: inline-block;
+}
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical a,
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical button {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 div.edd-acp-popup button.button {
     -webkit-box-shadow: 0 0 0 transparent;
     -moz-box-shadow: 0 0 0 transparent;
@@ -24,6 +41,7 @@ div.edd-acp-popup button.button {
     box-shadow: 0 0 0 transparent;
     height: auto;
     line-height: 1.5em;
+    box-sizing: border-box;
 }
 
 div.edd-acp-popup a.edd-acp-goto-checkout {
