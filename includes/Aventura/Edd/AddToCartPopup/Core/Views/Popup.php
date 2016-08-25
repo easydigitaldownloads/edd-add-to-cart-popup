@@ -67,7 +67,14 @@ $popupStyles = array(
 $popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
 echo StyleRenderer::renderStyles($popupStylesFiltered, 'body div.edd-acp-popup', true);
 
+// Prepare some overlay style vars
+$overlay = $settings->getValue('overlay');
+
 $overlayStyles = array(
+    '.b-modal' => array(
+        'background-color' => sprintf('%s !important', $overlay['color']),
+        'opacity'          => sprintf('%.2f !important', $overlay['opacity']),
+    )
 );
 $overlayStylesFiltered = apply_filters('edd_acp_overlay_styles', $overlayStyles, $settings);
 echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
