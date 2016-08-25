@@ -475,6 +475,17 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('shadow', $settings, $id);
             }
         )
+        ->addOption('overlay', __('Overlay Color', 'edd_acp'),
+            __('The color of the overlay that covers the page when the popup is shown.', 'edd_acp'),
+            array(
+                'color'   => '#000',
+                'opacity' => '0.7'
+            ),
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('colorpickerWithOpacity', $settings, $id);
+            }
+        )
 
         /**
          * Options for generic button styles
