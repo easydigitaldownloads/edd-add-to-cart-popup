@@ -87,7 +87,7 @@ echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true
     <div>
         <?php
         // If Checkout button is enabled
-        if (boolval($settings->getSubValue('showCheckoutBtn'))) {
+        if ((bool)($settings->getSubValue('showCheckoutBtn'))) {
             // Filter the text
             $checkoutBtnText = apply_filters('edd_acp_popup_checkout_button_text',
                 $settings->getSubValue('checkoutBtnText'),
@@ -98,7 +98,7 @@ echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true
             printf('<a href="#" class="edd-acp-goto-checkout"><button class="button edd-acp-checkout-btn">%s</button></a>', $checkoutBtnEscapedText);
         }
         // If Continue Shopping button is enabled
-        if (boolval($settings->getSubValue('showContinueBtn'))) {
+        if ((bool)($settings->getSubValue('showContinueBtn'))) {
             // Filter the text
             $continueBtnText = apply_filters('edd_acp_popup_continue_button_text',
                 $settings->getSubValue('continueBtnText'),
