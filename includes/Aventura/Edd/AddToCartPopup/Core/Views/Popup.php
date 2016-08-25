@@ -28,6 +28,7 @@ $border = $settings->getValue('border');
 $shadow = $settings->getValue('shadow');
 $shadowColor = StyleRenderer::colorHexToRgba($shadow['color'], $shadow['opacity']);
 $padding = $settings->getValue('padding');
+$btnPadding = $settings->getValue('btnPadding');
 
 /**
  * Print styles.
@@ -48,10 +49,13 @@ $popupStyles = array(
         'font-size'        => $settings->getValue('fontsize'),
     ),
     'button.button' => array(
-        'padding'          => $settings->getValue('btnPadding'),
         'border'           => $settings->getValue('btnBorder'),
         'border-radius'    => sprintf('%spx', $settings->getValue('btnBorderRadius')),
         'font-size'        => $settings->getValue('fontsize'),
+        'padding-top'      => sprintf('%dpx', $btnPadding['top']),
+        'padding-bottom'   => sprintf('%dpx', $btnPadding['bottom']),
+        'padding-left'     => sprintf('%dpx', $btnPadding['left']),
+        'padding-right'    => sprintf('%dpx', $btnPadding['right']),
     ),
     'button.edd-acp-checkout-btn' => array(
         'color'            => $settings->getValue('checkoutBtnTextColor'),

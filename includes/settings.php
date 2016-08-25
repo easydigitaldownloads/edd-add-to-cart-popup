@@ -611,10 +611,15 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'btnPadding', __('Button Padding', 'edd_acp'),
             __('The inner padding for the popup buttons, in pixels. For example: "15px", "6px 10px", etc. Leave empty to use the theme defaults.', 'edd_acp'),
-            '',
+            array(
+                'top'    => '8',
+                'bottom' => '8',
+                'left'   => '15',
+                'right'  => '15',
+            ),
             function($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('smalltext', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('padding', $settings, $id);
             }
         )
         ->addOption(
