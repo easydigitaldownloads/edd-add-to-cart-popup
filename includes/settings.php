@@ -380,11 +380,32 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a set of input fields for width and height.
+     *
+     * @param string $id The button ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The rendered HTML.
+     */
+    public static function size($id, $name, $value)
+    {
+        ob_start();
+        echo static::renderCompositeField($id, $name, $value, array(
+            'width'  => 'text',
+            'height' => 'text',
+        ), array(
+            'width'  => __('Width', 'edd_acp'),
+            'height' => __('Height', 'edd_acp'),
+        ));
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a set of input fields for padding.
      *
      * @param string $id The button ID.
-     * @param string $text The button text.
-     * @param string $class The HTML class attribute.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
      * @return string The rendered HTML.
      */
     public static function padding($id, $name, $value)
