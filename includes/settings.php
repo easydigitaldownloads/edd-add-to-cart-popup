@@ -101,7 +101,6 @@ abstract class EddAcpSettingsHtml
                name="<?php echo esc_attr($name); ?>"
                value="<?php echo esc_attr($value); ?>"
                />
-        <br/>
         <?php
         return ob_get_clean();
     }
