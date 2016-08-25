@@ -31,7 +31,7 @@ $shadowColor = StyleRenderer::colorHexToRgba($shadow['color'], $shadow['opacity'
 /**
  * Print styles.
  */
-$styles = array(
+$popupStyles = array(
     '' => array(
         'background-color' => $settings->getSubValue('bgcolor'),
         'box-shadow'       => sprintf('0 0 %spx %s', $shadow['blur'], $shadowColor),
@@ -64,8 +64,8 @@ $styles = array(
         'background'       => $settings->getSubValue('continueBtnHoverBgColor')
     ),
 );
-$stylesFiltered = apply_filters('edd_acp_popup_styles', $styles, $settings);
-echo StyleRenderer::renderStyles($stylesFiltered, 'body div.edd-acp-popup', true);
+$popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
+echo StyleRenderer::renderStyles($popupStylesFiltered, 'body div.edd-acp-popup', true);
 ?>
 
 <div class="edd-acp-popup">
