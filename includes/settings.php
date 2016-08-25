@@ -103,6 +103,22 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a number field suitable for pixel values.
+     * 
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function numberPx($id, $name, $value)
+    {
+        ob_start();
+        echo static::number($id, $name, $value);
+        echo 'px';
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a WP Editor field.
      * 
      * @param string $id The field ID.
