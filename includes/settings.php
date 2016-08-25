@@ -96,8 +96,8 @@ abstract class EddAcpSettingsHtml
                id="<?php echo esc_attr($id); ?>"
                name="<?php echo esc_attr($name); ?>"
                value="<?php echo esc_attr($value); ?>"
+               min="0"
                />
-        <br/>
         <?php
         return ob_get_clean();
     }
@@ -172,6 +172,30 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a number field that is more suitable for opacity values.
+     *
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function opacity($id, $name, $value)
+    {
+        ob_start();
+        ?>
+        <input type="number"
+               class="small-text"
+               id="<?php echo esc_attr($id); ?>"
+               name="<?php echo esc_attr($name); ?>"
+               value="<?php echo esc_attr($value); ?>"
+               min="0"
+               max="1"
+               step="0.05"
+               />
+        <?php
+        return ob_get_clean();
+    }
+
      * Renders an HTML button.
      *
      * @param string $id The button ID.
