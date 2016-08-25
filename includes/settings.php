@@ -268,19 +268,11 @@ abstract class EddAcpSettingsHtml
     public static function border($id, $name, $value)
     {
         ob_start();
-        $properties = array(
+        echo static::renderCompositeField($id, $name, $value, array(
             'width' => 'numberPx',
             'style' => 'borderStyle',
             'color' => 'colorpicker'
-        );
-        foreach($properties as $property => $fieldType) {
-            $propId = sprintf('%s-%s', $id, $property);
-            $propName = sprintf('%s[%s]', $name, $property);
-            $propValue = isset($value[$property])
-                ? $value[$property]
-                : '';
-            echo static::$fieldType($propId, $propName, $propValue);
-        }
+        ));
         return ob_get_clean();
     }
 
@@ -328,19 +320,11 @@ abstract class EddAcpSettingsHtml
     public static function shadow($id, $name, $value)
     {
         ob_start();
-        $properties = array(
+        echo static::renderCompositeField($id, $name, $value, array(
             'blur' => 'numberPx',
             'color' => 'colorpicker',
             'opacity' => 'opacity'
-        );
-        foreach($properties as $property => $fieldType) {
-            $propId = sprintf('%s-%s', $id, $property);
-            $propName = sprintf('%s[%s]', $name, $property);
-            $propValue = isset($value[$property])
-                ? $value[$property]
-                : '';
-            echo static::$fieldType($propId, $propName, $propValue);
-        }
+        ));
         return ob_get_clean();
     }
 
