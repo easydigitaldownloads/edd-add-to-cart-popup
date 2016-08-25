@@ -326,6 +326,35 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a dropdown select element with alignment options.
+     * 
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function alignment($id, $name, $value)
+    {
+        ob_start();
+        $alignments = array('horizontal', 'vertical');
+        ?>
+        <select id="<?php echo esc_attr($id); ?>"
+                name="<?php echo esc_attr($name); ?>"
+                >
+            <?php foreach ($alignments as $alignment): ?>
+            <option
+                value="<?php echo esc_attr($alignment); ?>"
+                <?php selected($alignment, $value); ?>
+                >
+                <?php echo $alignment; ?>
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
      * Renders an HTML button.
      *
      * @param string $id The button ID.
