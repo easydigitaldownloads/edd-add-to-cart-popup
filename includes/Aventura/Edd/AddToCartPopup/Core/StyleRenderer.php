@@ -57,4 +57,54 @@ abstract class StyleRenderer
         return sprintf("\t%s: %s;\n", $attribute, $value);
     }
 
+    /**
+     * Converts a hex color string into rgba format.
+     *
+     * @param string $hex The hex color string.
+     * @param float $opacity [optional] The opacity to add to the color. Default: 1.0
+     * @return string|boolean The converted color in rgba format or false if the given $hex color string was invalid.
+     */
+    public static function colorHexToRgba($hex, $opacity = 1.0)
+    {
+        $rgb = static::hex2RGB($hex, true, ',');
+        if (!$rgb) {
+            return false;
+        }
+        return sprintf('rgba(%s,%.2f)', $rgb, $opacity);
+    }
+
+    /**
+     * Converts a hex string into its RGB equivalent.
+     *
+     * @param string $hexStr The hex string.
+     * @param boolean $returnAsString [optional] Whether to return as a string or not. Default: false
+     * @param string $seperator [optional] The separator to use for concatenation if $returnAsString is true. Default: ','
+     * @return string|array|boolean An array containing the red, green and blue components if $returnAsString is false,
+     * a string containing the red, green and blue components concatenated by the $separator if $returnAsString is true
+     * or false if the given $hexStr was not valid.
+     */
+    public static function hex2RGB($hexStr, $returnAsString = false, $seperator = ',')
+    {
+        $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hexStr);
+        $rgbArray = array();
+        // If a proper hex code, convert using bitwise operation. No overhead... faster
+        if (strlen($hexStr) == 6) {
+            $colorVal = hexdec($hexStr);
+            $rgbArray['red'] = 0xFF & ($colorVal >> 0x10);
+            $rgbArray['green'] = 0xFF & ($colorVal >> 0x8);
+            $rgbArray['blue'] = 0xFF & $colorVal;
+        // if shorthand notation, need some string manipulations
+        } elseif (strlen($hexStr) == 3) {
+            $rgbArray['red'] = hexdec(str_repeat(substr($hexStr, 0, 1), 2));
+            $rgbArray['green'] = hexdec(str_repeat(substr($hexStr, 1, 1), 2));
+            $rgbArray['blue'] = hexdec(str_repeat(substr($hexStr, 2, 1), 2));
+        //Invalid hex color code
+        } else {
+            return false;
+        }
+        return $returnAsString
+            ? implode($seperator, $rgbArray)
+            : $rgbArray;
+    }
+
 }
