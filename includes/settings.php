@@ -212,6 +212,34 @@ abstract class EddAcpSettingsHtml
         return ob_get_clean();
     }
 
+    /**
+     * Renders a composite field for box shadow properties.
+     * 
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function shadow($id, $name, $value)
+    {
+        ob_start();
+        $properties = array(
+            'blur' => 'numberPx',
+            'color' => 'colorpicker',
+            'opacity' => 'opacity'
+        );
+        foreach($properties as $property => $fieldType) {
+            $propId = sprintf('%s-%s', $id, $property);
+            $propName = sprintf('%s[%s]', $name, $property);
+            $propValue = isset($value[$property])
+                ? $value[$property]
+                : '';
+            echo static::$fieldType($propId, $propName, $propValue);
+        }
+        return ob_get_clean();
+    }
+
+    /**
      * Renders an HTML button.
      *
      * @param string $id The button ID.
