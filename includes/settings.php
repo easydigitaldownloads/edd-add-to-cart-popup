@@ -390,8 +390,8 @@ abstract class EddAcpSettingsHtml
     {
         ob_start();
         echo static::renderCompositeField($id, $name, $value, array(
-            'width'  => 'text',
-            'height' => 'text',
+            'width'  => 'smalltext',
+            'height' => 'smalltext',
         ), array(
             'width'  => __('Width', 'edd_acp'),
             'height' => __('Height', 'edd_acp'),
