@@ -123,6 +123,7 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
     <div class="edd-acp-button-container edd-acp-buttons-<?php echo esc_attr($settings->getValue('btnDirection')) ?>">
         <?php
         // If Checkout button is enabled
+        $checkoutBtnRender = '';
         if ((bool)($settings->getValue('showCheckoutBtn'))) {
             // Filter the text
             $checkoutBtnText = apply_filters('edd_acp_popup_checkout_button_text',
@@ -131,9 +132,10 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
                 $settings
             );
             $checkoutBtnEscapedText = esc_html($checkoutBtnText);
-            printf('<a href="#" class="edd-acp-goto-checkout"><button class="button edd-acp-checkout-btn">%s</button></a>', $checkoutBtnEscapedText);
+            $checkoutBtnRender = sprintf('<a href="#" class="edd-acp-goto-checkout"><button class="button edd-acp-checkout-btn">%s</button></a>', $checkoutBtnEscapedText);
         }
         // If Continue Shopping button is enabled
+        $continueBtnRender = '';
         if ((bool)($settings->getValue('showContinueBtn'))) {
             // Filter the text
             $continueBtnText = apply_filters('edd_acp_popup_continue_button_text',
@@ -142,7 +144,15 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
                 $settings
             );
             $continueBtnEscapedText = esc_html($continueBtnText);
-            printf('<button class="button edd-acp-close-popup edd-acp-continue-btn">%s</button>', $continueBtnEscapedText);
+            $continueBtnRender = sprintf('<button class="button edd-acp-close-popup edd-acp-continue-btn">%s</button>', $continueBtnEscapedText);
+        }
+        // Check order
+        if ($settings->getValue('btnOrder') === 'continue') {
+            echo $continueBtnRender;
+            echo $checkoutBtnRender;
+        } else {
+            echo $checkoutBtnRender;
+            echo $continueBtnRender;
         }
         ?>
     </div>
