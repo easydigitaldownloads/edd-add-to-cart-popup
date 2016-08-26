@@ -686,6 +686,14 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('alignment', $settings, $id);
             }
         )
+        ->addOption('btnOrder', __('Button Order', 'edd_acp'),
+            __('Which button should come first.', 'edd_acp'),
+            'checkout',
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('btnOrder', $settings , $id);
+            }
+        )
 
         /**
          * Options for the Checkout Button
