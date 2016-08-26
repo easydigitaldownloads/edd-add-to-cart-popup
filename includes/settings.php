@@ -672,12 +672,12 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption(
-            'btnAlignment', __('Button Alignment', 'edd_acp'),
-            __('The button alignment.', 'edd_acp'),
+            'btnDirection', __('Button Direction', 'edd_acp'),
+            __('Horizontal will place the buttons side by side while vertical will put them on top of each other.', 'edd_acp'),
             'horizontal',
             function ($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('alignment', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('direction', $settings, $id);
             }
         )
 
