@@ -106,6 +106,35 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
+     * Renders a dropdown select element.
+     *
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @param  array  $options The options as an assoc. array of value and label pairs.
+     * @return string The HTML output.
+     */
+    public static function select($id, $name, $value, array $options = array())
+    {
+        ob_start();
+        ?>
+        <select id="<?php echo esc_attr($id); ?>"
+                name="<?php echo esc_attr($name); ?>"
+                >
+            <?php foreach ($options as $option => $label): ?>
+            <option
+                value="<?php echo esc_attr($option); ?>"
+                <?php selected($option, $value); ?>
+                >
+                <?php echo $label; ?>
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
      * Renders a number field.
      * 
      * @param  string $id The field ID.
