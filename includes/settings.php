@@ -328,8 +328,37 @@ abstract class EddAcpSettingsHtml
     }
 
     /**
-     * Renders a dropdown select element with alignment options.
+     * Renders a dropdown select element with direction options.
      * 
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function direction($id, $name, $value)
+    {
+        ob_start();
+        $directions = array('horizontal', 'vertical');
+        ?>
+        <select id="<?php echo esc_attr($id); ?>"
+                name="<?php echo esc_attr($name); ?>"
+                >
+            <?php foreach ($directions as $direction): ?>
+            <option
+                value="<?php echo esc_attr($direction); ?>"
+                <?php selected($direction, $value); ?>
+                >
+                <?php echo $direction; ?>
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
+     * Renders a dropdown select element with alignment options.
+     *
      * @param  string $id The field ID.
      * @param  string $name The name attribute of the field.
      * @param  string $value The value of the field.
@@ -338,7 +367,7 @@ abstract class EddAcpSettingsHtml
     public static function alignment($id, $name, $value)
     {
         ob_start();
-        $alignments = array('horizontal', 'vertical');
+        $alignments = array('left', 'center', 'right');
         ?>
         <select id="<?php echo esc_attr($id); ?>"
                 name="<?php echo esc_attr($name); ?>"
