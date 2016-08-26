@@ -365,6 +365,22 @@ abstract class EddAcpSettingsHtml
         $alignments = array('left', 'center', 'right');
         return static::select($id, $name, $value, array_combine($alignments, $alignments));
     }
+
+    /**
+     * Renders a dropdown select element with button order options.
+     *
+     * @param  string $id The field ID.
+     * @param  string $name The name attribute of the field.
+     * @param  string $value The value of the field.
+     * @return string The HTML output.
+     */
+    public static function btnOrder($id, $name, $value)
+    {
+        $orders = array(
+            'checkout' => __('Checkout button first', 'edd_acp'),
+            'continue' => __('Continue buttton first', 'edd_acp'),
+        );
+        return static::select($id, $name, $value, $orders);
     }
 
     /**
