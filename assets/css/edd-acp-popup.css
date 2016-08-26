@@ -5,6 +5,7 @@ div.edd-acp-popup {
     border: 1px solid #444;
     border-radius: 1px;
     z-index: 9999999 !important;
+    box-sizing: border-box;
 }
 
 div.edd-acp-popup div.edd-acp-popup-singular p:first-of-type,
