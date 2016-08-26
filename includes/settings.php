@@ -315,26 +315,8 @@ abstract class EddAcpSettingsHtml
      */
     public static function borderStyle($id, $name, $value)
     {
-        // Static border styles variable
-        static $borderStyles = null;
-        if (is_null($borderStyles)) {
-            $borderStyles = array('none', 'solid', 'dashed', 'dotted', 'double', 'groove', 'ridge', 'inset', 'outset');
-        }
-        // Field output
-        ob_start();
-        ?>
-        <select id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name); ?>">
-            <?php foreach($borderStyles as $style) : ?>
-            <option
-                value="<?php echo esc_attr($style); ?>"
-                <?php selected($value, $style); ?>
-                >
-                <?php echo $style; ?>
-            </option>
-            <?php endforeach; ?>
-        </select>
-        <?php
-        return ob_get_clean();
+        $options = array('none', 'solid', 'dashed', 'dotted', 'double', 'groove', 'ridge', 'inset', 'outset');
+        return static::select($id, $name, $value, array_combine($options, $options));
     }
 
     /**
@@ -366,23 +348,8 @@ abstract class EddAcpSettingsHtml
      */
     public static function direction($id, $name, $value)
     {
-        ob_start();
         $directions = array('horizontal', 'vertical');
-        ?>
-        <select id="<?php echo esc_attr($id); ?>"
-                name="<?php echo esc_attr($name); ?>"
-                >
-            <?php foreach ($directions as $direction): ?>
-            <option
-                value="<?php echo esc_attr($direction); ?>"
-                <?php selected($direction, $value); ?>
-                >
-                <?php echo $direction; ?>
-            </option>
-            <?php endforeach; ?>
-        </select>
-        <?php
-        return ob_get_clean();
+        return static::select($id, $name, $value, array_combine($directions, $directions));
     }
 
     /**
@@ -395,23 +362,9 @@ abstract class EddAcpSettingsHtml
      */
     public static function alignment($id, $name, $value)
     {
-        ob_start();
         $alignments = array('left', 'center', 'right');
-        ?>
-        <select id="<?php echo esc_attr($id); ?>"
-                name="<?php echo esc_attr($name); ?>"
-                >
-            <?php foreach ($alignments as $alignment): ?>
-            <option
-                value="<?php echo esc_attr($alignment); ?>"
-                <?php selected($alignment, $value); ?>
-                >
-                <?php echo $alignment; ?>
-            </option>
-            <?php endforeach; ?>
-        </select>
-        <?php
-        return ob_get_clean();
+        return static::select($id, $name, $value, array_combine($alignments, $alignments));
+    }
     }
 
     /**
