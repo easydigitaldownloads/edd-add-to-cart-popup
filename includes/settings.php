@@ -680,6 +680,14 @@ function eddAcpRegisterOptions(Settings $settings)
                 echo EddAcpSettingsHtml::renderField('direction', $settings, $id);
             }
         )
+        ->addOption('btnAlignment', __('Button Alignment', 'edd_acp'),
+            __('The alignment for the buttons. Does not apply if the buttons are placed vertically.', 'edd_acp'),
+            'center',
+            function ($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('alignment', $settings, $id);
+            }
+        )
 
         /**
          * Options for the Checkout Button
