@@ -55,17 +55,16 @@ div.edd-acp-popup a.edd-acp-goto-checkout {
 }
 
 @media screen and (max-width: 700px) {
-    div.edd-acp-popup p:last-child  > a {
-        display: inline-block;
-        width: 100%;
-        margin: 0;
-    }
-    div.edd-acp-popup p:last-child button {
+    div.edd-acp-popup div.edd-acp-button-container a,
+    div.edd-acp-popup div.edd-acp-button-container button {
         display: block;
         width: 100%;
-        margin: 10px 0;
-    }
-    div.edd-acp-popup p:last-child  > button:last-child {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
         margin-bottom: 0;
+    }
+    div.edd-acp-popup div.edd-acp-button-container button:first-of-type {
+        margin-bottom: 8px;
     }
 }
