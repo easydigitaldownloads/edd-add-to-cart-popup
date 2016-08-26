@@ -52,6 +52,9 @@ $popupStyles = array(
         'color'            => $settings->getValue('textcolor'),
         'font-size'        => $settings->getValue('fontsize'),
     ),
+    'div.edd-acp-button-container' => array(
+        'text-align'       => $settings->getValue('btnAlignment')
+    ),
     'button.button' => array(
         'border'           => sprintf('%dpx %s %s', $btnBorder['width'], $btnBorder['style'], $btnBorder['color']),
         'border-radius'    => sprintf('%spx', $settings->getValue('btnBorderRadius')),
@@ -117,7 +120,7 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
         echo apply_filters('edd_acp_popup_plural_text_formatted', $pluralTextFormatted, $viewbag->downloadId, $settings);
         ?>
     </div>
-    <div class="edd-acp-button-container edd-acp-buttons-<?php echo esc_attr($settings->getValue('btnAlignment')) ?>">
+    <div class="edd-acp-button-container edd-acp-buttons-<?php echo esc_attr($settings->getValue('btnDirection')) ?>">
         <?php
         // If Checkout button is enabled
         if ((bool)($settings->getValue('showCheckoutBtn'))) {
