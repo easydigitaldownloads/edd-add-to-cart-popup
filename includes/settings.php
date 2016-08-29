@@ -535,7 +535,7 @@ function eddAcpRegisterOptions(Settings $settings)
                 'edd_acp'), __('%s has been added to your cart!', 'edd_acp'),
             function($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('editor', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('editor', $settings, $id, true);
             }
         )
         ->addOption(
@@ -545,7 +545,7 @@ function eddAcpRegisterOptions(Settings $settings)
             __('%s have been added to your cart!', 'edd_acp'),
             function($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('editor', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('editor', $settings, $id, true);
             }
         )
         ->addOption(
