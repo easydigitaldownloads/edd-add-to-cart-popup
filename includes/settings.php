@@ -625,7 +625,7 @@ function eddAcpRegisterOptions(Settings $settings)
          */
         ->addOption('popupSizeHeader', __('Popup Dimensions', 'edd_acp'))
         ->addOption('size', __('Size', 'edd_acp'),
-            __('The width and height for the popup, in pixels (10px), percentages (20%) or other accepted CSS formats. Leave blank for auto-sizing.', 'edd_acp'),
+            __('The width and height for the popup, in pixels (px), percentages (%) or other accepted CSS formats. Leave blank for auto-sizing.', 'edd_acp'),
             array(
                 'width'  => '',
                 'height' => '',
@@ -636,7 +636,7 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption('padding', __('Padding', 'edd_acp'),
-            __('The inner padding for the popup', 'edd_acp'),
+            __('The size of the space between the edge of the popup and the content.', 'edd_acp'),
             array(
                 'top'    => '20',
                 'bottom' => '20',
@@ -667,8 +667,8 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption(
-            'btnBorderRadius', __('Border Radius', 'edd_acp'),
-            __('The border radius, in pixels. For example: "2", "5", etc. Leave empty to use the theme default.', 'edd_acp'),
+            'btnBorderRadius', __('Corner Radius', 'edd_acp'),
+            __('The radius of the corners, in pixels. For example: "2", "5", etc. Leave empty to use the theme default.', 'edd_acp'),
             '2',
             function($settings, $id, $args)
             {
@@ -677,7 +677,7 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption(
             'btnPadding', __('Button Padding', 'edd_acp'),
-            __('The inner padding for the popup buttons, in pixels. For example: "15px", "6px 10px", etc. Leave empty to use the theme defaults.', 'edd_acp'),
+            __('The inner padding for the popup buttons, in pixels. Leave empty to use the theme defaults.', 'edd_acp'),
             array(
                 'top'    => '8',
                 'bottom' => '8',
@@ -722,7 +722,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'showCheckoutBtn',
             __('Enabled', 'edd_acp'),
-            __('Tick to show the Checkout button', 'edd_acp'),
+            __('Tick to show the Checkout button.', 'edd_acp'),
             '1',
             function($settings, $id, $args)
             {
@@ -742,17 +742,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'checkoutBtnTextColor',
             __('Text Color', 'edd_acp'),
-            __('The text color for the Checkout button', 'edd_acp'), '#fff',
-            function($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
-            }
-        )
-        ->addOption(
-            'checkoutBtnBgColor',
-            __('Background Color', 'edd_acp'),
-            __('The background color for the Checkout button.', 'edd_acp'),
-            '#444',
+            __('The text color for the Checkout button.', 'edd_acp'), '#fff',
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
@@ -763,6 +753,16 @@ function eddAcpRegisterOptions(Settings $settings)
             __('Text Color on Hover', 'edd_acp'),
             __('The text color for the Checkout button when hovered.', 'edd_acp'),
             '#fff',
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+            }
+        )
+        ->addOption(
+            'checkoutBtnBgColor',
+            __('Background Color', 'edd_acp'),
+            __('The background color for the Checkout button.', 'edd_acp'),
+            '#444',
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
@@ -786,7 +786,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'showContinueBtn',
             __('Enabled', 'edd_acp'),
-            __('Tick to show the Continue Shopping button', 'edd_acp'),
+            __('Tick to show the Continue Shopping button.', 'edd_acp'),
             '1',
             function($settings, $id, $args)
             {
@@ -806,7 +806,17 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'continueBtnTextColor',
             __('Text Color', 'edd_acp'),
-            __('The text color for the Continue Shopping button', 'edd_acp'),
+            __('The text color for the Continue Shopping button.', 'edd_acp'),
+            '#fff',
+            function($settings, $id, $args)
+            {
+                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+            }
+        )
+        ->addOption(
+            'continueBtnHoverTextColor',
+            __('Text Color on Hover', 'edd_acp'),
+            __('The text color for the Continue Shopping button when hovered.', 'edd_acp'),
             '#fff',
             function($settings, $id, $args)
             {
@@ -818,16 +828,6 @@ function eddAcpRegisterOptions(Settings $settings)
             __('Background Color', 'edd_acp'),
             __('The background color for the Continue Shopping button.', 'edd_acp'),
             '#444',
-            function($settings, $id, $args)
-            {
-                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
-            }
-        )
-        ->addOption(
-            'continueBtnHoverTextColor',
-            __('Text Color on Hover', 'edd_acp'),
-            __('The text color for the Continue Shopping button when hovered.', 'edd_acp'),
-            '#fff',
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
