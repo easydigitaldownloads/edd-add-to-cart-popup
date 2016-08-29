@@ -14,9 +14,10 @@ abstract class EddAcpSettingsHtml
      * @param  string $type The type of the field to render. This should translate to a static method for this class.
      * @param  Settings $settings The settings class instance.
      * @param  string $id The ID of the option. Used to get the value to use when rendering the field.
+     * @param  boolean $labelBefore If true, the label will be outputted before the field instead of after. Default: false
      * @return string The HTML output.
      */
-    public static function renderField($type, $settings, $id)
+    public static function renderField($type, $settings, $id, $labelBefore = false)
     {
         // Checks if method for this type exists, and the settings instance has the option with the given id.
         if (!method_exists(__CLASS__, $type) || !$settings->hasOption($id)) {
@@ -25,10 +26,18 @@ abstract class EddAcpSettingsHtml
         // Begin buffering
         ob_start();
         // Call the static method for the field's type, pasing the ID, option name and option value.
-        echo self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
+        $fieldRender  =self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
         // Get the option description and output a label for the option field.
         $desc = $settings->getOption($id)->desc;
-        printf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
+        $fieldLabel = sprintf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
+        // Output in the correct order, based on the $labelBefore parameter
+        if ($labelBefore) {
+            echo $fieldLabel;
+            echo $fieldRender;
+        } else {
+            echo $fieldRender;
+            echo $fieldLabel;
+        }
         // Return the buffered output
         return ob_get_clean();
     }
