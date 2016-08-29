@@ -27,6 +27,15 @@ div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-horizontal a,
 div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-horizontal button {
     display: inline-block;
 }
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-horizontal > * {
+    margin-left: 0;
+    margin-right: 0;
+}
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-horizontal > *:first-child {
+    margin-left: 0;
+    margin-right: 12px;
+}
+
 div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical a,
 div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical button {
     display: block;
@@ -36,7 +45,7 @@ div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical button {
     margin-top: 0;
     margin-bottom: 0;
 }
-div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical button:first-of-type {
+div.edd-acp-popup div.edd-acp-button-container.edd-acp-buttons-vertical > *:first-child {
     margin-bottom: 8px;
 }
 
