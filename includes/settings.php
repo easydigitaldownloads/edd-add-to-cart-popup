@@ -471,7 +471,6 @@ abstract class EddAcpSettingsHtml
     {
         ob_start();
         ?>
-        <hr/>
         <div class="edd-acp-fake-purchase-form">
             <input type="hidden" class="edd_action_input" value="add_to_cart" />
             <input type="hidden" class="edd-item-quantity" value="1" />
@@ -485,8 +484,12 @@ abstract class EddAcpSettingsHtml
                                 'button button-secondary edd-add-to-cart edd-acp-preview'
                             );
                         ?>
-                        <?php _e('Click the button to preview your settings before saving.', 'edd_acp'); ?>
                     </label>
+                </p>
+                <p>
+                    <?php _e('Click the button to preview your settings before saving.', 'edd_acp'); ?>
+                    <br/>
+                    <?php _e('You can also use the "Preview Popup" button on the admin bar.', 'edd_acp'); ?>
                 </p>
             </div>
             <div id="edd-acp-preview-popup-container"></div>
@@ -515,6 +518,14 @@ function eddAcpRegisterOptions(Settings $settings)
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('checkbox', $settings, $id);
+            }
+        )
+        ->addOption(
+            'preview', __('Preview Popup', 'edd_acp'),
+            __('', 'edd_acp'),
+            __('Click the button to preview your settings before saving.', 'edd_acp'),
+            function ($settings, $id, $args)
+            {
                 echo EddAcpSettingsHtml::renderPreview();
             }
         )
