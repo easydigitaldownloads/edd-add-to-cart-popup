@@ -4,11 +4,14 @@ var EddAcp = (function EddAcpClass() {
 
 	var $ = jQuery;
 
-	function EddAcp(element) {
+	function EddAcp(element, nobind) {
 		this.element = element;
 		this.testing = false;
-		this.initElems()
-			.initEvents();
+		this.initElems();
+                nobind = (typeof nobind === 'undefined')? false : true;
+                if (!nobind) {
+                        this.initEvents();
+                }
 	}
 
 	EddAcp.prototype.initElems = function() {
@@ -22,7 +25,7 @@ var EddAcp = (function EddAcpClass() {
 		// Get the variable price option element, if available
 		this.priceOptions = this.element.find('div.edd_price_options');
 		// Set the url of the "continue to checkout button" to the checkout page
-		this.popup.find('a.edd-acp-goto-checkout').attr('href', edd_scripts.checkout_page);
+		this.popup.find('a.edd-acp-goto-checkout').attr('href', window.edd_scripts? edd_scripts.checkout_page : '#');
 
 		return this;
 	};
@@ -82,16 +85,22 @@ var EddAcp = (function EddAcpClass() {
 		}
 
 		// Show the popup
-		this.popup.bPopup({
-			positionStyle: 'fixed',
-			speed: 100,
-			closeClass: 'edd-acp-close-popup'
-		});
+		this.showPopup();
+
 		if (this.testing) {
 			event.stopPropagation();
 			event.preventDefault();
 		}
 	};
+
+        EddAcp.prototype.showPopup = function() {
+            // Show the popup
+            this.popup.bPopup({
+                    positionStyle: 'fixed',
+                    speed: 100,
+                    closeClass: 'edd-acp-close-popup'
+            });
+        };
 
 	EddAcp.prototype.getSelectedPriceOption = function() {
 		if (this.priceOptions.length === 0) {
