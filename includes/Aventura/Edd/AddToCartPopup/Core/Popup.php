@@ -145,7 +145,7 @@ class Popup extends Plugin\Module {
 	 */
 	public function run() {
 		// If the enabled toggle option is turned on
-		if ($this->getPlugin()->getSettings()->getValue('enabled') == '1') {
+		if ($this->getPlugin()->getSettings()->getValue('enabled') == '1' || is_admin()) {
 			$this->getPlugin()->getHookLoader()
 					// Hook in the popup render
 					->queueAction( 'edd_purchase_link_top', $this, 'render' )
