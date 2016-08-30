@@ -178,7 +178,9 @@ abstract class EddAcpSettingsHtml
     {
         ob_start();
         echo static::number($id, $name, $value);
-        echo 'px';
+        ?>
+        <label>px &nbsp;</label>
+        <?php
         return ob_get_clean();
     }
 
