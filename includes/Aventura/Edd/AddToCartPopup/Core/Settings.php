@@ -303,6 +303,24 @@ class Settings extends Plugin\Module {
 		}
 	}
 
+    /**
+     * Sanitizes the settings after submission.
+     *
+     * @param array $input The input settings.
+     * @return array The sanitized output.
+     */
+    public function sanitize($input) {
+        $output = $input;
+        if (isset($input[$this->getDbOptionName()])) {
+            $options = $input[$this->getDbOptionName()];
+            if (isset($options['reset']) && !empty($options['reset'])) {
+                $options = array();
+            }
+            $output[$this->getDbOptionName()] = $options;
+        }
+        return $output;
+    }
+
 	/**
 	 * Registers the settings with EDD.
 	 * 
@@ -311,6 +329,7 @@ class Settings extends Plugin\Module {
 	public function register() {
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_sections_extensions', $this, 'filterEddSettingsSubsection' );
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions', $this, 'filterEddSettings' );
+        $this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions_sanitize', $this, 'sanitize');
 		return $this;
 	}
 
