@@ -224,27 +224,8 @@ abstract class EddAcpSettingsHtml
                    name="<?php echo esc_attr($name); ?>"
                    value="<?php echo esc_attr($value); ?>" 
                    />
-            <div class="edd-acp-colorpicker-preview"></div>
         </div>
         <?php
-        return ob_get_clean();
-    }
-
-    /**
-     * Renders a colorpicker with an opacity value.
-     *
-     * @param  string $id The field ID.
-     * @param  string $name The name attribute of the field.
-     * @param  string $value The value of the field.
-     * @return string The HTML output.
-     */
-    public static function colorpickerWithOpacity($id, $name, $value)
-    {
-        ob_start();
-        echo static::renderCompositeField($id, $name, $value, array(
-            'color'   => 'colorpicker',
-            'opacity' => 'opacity'
-        ));
         return ob_get_clean();
     }
 
@@ -342,9 +323,8 @@ abstract class EddAcpSettingsHtml
     {
         ob_start();
         echo static::renderCompositeField($id, $name, $value, array(
-            'blur' => 'numberPx',
-            'color' => 'colorpicker',
-            'opacity' => 'opacity'
+            'amount' => 'numberPx',
+            'color'  => 'colorpicker'
         ));
         return ob_get_clean();
     }
@@ -600,11 +580,10 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption(
             'shadow', __('Shadow', 'edd_acp'),
-            __('The shadow blur amount, color and opacity respectively.', 'edd_acp'),
+            __('The shadow amount and color, respectively.', 'edd_acp'),
             array(
-                'blur'    => '0',
-                'color'   => '#000',
-                'opacity' => '0.5'
+                'amount'  => '0',
+                'color'   => '#000'
             ),
             function ($settings, $id, $args)
             {
@@ -613,13 +592,10 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption('overlay', __('Overlay Color', 'edd_acp'),
             __('The color of the overlay that covers the page when the popup is shown.', 'edd_acp'),
-            array(
-                'color'   => '#000',
-                'opacity' => '0.7'
-            ),
+            'rgba(0, 0, 0, 0.7)',
             function($settings, $id, $args)
             {
-                echo EddAcpSettingsHtml::renderField('colorpickerWithOpacity', $settings, $id);
+                echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
             }
         )
 
