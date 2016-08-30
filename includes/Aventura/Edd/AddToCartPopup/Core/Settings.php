@@ -311,6 +311,13 @@ class Settings extends Plugin\Module {
      */
     public function sanitize($input) {
         $output = $input;
+        if (isset($input[$this->getDbOptionName()])) {
+            $options = $input[$this->getDbOptionName()];
+            if (isset($options['reset']) && !empty($options['reset'])) {
+                $options = array();
+            }
+            $output[$this->getDbOptionName()] = $options;
+        }
         return $output;
     }
 
