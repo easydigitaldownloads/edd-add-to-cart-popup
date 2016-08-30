@@ -558,7 +558,8 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption(
-            'textcolor', __('Text Color', 'edd_acp'), __('Change the color of the text inside popup box.', 'edd_acp'),
+            'textcolor', __('Text Color', 'edd_acp'),
+            __('Change the color of the text inside the popup box.', 'edd_acp'),
             '#000000',
             function($settings, $id, $args)
             {
@@ -636,7 +637,7 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption('padding', __('Padding', 'edd_acp'),
-            __('The size of the space between the edge of the popup and the content.', 'edd_acp'),
+            __('The spacing between the popup border and its content, in pixels.', 'edd_acp'),
             array(
                 'top'    => '20',
                 'bottom' => '20',
@@ -707,7 +708,7 @@ function eddAcpRegisterOptions(Settings $settings)
             }
         )
         ->addOption('btnOrder', __('Button Order', 'edd_acp'),
-            __('Which button should come first.', 'edd_acp'),
+            __('Choose which button to display first.', 'edd_acp'),
             'checkout',
             function($settings, $id, $args)
             {
@@ -751,7 +752,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'checkoutBtnHoverTextColor',
             __('Text Color on Hover', 'edd_acp'),
-            __('The text color for the Checkout button when hovered.', 'edd_acp'),
+            __('The text color for the Checkout button when hovered over.', 'edd_acp'),
             '#fff',
             function($settings, $id, $args)
             {
@@ -771,7 +772,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'checkoutBtnHoverBgColor',
             __('Background Color on Hover', 'edd_acp'),
-            __('The background color for the Checkout button when hovered.', 'edd_acp'),
+            __('The background color for the Checkout button when hovered over.', 'edd_acp'),
             '#444',
             function($settings, $id, $args)
             {
@@ -816,7 +817,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'continueBtnHoverTextColor',
             __('Text Color on Hover', 'edd_acp'),
-            __('The text color for the Continue Shopping button when hovered.', 'edd_acp'),
+            __('The text color for the Continue Shopping button when hovered over.', 'edd_acp'),
             '#fff',
             function($settings, $id, $args)
             {
@@ -836,7 +837,7 @@ function eddAcpRegisterOptions(Settings $settings)
         ->addOption(
             'continueBtnHoverBgColor',
             __('Background Color on Hover', 'edd_acp'),
-            __('The background color for the Continue Shopping button when hovered.', 'edd_acp'),
+            __('The background color for the Continue Shopping button when hovered over.', 'edd_acp'),
             '#444',
             function($settings, $id, $args)
             {
