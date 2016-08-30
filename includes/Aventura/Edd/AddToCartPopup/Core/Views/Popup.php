@@ -70,7 +70,8 @@ $popupStyles = array(
     ),
     'button.edd-acp-checkout-btn:hover, button.edd-acp-checkout-btn:focus, button.edd-acp-checkout-btn:active' => array(
         'color'            => $settings->getValue('checkoutBtnHoverTextColor'),
-        'background'       => $settings->getValue('checkoutBtnHoverBgColor')
+        'background'       => $settings->getValue('checkoutBtnHoverBgColor'),
+        'box-shadow'       => '0 0 0 transparent',
     ),
     'button.edd-acp-continue-btn' => array(
         'color'            => $settings->getValue('continueBtnTextColor'),
@@ -78,7 +79,8 @@ $popupStyles = array(
     ),
     'button.edd-acp-continue-btn:hover, button.edd-acp-continue-btn:focus, button.edd-acp-continue-btn:active' => array(
         'color'            => $settings->getValue('continueBtnHoverTextColor'),
-        'background'       => $settings->getValue('continueBtnHoverBgColor')
+        'background'       => $settings->getValue('continueBtnHoverBgColor'),
+        'box-shadow'       => '0 0 0 transparent',
     ),
 );
 $popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
