@@ -40,7 +40,7 @@ $popupStyles = array(
         'width'            => $size['width'],
         'height'           => $size['height'],
         'background-color' => $settings->getValue('bgcolor'),
-        'box-shadow'       => sprintf('0 0 %spx %s', $shadow['blur'], $shadowColor),
+        'box-shadow'       => sprintf('0 0 %spx %s', $shadow['amount'], $shadowColor),
         'border'           => sprintf('%dpx %s %s', $border['width'], $border['style'], $border['color']),
         'border-radius'    => sprintf('%dpx', $settings->getValue('borderRadius')),
         'padding-top'      => sprintf('%dpx', $padding['top']),
@@ -86,13 +86,9 @@ $popupStyles = array(
 $popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
 echo StyleRenderer::renderStyles($popupStylesFiltered, 'body div.edd-acp-popup', true);
 
-// Prepare some overlay style vars
-$overlay = $settings->getValue('overlay');
-
 $overlayStyles = array(
     '.b-modal' => array(
-        'background-color' => sprintf('%s !important', $overlay['color']),
-        'opacity'          => sprintf('%.2f !important', $overlay['opacity']),
+        'background-color' => sprintf('%s !important', $settings->getValue('overlay')),
     )
 );
 $overlayStylesFiltered = apply_filters('edd_acp_overlay_styles', $overlayStyles, $settings);
