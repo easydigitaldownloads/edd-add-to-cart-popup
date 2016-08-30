@@ -26,7 +26,6 @@ do_action('edd_acp_before_popup_view', $viewbag->downloadId, $settings);
 // Prepare some style vars
 $border = $settings->getValue('border');
 $shadow = $settings->getValue('shadow');
-$shadowColor = StyleRenderer::colorHexToRgba($shadow['color'], $shadow['opacity']);
 $btnBorder = $settings->getValue('btnBorder');
 $padding = $settings->getValue('padding');
 $btnPadding = $settings->getValue('btnPadding');
@@ -40,7 +39,7 @@ $popupStyles = array(
         'width'            => $size['width'],
         'height'           => $size['height'],
         'background-color' => $settings->getValue('bgcolor'),
-        'box-shadow'       => sprintf('0 0 %spx %s', $shadow['amount'], $shadowColor),
+        'box-shadow'       => sprintf('0 0 %spx %s', $shadow['amount'], $shadow['color']),
         'border'           => sprintf('%dpx %s %s', $border['width'], $border['style'], $border['color']),
         'border-radius'    => sprintf('%dpx', $settings->getValue('borderRadius')),
         'padding-top'      => sprintf('%dpx', $padding['top']),
