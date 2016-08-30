@@ -166,6 +166,18 @@ class Settings extends Plugin\Module {
 							: $default );
 	}
 
+    /**
+     * Sets the interal values cache array.
+     *
+     * @param array $values The values array. Default: array
+     * @return Settings This instance.
+     */
+    public function setValuesCache(array $values = array())
+    {
+        $this->_value = $values;
+        return $this;
+    }
+
 	/**
 	 * Adds a settings option.
 	 * 
@@ -176,8 +188,14 @@ class Settings extends Plugin\Module {
 	 * @param callable $callback The callback that renders the option.
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function addOption($id, $title, $desc, $default, $callback) {
-		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'default', 'callback');
+	public function addOption($id, $title, $desc = '', $default = null, $callback = null) {
+                $type = (is_null($default) && is_null($callback))
+                    ? 'header'
+                    : 'hook';
+                if ($type === 'header') {
+                    $title = sprintf('<strong>%s</strong>', $title);
+                }
+		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'default', 'callback', 'type');
 		return $this;
 	}
 
@@ -212,6 +230,16 @@ class Settings extends Plugin\Module {
 				: null;
 	}
 
+    /**
+     * Gets the registered options.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->_options;
+    }
+
 	/**
 	 * Registers the subsection in the EDD settings page Extensions tab.
 	 * 
@@ -240,7 +268,7 @@ class Settings extends Plugin\Module {
 				'id'		=>	$_optionId,
 				'name'		=>	$_option->title,
 				'desc'		=>	$_option->desc,
-				'type'		=>	'hook',
+				'type'		=>	$_option->type,
 			);
 			// Add the action for the callback that renders this option
 			$actionHook = sprintf('edd_%s', $_optionId);
