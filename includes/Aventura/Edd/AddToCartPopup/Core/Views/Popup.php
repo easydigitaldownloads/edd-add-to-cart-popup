@@ -51,7 +51,12 @@ $popupStyles = array(
         'color'            => $settings->getValue('textcolor'),
         'font-size'        => $settings->getValue('fontsize'),
     ),
-    'div.edd-acp-button-container' => array(
+);
+$popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
+echo StyleRenderer::renderStyles($popupStylesFiltered, 'body div.edd-acp-popup', true);
+
+$btnStyles = array(
+    '' => array(
         'text-align'       => $settings->getValue('btnAlignment')
     ),
     'button.button' => array(
@@ -82,8 +87,8 @@ $popupStyles = array(
         'box-shadow'       => '0 0 0 transparent',
     ),
 );
-$popupStylesFiltered = apply_filters('edd_acp_popup_styles', $popupStyles, $settings);
-echo StyleRenderer::renderStyles($popupStylesFiltered, 'body div.edd-acp-popup', true);
+$btnStylesFiltered = apply_filters('edd_acp_popup_btn_styles', $btnStyles, $settings);
+echo StyleRenderer::renderStyles($btnStylesFiltered, 'body div.edd-acp-popup div.edd-acp-button-container', true);
 
 $overlayStyles = array(
     '.b-modal' => array(
