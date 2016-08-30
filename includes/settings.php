@@ -26,7 +26,7 @@ abstract class EddAcpSettingsHtml
         // Begin buffering
         ob_start();
         // Call the static method for the field's type, pasing the ID, option name and option value.
-        $fieldRender  =self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
+        $fieldRender = self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
         // Get the option description and output a label for the option field.
         $desc = $settings->getOption($id)->desc;
         $fieldLabel = sprintf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
@@ -822,6 +822,34 @@ function eddAcpRegisterOptions(Settings $settings)
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('colorpicker', $settings, $id);
+            }
+        )
+
+        /**
+         * Misc.
+         */
+        ->addOption('miscHeader', __('Misc Options', 'edd_acp'))
+        ->addOption(
+            'resetOptions',
+            __('Reset Options', 'edd_acp'),
+            __('Click this button to reset all your popup settings back to default. Note: this cannot be undone.', 'edd_acp'),
+            '0',
+            function($settings, $id, $args)
+            {
+                $name = esc_attr($settings->getSubValueOptionName('reset'));
+                ?>
+                <p>
+                    <label>
+                        <input type="submit"
+                               id="edd-acp-reset"
+                               name="<?php echo $name; ?>"
+                               value="<?php _e('Reset Options'); ?>"
+                               class="button button-secondary"
+                               />
+                        <?php echo $args['desc']; ?>
+                    </label>
+                </p>
+                <?php
             }
         )
     ;
