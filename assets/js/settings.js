@@ -9,6 +9,7 @@
             field.spectrum({
                 color: field.val(),
                 allowEmpty: true,
+                showInput: true,
                 showAlpha: true,
                 showPalette: true,
                 palette: [],
