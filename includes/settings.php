@@ -447,10 +447,10 @@ abstract class EddAcpSettingsHtml
     {
         ob_start();
         echo static::renderCompositeField($id, $name, $value, array(
-            'top'    => 'number',
-            'bottom' => 'number',
-            'left'   => 'number',
-            'right'  => 'number',
+            'top'    => 'numberPx',
+            'bottom' => 'numberPx',
+            'left'   => 'numberPx',
+            'right'  => 'numberPx',
         ), array(
             'top'    => __('Top', 'edd_acp'),
             'bottom' => __('Bottom', 'edd_acp'),
