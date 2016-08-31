@@ -51,13 +51,15 @@ class AssetsController extends Plugin\Module {
 		// Settings
 		$this->registerScript('edd_acp_settings', EDD_ACP_JS_URL . 'settings.js');
 		$this->registerStyle('edd_acp_settings', EDD_ACP_CSS_URL . 'settings.css');
-		// Colorpicker
-		$this->registerScript('edd_acp_colorpicker', EDD_ACP_JS_URL . 'colorpicker.js');
-		$this->registerStyle('edd_acp_colorpicker', EDD_ACP_CSS_URL . 'colorpicker.css');
+        // Spectrum Colorpicker
+        $this->registerScript('edd-acp-spectrum', EDD_ACP_JS_URL . 'spectrum.js');
+		$this->registerStyle('edd-acp-spectrum', EDD_ACP_CSS_URL . 'spectrum.css');
 
-		if (isset($_GET['tab'], $_GET['section']) && $_GET['tab'] === 'extensions' && $_GET['section'] === 'acp') {
-			$this->enqueueScript('edd_acp_colorpicker');
-			$this->enqueueStyle('edd_acp_colorpicker');
+        wp_localize_script('edd_acp_settings', 'EddAcpSettings', edd_acp()->getSettings()->getOptions());
+
+		if (filter_input(INPUT_GET, 'tab') === 'extensions') {
+            $this->enqueueScript('edd-acp-spectrum');
+			$this->enqueueStyle('edd-acp-spectrum');
 			$this->enqueueScript('edd_acp_settings');
 			$this->enqueueStyle('edd_acp_settings');
 		}
@@ -148,6 +150,9 @@ class AssetsController extends Plugin\Module {
 	protected function handleAsset($type, $enqueue, $handle, $src, $deps, $ver, $extra) {
 		// Generate name of function to use (whether for enqueueing or registration)
 		$fn = sprintf('wp_%1$s_%2$s', $enqueue === true? 'enqueue' : 'register', $type);
+                if (!$ver) {
+                    $ver = $this->getPlugin()->getInfo('Version');
+                }
 		// Call the enqueue/register function
 		call_user_func_array($fn, array($handle, $src, $deps, $ver, $extra));
 

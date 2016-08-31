@@ -166,6 +166,18 @@ class Settings extends Plugin\Module {
 							: $default );
 	}
 
+    /**
+     * Sets the interal values cache array.
+     *
+     * @param array $values The values array. Default: array
+     * @return Settings This instance.
+     */
+    public function setValuesCache(array $values = array())
+    {
+        $this->_value = $values;
+        return $this;
+    }
+
 	/**
 	 * Adds a settings option.
 	 * 
@@ -176,8 +188,14 @@ class Settings extends Plugin\Module {
 	 * @param callable $callback The callback that renders the option.
 	 * @return Aventura\Edd\AddToCartPopup\Core\Settings This instance
 	 */
-	public function addOption($id, $title, $desc, $default, $callback) {
-		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'default', 'callback');
+	public function addOption($id, $title, $desc = '', $default = null, $callback = null) {
+                $type = (is_null($default) && is_null($callback))
+                    ? 'header'
+                    : 'hook';
+                if ($type === 'header') {
+                    $title = sprintf('<strong>%s</strong>', $title);
+                }
+		$this->_options[$id] = (object) compact('id', 'title', 'desc', 'default', 'callback', 'type');
 		return $this;
 	}
 
@@ -212,6 +230,16 @@ class Settings extends Plugin\Module {
 				: null;
 	}
 
+    /**
+     * Gets the registered options.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->_options;
+    }
+
 	/**
 	 * Registers the subsection in the EDD settings page Extensions tab.
 	 * 
@@ -240,7 +268,7 @@ class Settings extends Plugin\Module {
 				'id'		=>	$_optionId,
 				'name'		=>	$_option->title,
 				'desc'		=>	$_option->desc,
-				'type'		=>	'hook',
+				'type'		=>	$_option->type,
 			);
 			// Add the action for the callback that renders this option
 			$actionHook = sprintf('edd_%s', $_optionId);
@@ -275,6 +303,24 @@ class Settings extends Plugin\Module {
 		}
 	}
 
+    /**
+     * Sanitizes the settings after submission.
+     *
+     * @param array $input The input settings.
+     * @return array The sanitized output.
+     */
+    public function sanitize($input) {
+        $output = $input;
+        if (isset($input[$this->getDbOptionName()])) {
+            $options = $input[$this->getDbOptionName()];
+            if (isset($options['reset']) && !empty($options['reset'])) {
+                $options = array();
+            }
+            $output[$this->getDbOptionName()] = $options;
+        }
+        return $output;
+    }
+
 	/**
 	 * Registers the settings with EDD.
 	 * 
@@ -283,6 +329,7 @@ class Settings extends Plugin\Module {
 	public function register() {
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_sections_extensions', $this, 'filterEddSettingsSubsection' );
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions', $this, 'filterEddSettings' );
+        $this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions_sanitize', $this, 'sanitize');
 		return $this;
 	}
 

@@ -4,11 +4,14 @@ var EddAcp = (function EddAcpClass() {
 
 	var $ = jQuery;
 
-	function EddAcp(element) {
+	function EddAcp(element, nobind) {
 		this.element = element;
 		this.testing = false;
-		this.initElems()
-			.initEvents();
+		this.initElems();
+                nobind = (typeof nobind === 'undefined')? false : true;
+                if (!nobind) {
+                        this.initEvents();
+                }
 	}
 
 	EddAcp.prototype.initElems = function() {
@@ -22,7 +25,7 @@ var EddAcp = (function EddAcpClass() {
 		// Get the variable price option element, if available
 		this.priceOptions = this.element.find('div.edd_price_options');
 		// Set the url of the "continue to checkout button" to the checkout page
-		this.popup.find('a.edd-acp-goto-checkout').attr('href', edd_scripts.checkout_page);
+		this.popup.find('a.edd-acp-goto-checkout').attr('href', window.edd_scripts? edd_scripts.checkout_page : '#');
 
 		return this;
 	};
@@ -73,25 +76,31 @@ var EddAcp = (function EddAcpClass() {
 		// Set the item name on popup element
 		this.popup.find('strong.item-name').text(name);
 		// Hide both singular and plural texts
-		this.popup.find('p.edd-acp-popup-singular, p.edd-acp-popup-plural').hide();
+		this.popup.find('div.edd-acp-popup-singular, div.edd-acp-popup-plural').hide();
 
 		if (numItemsSelected > 1 || singleQty > 1) {
-			this.popup.find('p.edd-acp-popup-plural').show();
+			this.popup.find('div.edd-acp-popup-plural').show();
 		} else {
-			this.popup.find('p.edd-acp-popup-singular').show();
+			this.popup.find('div.edd-acp-popup-singular').show();
 		}
 
 		// Show the popup
-		this.popup.bPopup({
-			positionStyle: 'fixed',
-			speed: 100,
-			closeClass: 'edd-acp-close-popup'
-		});
+		this.showPopup();
+
 		if (this.testing) {
 			event.stopPropagation();
 			event.preventDefault();
 		}
 	};
+
+        EddAcp.prototype.showPopup = function() {
+            // Show the popup
+            this.popup.bPopup({
+                    positionStyle: 'fixed',
+                    speed: 100,
+                    closeClass: 'edd-acp-close-popup'
+            });
+        };
 
 	EddAcp.prototype.getSelectedPriceOption = function() {
 		if (this.priceOptions.length === 0) {
