@@ -201,6 +201,7 @@ abstract class EddAcpSettingsHtml
         );
         $settings = wp_parse_args($args, $defaults);
         $settings['textarea_name'] = $name;
+        echo '<hr/>';
         wp_editor($value, $id, $settings);
         return ob_get_clean();
     }
@@ -513,7 +514,7 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption(
             'maintext', __('Popup Text', 'edd_acp'),
-            __('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart.',
+            __('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart. Shortcodes are also supported!',
                 'edd_acp'), __('%s has been added to your cart!', 'edd_acp'),
             function($settings, $id, $args)
             {
@@ -522,8 +523,7 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption(
             'pluraltext', __('Popup Plural Text', 'edd_acp'),
-            __("The text shown on the popup when multiple items have been added to the cart.\n"
-                . "The \"%s\" will be replaced with a comma separated list of the names of the added items.", 'edd_acp'),
+            __("The text shown on the popup when multiple items have been added to the cart.\n The \"%s\" will be replaced with a comma separated list of the names of the added items. Shortcodes are also supported!", 'edd_acp'),
             __('%s have been added to your cart!', 'edd_acp'),
             function($settings, $id, $args)
             {
