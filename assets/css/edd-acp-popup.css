@@ -64,6 +64,11 @@ div.edd-acp-popup a.edd-acp-goto-checkout {
     margin-right: 5px;
 }
 
+/** Gallery Images - WordPress space character between images */
+div.edd-acp-popup .gallery {
+    font-size: 0%;
+}
+
 @media screen and (max-width: 700px) {
     div.edd-acp-popup div.edd-acp-button-container a,
     div.edd-acp-popup div.edd-acp-button-container button {
