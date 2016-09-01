@@ -113,9 +113,9 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
         $singularText = apply_filters('edd_acp_popup_singular_text', $settings->getValue('maintext'),
             $viewbag->downloadId, $settings);
         $singularTextFormatted = sprintf($singularText, '<strong class="item-name"></strong>');
-        $formattedSingular = apply_filters('edd_acp_popup_singular_text_formatted', $singularTextFormatted, $viewbag->downloadId,
+        $filteredSingular = apply_filters('edd_acp_popup_singular_text_formatted', $singularTextFormatted, $viewbag->downloadId,
             $settings);
-        echo wpautop($formattedSingular);
+        echo wpautop(do_shortcode($filteredSingular));
         ?>
     </div>
     <div class="edd-acp-popup-plural">
@@ -123,7 +123,8 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
         $pluralText = apply_filters('edd_acp_popup_plural_text', $settings->getValue('pluraltext'),
             $viewbag->downloadId, $settings);
         $pluralTextFormatted = sprintf($pluralText, '<strong class="item-name"></strong>');
-        echo apply_filters('edd_acp_popup_plural_text_formatted', $pluralTextFormatted, $viewbag->downloadId, $settings);
+        $filteredPlural = apply_filters('edd_acp_popup_plural_text_formatted', $pluralTextFormatted, $viewbag->downloadId, $settings);
+        echo wpautop(do_shortcode($filteredPlural));
         ?>
     </div>
     <div class="edd-acp-button-container edd-acp-buttons-<?php echo esc_attr($settings->getValue('btnDirection')) ?>">
