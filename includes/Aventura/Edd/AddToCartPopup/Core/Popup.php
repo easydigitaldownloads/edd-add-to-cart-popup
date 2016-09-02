@@ -46,9 +46,13 @@ class Popup extends Plugin\Module {
 	 * 
 	 * @return string The rendered popup
 	 */
-	public function render($downloadId, Settings $settings = null) {
+	public function render($downloadId, Settings $settings = null, $echo = true) {
         $args = compact('downloadId', 'settings');
-		echo $this->getPlugin()->getViewsController()->renderView('Popup', $args);
+		$render = $this->getPlugin()->getViewsController()->renderView('Popup', $args);
+        if ((bool) $echo) {
+            echo $render;
+        }
+        return $render;
 	}
 
     /**
