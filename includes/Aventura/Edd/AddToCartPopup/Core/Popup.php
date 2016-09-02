@@ -75,14 +75,25 @@ class Popup extends Plugin\Module {
 	 * 
 	 * @return string The rendered popup
 	 */
-	public function render($downloadId, Settings $settings = null, $echo = true) {
+	public function render($downloadId, Settings $settings = null) {
         $args = compact('downloadId', 'settings');
 		$render = $this->getPlugin()->getViewsController()->renderView('Popup', $args);
-        if ((bool) $echo) {
-            echo $render;
-        }
         return $render;
 	}
+
+    /**
+     * Adds a popup render after the purchase form.
+     *
+     * @param string $content The purchase form HTML being filtered.
+     * @param array $args Array of arguments.
+     * @return string The filtered HTML of the purchase form and the popup added after it.
+     */
+    public function renderAfterPurchaseForm($content, $args)
+    {
+        $downloadId = $args['download_id'];
+        $render = $this->render($downloadId);
+        return $content . $render;
+    }
 
     /**
      * Generates a preview.
