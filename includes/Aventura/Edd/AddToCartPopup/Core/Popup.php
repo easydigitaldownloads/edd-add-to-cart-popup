@@ -192,7 +192,7 @@ class Popup extends Plugin\Module {
 		if ($this->getPlugin()->getSettings()->getValue('enabled') == '1' || is_admin()) {
 			$this->getPlugin()->getHookLoader()
 					// Hook in the popup render
-					->queueAction( 'edd_purchase_link_top', $this, 'render' )
+					->queueAction( 'edd_purchase_download_form', $this, 'renderAfterPurchaseForm', 10, 2 )
 					->queueAction( AssetsController::HOOK_FRONTEND, $this, 'enqueueAssets' )
                     ->queueAction( AssetsController::HOOK_ADMIN, $this, 'enqueueAssets' );
 		}
