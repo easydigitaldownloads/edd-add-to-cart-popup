@@ -58,6 +58,18 @@ class Popup extends Plugin\Module {
         return $this->_isRendering;
     }
 
+    /**
+     * Sets whether the popup is rendering or not.
+     *
+     * @param boolean $isRendering Whether the popup is rendering or not. True for rendering, false for not.
+     * @return \Aventura\Edd\AddToCartPopup\Core\Popup This instance.
+     */
+    public function setRendering($isRendering)
+    {
+        $this->_isRendering = (bool) $isRendering;
+        return $this;
+    }
+
 	/**
 	 * Renders the popup HTML.
 	 * 
