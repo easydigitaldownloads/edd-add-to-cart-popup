@@ -14,6 +14,13 @@ class Popup extends Plugin\Module {
 	 */
 	protected $_display;
 
+    /**
+     * Flag to determine if Popup is currently rendering.
+     * 
+     * @var boolean
+     */
+    protected $_isRendering = false;
+
 	/**
 	 * Constructor.
 	 */
@@ -40,6 +47,16 @@ class Popup extends Plugin\Module {
 	public function setDisplayOptions($display) {
 		$this->_display = $display;
 	}
+
+    /**
+     * Gets whether or not the popup is currently rendering.
+     *
+     * @return boolean True if the popup is rendering, false if not.
+     */
+    public function isRendering()
+    {
+        return $this->_isRendering;
+    }
 
 	/**
 	 * Renders the popup HTML.
