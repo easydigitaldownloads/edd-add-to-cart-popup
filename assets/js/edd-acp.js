@@ -94,12 +94,23 @@ var EddAcp = (function EddAcpClass() {
 	};
 
         EddAcp.prototype.showPopup = function() {
-            // Show the popup
+            // Hide popup
+            this.popup.css({ visibility: 'hidden' });
+            // Initialize the popup
             this.popup.bPopup({
-                    positionStyle: 'fixed',
-                    speed: 100,
-                    closeClass: 'edd-acp-close-popup'
+                positionStyle: 'fixed',
+                speed: 100,
+                followSpeed: 1,
+                closeClass: 'edd-acp-close-popup',
+                position: ['auto', 'auto']
             });
+            // Reposition for perfect center
+            this.popup.bPopup().reposition(1);
+            // Wait some seconds for moving animation to end
+            setTimeout(function() {
+                // Show popup
+                this.popup.css({ visibility: 'visible' });
+            }.bind(this), 100);
         };
 
 	EddAcp.prototype.getSelectedPriceOption = function() {
