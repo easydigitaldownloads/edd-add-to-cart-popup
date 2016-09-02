@@ -66,7 +66,7 @@ class Popup extends Plugin\Module {
         eddAcpRegisterOptions($dummyInstance);
         $dummyInstance->setValuesCache($settings);
         // Generate the render using the dummy settings instance
-        return $this->render(0, $dummyInstance);
+        return $this->render(0, $dummyInstance, false);
     }
 
     /**
