@@ -16,10 +16,10 @@ var EddAcp = (function EddAcpClass() {
 
     EddAcp.prototype.initElems = function () {
         // Get purchase elements
-        this.eddPurchaseWrapper = this.element.find('.edd_purchase_submit_wrapper');
-        this.eddPurchaseButton = this.eddPurchaseWrapper.find('.edd-add-to-cart');
+        this.eddPurchaseWrapper = this.element.find('> .edd_purchase_submit_wrapper');
+        this.eddPurchaseButton = this.eddPurchaseWrapper.find('> .edd-add-to-cart');
         // Get the popup element
-        this.popup = this.element.find('.edd-acp-popup');
+        this.popup = this.element.parent().find('> .edd-acp-popup');
         // Get the item name
         this.itemName = this.popup.find('.edd-acp-item-name').val();
         // Get the variable price option element, if available
