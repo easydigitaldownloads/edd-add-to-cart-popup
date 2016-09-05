@@ -14,6 +14,13 @@ class Popup extends Plugin\Module {
 	 */
 	protected $_display;
 
+    /**
+     * Flag to determine if Popup is currently rendering.
+     * 
+     * @var boolean
+     */
+    protected $_isRendering = false;
+
 	/**
 	 * Constructor.
 	 */
@@ -41,6 +48,28 @@ class Popup extends Plugin\Module {
 		$this->_display = $display;
 	}
 
+    /**
+     * Gets whether or not the popup is currently rendering.
+     *
+     * @return boolean True if the popup is rendering, false if not.
+     */
+    public function isRendering()
+    {
+        return $this->_isRendering;
+    }
+
+    /**
+     * Sets whether the popup is rendering or not.
+     *
+     * @param boolean $isRendering Whether the popup is rendering or not. True for rendering, false for not.
+     * @return \Aventura\Edd\AddToCartPopup\Core\Popup This instance.
+     */
+    public function setRendering($isRendering)
+    {
+        $this->_isRendering = (bool) $isRendering;
+        return $this;
+    }
+
 	/**
 	 * Renders the popup HTML.
 	 * 
@@ -48,8 +77,23 @@ class Popup extends Plugin\Module {
 	 */
 	public function render($downloadId, Settings $settings = null) {
         $args = compact('downloadId', 'settings');
-		echo $this->getPlugin()->getViewsController()->renderView('Popup', $args);
+		$render = $this->getPlugin()->getViewsController()->renderView('Popup', $args);
+        return $render;
 	}
+
+    /**
+     * Adds a popup render after the purchase form.
+     *
+     * @param string $content The purchase form HTML being filtered.
+     * @param array $args Array of arguments.
+     * @return string The filtered HTML of the purchase form and the popup added after it.
+     */
+    public function renderAfterPurchaseForm($content, $args)
+    {
+        $downloadId = $args['download_id'];
+        $render = $this->render($downloadId);
+        return $content . $render;
+    }
 
     /**
      * Generates a preview.
@@ -62,7 +106,7 @@ class Popup extends Plugin\Module {
         eddAcpRegisterOptions($dummyInstance);
         $dummyInstance->setValuesCache($settings);
         // Generate the render using the dummy settings instance
-        return $this->render(0, $dummyInstance);
+        return $this->render(0, $dummyInstance, false);
     }
 
     /**
@@ -148,7 +192,7 @@ class Popup extends Plugin\Module {
 		if ($this->getPlugin()->getSettings()->getValue('enabled') == '1' || is_admin()) {
 			$this->getPlugin()->getHookLoader()
 					// Hook in the popup render
-					->queueAction( 'edd_purchase_link_top', $this, 'render' )
+					->queueAction( 'edd_purchase_download_form', $this, 'renderAfterPurchaseForm', 10, 2 )
 					->queueAction( AssetsController::HOOK_FRONTEND, $this, 'enqueueAssets' )
                     ->queueAction( AssetsController::HOOK_ADMIN, $this, 'enqueueAssets' );
 		}
