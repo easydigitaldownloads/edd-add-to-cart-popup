@@ -29,7 +29,7 @@ abstract class EddAcpSettingsHtml
         $fieldRender = self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
         // Get the option description and output a label for the option field.
         $desc = $settings->getOption($id)->desc;
-        $fieldLabel = sprintf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
+        $fieldLabel = sprintf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br($desc));
         // Output in the correct order, based on the $labelBefore parameter
         if ($labelBefore) {
             echo $fieldLabel;
@@ -514,8 +514,8 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption(
             'maintext', __('Popup Text', 'edd_acp'),
-            __('The text shown on the popup. The "%s" will be replaced by the name of the item added to the cart. Shortcodes are also supported!',
-                'edd_acp'), __('%s has been added to your cart!', 'edd_acp'),
+            sprintf(__("The text shown on the popup.\nThe \"%%s\" will be replaced by the name of the item added to the cart.\n%s", 'edd_acp'), eddAcpExplainShortcodes()),
+            __('%s has been added to your cart!', 'edd_acp'),
             function($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('editor', $settings, $id, true);
@@ -523,7 +523,7 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption(
             'pluraltext', __('Popup Plural Text', 'edd_acp'),
-            __("The text shown on the popup when multiple items have been added to the cart.\n The \"%s\" will be replaced with a comma separated list of the names of the added items. Shortcodes are also supported!", 'edd_acp'),
+            sprintf(__("The text shown on the popup when multiple items have been added to the cart.\n The \"%%s\" will be replaced with a comma separated list of the names of the added items.\n%s", 'edd_acp'), eddAcpExplainShortcodes()),
             __('%s have been added to your cart!', 'edd_acp'),
             function($settings, $id, $args)
             {
@@ -858,3 +858,16 @@ function eddAcpRegisterOptions(Settings $settings)
 
 // Register settings to the singleton's settings
 eddAcpRegisterOptions(edd_acp()->getSettings());
+
+/**
+ * Explains the shortcode-preview problem.
+ *
+ * @return string
+ */
+function eddAcpExplainShortcodes()
+{
+    return sprintf(
+        __('Shortcodes are also supported! Note that although they might not be displayed correctly in the Preview, they will be displayed correctly on the site, as explained <a %s>here</a>.', 'edd_acp'),
+        sprintf('href="%s" target="edd-acp-docs"', EDD_ACP_DOCS_URL)
+    );
+}
