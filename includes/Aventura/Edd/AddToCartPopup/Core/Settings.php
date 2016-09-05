@@ -17,6 +17,11 @@ class Settings extends Plugin\Module {
 	 */
 	const DEFAULT_DB_OPTION_NAME = 'acp';
 
+    /**
+     * The name of the transient that indicates the need to show the "options have been reset" notice.
+     */
+    const RESET_OPTIONS_NOTICE_TRANSIENT = 'edd_acp_reset_options_transient';
+
 	/**
 	 * The name of the db option.
 	 *
@@ -315,10 +320,36 @@ class Settings extends Plugin\Module {
             $options = $input[$this->getDbOptionName()];
             if (isset($options['reset']) && !empty($options['reset'])) {
                 $options = array();
+                set_transient(self::RESET_OPTIONS_NOTICE_TRANSIENT, '1');
             }
             $output[$this->getDbOptionName()] = $options;
         }
         return $output;
+    }
+
+    /**
+     * Shows any notices related to the settings page.
+     *
+     * @since 1.1.0
+     * @hook admin_notice
+     */
+    public function doNotices()
+    {
+        if (get_transient(self::RESET_OPTIONS_NOTICE_TRANSIENT) === '1') {
+            delete_transient(self::RESET_OPTIONS_NOTICE_TRANSIENT);
+            echo $this->getResetOptionsNotice();
+        }
+    }
+
+    /**
+     * Gets the notice that notifies the user that options have been reset.
+     *
+     * @since 1.1.0
+     * @return string The HTML notice.
+     */
+    public function getResetOptionsNotice()
+    {
+        return $this->getPlugin()->getViewsController()->renderView('OptionsResetNotice', array());
     }
 
 	/**
@@ -330,6 +361,7 @@ class Settings extends Plugin\Module {
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_sections_extensions', $this, 'filterEddSettingsSubsection' );
 		$this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions', $this, 'filterEddSettings' );
         $this->getPlugin()->getHookLoader()->queueFilter( 'edd_settings_extensions_sanitize', $this, 'sanitize');
+        $this->getPlugin()->getHookLoader()->queueAction( 'admin_notices', $this, 'doNotices' );
 		return $this;
 	}
 

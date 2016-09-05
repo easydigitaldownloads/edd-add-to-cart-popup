@@ -2,6 +2,15 @@
 
 use \Aventura\Edd\AddToCartPopup\Core\StyleRenderer;
 
+// If the popup is already rendering, stop.
+// Fixes nested popups when using EDD shortcodes that render purchase buttons
+if ($this->getPlugin()->getPopup()->isRendering()) {
+    return;
+}
+
+// Set rendering flag
+$this->getPlugin()->getPopup()->setRendering(true);
+
 // Get settings instance
 $settings = !is_null($viewbag->settings)
     ? $viewbag->settings
@@ -168,4 +177,9 @@ echo StyleRenderer::renderStyles($overlayStylesFiltered, 'body', true);
 
 </div>
 
-<?php do_action('edd_acp_after_popup_view'); ?>
+<?php
+
+do_action('edd_acp_after_popup_view');
+
+// Unset rendering flag
+$this->getPlugin()->getPopup()->setRendering(false);
