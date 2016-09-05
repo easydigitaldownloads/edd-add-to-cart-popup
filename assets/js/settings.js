@@ -2,6 +2,15 @@
 
     $(document).ready(function () {
 
+        // On Reset btn click
+        $('#edd-acp-reset').click(function(e) {
+            // Confirm with message. If not accepted, prevent event default behavior (which is to submit the form)
+            if (!confirm(EddAcpSettings.messages.confirmReset)) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+
         // Iterate all colorpicker containers
         $('.edd-acp-colorpicker').each(function() {
             var self = $(this);
