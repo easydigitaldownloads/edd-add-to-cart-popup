@@ -29,7 +29,7 @@ abstract class EddAcpSettingsHtml
         $fieldRender = self::$type($id, $settings->getSubValueOptionName($id), $settings->getSubValue($id));
         // Get the option description and output a label for the option field.
         $desc = $settings->getOption($id)->desc;
-        $fieldLabel = sprintf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br(htmlentities($desc)));
+        $fieldLabel = sprintf('<label for="%1$s">%2$s</label>', esc_attr($id), nl2br($desc));
         // Output in the correct order, based on the $labelBefore parameter
         if ($labelBefore) {
             echo $fieldLabel;
