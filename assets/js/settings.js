@@ -53,8 +53,8 @@
          */
         function getSettings() {
             var settings = {};
-            for (var key in EddAcpSettings) {
-                var option = EddAcpSettings[key];
+            for (var key in EddAcpSettings.options) {
+                var option = EddAcpSettings.options[key];
                 if (option.type === 'header') {
                     continue;
                 }
