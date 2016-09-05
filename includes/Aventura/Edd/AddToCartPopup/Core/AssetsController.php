@@ -55,7 +55,12 @@ class AssetsController extends Plugin\Module {
         $this->registerScript('edd-acp-spectrum', EDD_ACP_JS_URL . 'spectrum.js');
 		$this->registerStyle('edd-acp-spectrum', EDD_ACP_CSS_URL . 'spectrum.css');
 
-        wp_localize_script('edd_acp_settings', 'EddAcpSettings', edd_acp()->getSettings()->getOptions());
+        wp_localize_script('edd_acp_settings', 'EddAcpSettings', array(
+            'options' => edd_acp()->getSettings()->getOptions(),
+            'messages' => array(
+                'confirmReset' => __('Are you sure you want to reset all options? This cannot be undone.', 'edd_acp')
+            )
+        ));
 
 		if (filter_input(INPUT_GET, 'tab') === 'extensions') {
             $this->enqueueScript('edd-acp-spectrum');
