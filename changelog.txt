@@ -1,4 +1,4 @@
-= 1.1.0 (2016-September-01)
+= 1.1.0 (2016-September-22)
 * Added more popup styling options
 * Added option to reset settings
 * Added shortcode support in popup text.
