@@ -680,7 +680,7 @@ function eddAcpRegisterOptions(Settings $settings)
         )
         ->addOption('btnAlignment', __('Button Alignment', 'edd_acp'),
             __('The alignment for the buttons. Does not apply if the buttons are placed vertically.', 'edd_acp'),
-            'center',
+            'left',
             function ($settings, $id, $args)
             {
                 echo EddAcpSettingsHtml::renderField('alignment', $settings, $id);
