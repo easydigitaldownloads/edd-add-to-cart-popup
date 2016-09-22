@@ -4,7 +4,7 @@
  * @wordpress-plugin
  * Plugin Name: Easy Digital Downloads - Add to Cart Popup
  * Description: An Easy Digital Downloads extension for showing a lightbox popup when customers click the "Add to Cart" button. <strong>Requires PHP 5.3 or later.</strong>
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: RebelCode
  * Contributors: Miguel Muscat
  */
@@ -45,6 +45,7 @@ define( 'EDD_ACP_CSS_URL',			EDD_ACP_ASSETS_URL . 'css/' );
 define( 'EDD_ACP_JS_URL',			EDD_ACP_ASSETS_URL . 'js/' );
 define( 'EDD_ACP_INCLUDES_DIR',		EDD_ACP_DIR . 'includes' . DS );
 define( 'EDD_ACP_LANG_DIR',			EDD_ACP_DIR . 'languages' . DS );
+define( 'EDD_ACP_DOCS_URL',         'http://docs.easydigitaldownloads.com/article/1271-add-to-cart-popup');
 
 // Load the autoloader - lol
 require EDD_ACP_DIR . 'autoload.php';
