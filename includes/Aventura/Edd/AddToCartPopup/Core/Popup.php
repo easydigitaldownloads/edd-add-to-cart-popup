@@ -199,7 +199,6 @@ class Popup extends Plugin\Module {
 		// Check for EDD's AJAX option
 		if ( is_admin() ) {
 			$this->getPlugin()->getHookLoader()
-                ->queueAction('admin_notices', $this, 'checkEddAjax')
                 ->queueAction('wp_ajax_edd_acp_preview', $this, 'ajaxPreview')
                 ->queueAction('admin_bar_menu', $this, 'previewAdminBarMenu', 999999);
 		}
