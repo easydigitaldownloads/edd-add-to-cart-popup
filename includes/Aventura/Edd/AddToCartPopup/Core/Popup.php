@@ -132,30 +132,6 @@ class Popup extends Plugin\Module {
 				->enqueueScript('edd_acp_frontend_js');
 	}
 
-	/**
-	 * Checks for the EDD AJAX option and shows a notice if needed.
-	 */
-	public function checkEddAjax() {
-		global $typenow;
-		if ( $typenow === 'download' && $this->getPlugin()->getSettings()->getValue('enabled') == '1' ) {
-			$eddSettings = get_option(Settings::EDD_SETTINGS_OPTION_NAME, array());
-			if ( !isset($eddSettings['enable_ajax_cart']) || $eddSettings['enable_ajax_cart'] == '0' ) {
-				ob_start(); ?>
-				<div class="error settings-error notice is-dismissible">
-					<p>%s</p>
-					<button type="button" class="notice-dismiss">
-						<span class="screen-reader-text"><?php _e('Dismiss this notice.'); ?></span>
-					</button>
-				</div>
-				<?php
-				printf(
-					ob_get_clean(),
-					__('The Add to Cart Popup requires the "Enable Ajax" option (in the Misc settings page) to be enabled for the plugin to work correctly.', 'edd_acp')
-				);
-			}
-		}
-	}
-
     /**
      * Adds the "Preview Popup" entry to the admin menu bar.
      *
