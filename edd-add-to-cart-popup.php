@@ -7,8 +7,8 @@
  * Author:      Sandhills Development, LLC
  * Author URI:  https://sandhillsdev.com
  *
- * @author Sandhills Development, LLC
- * @copyright 2021 Sandhills Development, LLC
+ * @author      Sandhills Development, LLC
+ * @copyright   2021 Sandhills Development, LLC
  */
 
 /*
