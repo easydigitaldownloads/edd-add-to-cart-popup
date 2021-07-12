@@ -1,17 +1,18 @@
 <?php
-
 /**
- * @wordpress-plugin
  * Plugin Name: Easy Digital Downloads - Add to Cart Popup
+ * Plugin URI:  https://easydigitaldownloads.com/downloads/add-cart-popup/
  * Description: An Easy Digital Downloads extension for showing a lightbox popup when customers click the "Add to Cart" button. <strong>Requires PHP 5.3 or later.</strong>
- * Version: 1.1.2
- * Author: RebelCode
- * Contributors: Miguel Muscat
+ * Version:     1.1.2
+ * Author:      Sandhills Development, LLC
+ * Author URI:  https://sandhillsdev.com
+ *
+ * @author Sandhills Development, LLC
+ * @copyright 2021 Sandhills Development, LLC
  */
 
-/**
- * Copyright (C) 2015-2016 RebelCode Ltd.
- *
+/*
+ * Copyright 2021 Sandhills Development, LLC (email : support@easydigitaldownloads.com)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
