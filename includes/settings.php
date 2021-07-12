@@ -370,7 +370,7 @@ abstract class EddAcpSettingsHtml
     {
         $orders = array(
             'checkout' => __('Checkout button first', 'edd_acp'),
-            'continue' => __('Continue buttton first', 'edd_acp'),
+            'continue' => __('Continue button first', 'edd_acp'),
         );
         return static::select($id, $name, $value, $orders);
     }
