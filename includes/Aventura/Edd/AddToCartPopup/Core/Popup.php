@@ -109,16 +109,19 @@ class Popup extends Plugin\Module {
         return $this->render(0, $dummyInstance, false);
     }
 
-    /**
-     * Generates a preview for an AJAX event.
-     *
-     * Expects the POST 'settings' index to contain an array of the settings values.
-     */
-    public function ajaxPreview() {
-        $settings = filter_input(INPUT_POST, 'settings', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-        echo $this->generatePreview($settings);
-        die;
-    }
+	/**
+	 * Generates a preview for an AJAX event.
+	 *
+	 * Expects the POST 'settings' index to contain an array of the settings values.
+	 */
+	public function ajaxPreview() {
+		if ( ! current_user_can( 'manage_shop_settings' ) ) {
+			wp_die();
+		}
+		$settings = filter_input( INPUT_POST, 'settings', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		echo $this->generatePreview( $settings );
+		die;
+	}
 
 	public function enqueueAssets() {
 		// Register assets
