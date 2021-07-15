@@ -135,33 +135,34 @@ class Popup extends Plugin\Module {
 				->enqueueScript('edd_acp_frontend_js');
 	}
 
-    /**
-     * Adds the "Preview Popup" entry to the admin menu bar.
-     *
-     * @global WP_Admin_Bar $wp_admin_bar
-     */
-    public function previewAdminBarMenu() {
-        if (!current_user_can('manage_shop_settings')) {
-            return;
-        }
-        $screen = get_current_screen();
-        if ($screen->id !== 'download_page_edd-settings') {
-            return;
-        }
-        if (filter_input(INPUT_GET, 'tab', FILTER_SANITIZE_STRING) !== 'extensions') {
-            return;
-        }
-        global $wp_admin_bar;
-        $previewLink = array(
-            'id'    => 'edd-acp-preview-admin-bar',
-            'title' => __('Preview Popup', 'edd_acp'),
-            'href'  => '#',
-            'meta'  => array(
-                'class' => 'edd-acp-preview',
-            )
-        );
-        $wp_admin_bar->add_menu($previewLink);
-    }
+	/**
+	 * Adds the "Preview Popup" entry to the admin menu bar.
+	 *
+	 * @global WP_Admin_Bar $wp_admin_bar
+	 */
+	public function previewAdminBarMenu() {
+		if ( ! current_user_can( 'manage_shop_settings' ) ) {
+			return;
+		}
+		$screen = get_current_screen();
+		if ( 'download_page_edd-settings' !== $screen->id ) {
+			return;
+		}
+		if ( filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING ) !== 'extensions' || filter_input( INPUT_GET, 'section', FILTER_SANITIZE_STRING ) !== 'acp' ) {
+			return;
+		}
+
+		global $wp_admin_bar;
+		$previewLink = array(
+			'id'    => 'edd-acp-preview-admin-bar',
+			'title' => __( 'Preview Popup', 'edd_acp' ),
+			'href'  => '#',
+			'meta'  => array(
+				'class' => 'edd-acp-preview',
+			),
+		);
+		$wp_admin_bar->add_menu( $previewLink );
+	}
 
 	/**
 	 * Execution method, run on 'edd_acp_on_run' action.
