@@ -472,7 +472,6 @@ abstract class EddAcpSettingsHtml
                 <p>
                     <?php _e('Click the button to preview your settings before saving.', 'edd_acp'); ?>
                     <br/>
-                    <?php _e('You can also use the "Preview Popup" button on the admin bar.', 'edd_acp'); ?>
                 </p>
             </div>
             <div id="edd-acp-preview-popup-container"></div>
