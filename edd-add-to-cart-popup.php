@@ -3,7 +3,7 @@
  * Plugin Name: Easy Digital Downloads - Add to Cart Popup
  * Plugin URI:  https://easydigitaldownloads.com/downloads/add-cart-popup/
  * Description: An Easy Digital Downloads extension for showing a lightbox popup when customers click the "Add to Cart" button. <strong>Requires PHP 5.3 or later.</strong>
- * Version:     1.1.2
+ * Version:     1.1.3
  * Author:      Sandhills Development, LLC
  * Author URI:  https://sandhillsdev.com
  *
