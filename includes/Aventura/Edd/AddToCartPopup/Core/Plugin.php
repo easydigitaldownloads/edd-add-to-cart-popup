@@ -252,7 +252,15 @@ class Plugin {
 	public function registerLicense() {
 		// Set EDD License if the class exists
 		if ( class_exists( 'EDD_License' ) ) {
-			$this->_setLicense( new \EDD_License( $this->getMainFile(), self::EDD_SL_ITEM_NAME, $this->getInfo( 'Version' ), $this->getInfo( 'Author' ), null, null, 805899 ) );
+			$this->_setLicense( new \EDD_License(
+				$this->getMainFile(),
+				self::EDD_SL_ITEM_NAME,
+				$this->getInfo( 'Version' ),
+				wp_strip_all_tags( $this->getInfo( 'Author' ) ),
+				null,
+				null,
+				805899
+			) );
 		}
 	}
 
