@@ -77,7 +77,7 @@ class Plugin {
 				->setTextDomain(new TextDomain($this, self::TEXT_DOMAIN, EDD_ACP_LANG_DIR));
 		// Set EDD License if the class exists
 		if ( class_exists('EDD_License') ) {
-			$this->_setLicense(new \EDD_License($this->getMainFile(), self::EDD_SL_ITEM_NAME, $this->getInfo('Version'), $this->getInfo('Author')));
+			$this->_setLicense(new \EDD_License($this->getMainFile(), self::EDD_SL_ITEM_NAME, $this->getInfo('Version'), $this->getInfo('Author'), null, null, 805899));
 		}
 	}
 
@@ -223,7 +223,7 @@ class Plugin {
 	/**
 	 * Gets the license.
 	 * 
-	 * @return EDD_License
+	 * @return \EDD_License
 	 */
 	public function getLicense() {
 		return $this->_license;
@@ -232,7 +232,7 @@ class Plugin {
 	/**
 	 * Sets the license.
 	 * 
-	 * @param EDD_License $license
+	 * @param \EDD_License $license
 	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
 	 */
 	protected function _setLicense($license) {
