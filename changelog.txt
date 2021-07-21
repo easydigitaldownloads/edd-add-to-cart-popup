@@ -1,9 +1,10 @@
-= 1.1.3 (2021-July-20) =
+= 1.1.3 (2021-July-21) =
 * Improvement: The "Preview Popup" button has been removed from the top admin bar. It wasn't working on any page other than the add-on's own settings page, and that page already has a dedicated button anyway.
 * Fix: The popup preview could be seen by any logged in user.
 * Fix: Typo on settings page.
 * Fix: Update docs link to use https.
 * Refactor: Change plugin author name to "Sandhills Development, LLC".
+* Dev: EDD 3.0 compatibility.
 
 = 1.1.2 (2017-Mayr-25) =
 * Fixed a bug where the AJAX popup would still be shown on EDD versions 2.7 or later.
