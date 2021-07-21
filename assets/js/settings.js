@@ -99,7 +99,10 @@
             }
             // Check for textarea editors
             if (optionElem.is('textarea')) {
-                value = tinymce.get(id).getContent();
+                var tiny = tinymce.get( id );
+                if ( tiny ) {
+                    value = tiny.getContent();
+                }
             }
             // Check for select elements
             if (optionElem.is('select')) {

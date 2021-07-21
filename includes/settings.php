@@ -370,7 +370,7 @@ abstract class EddAcpSettingsHtml
     {
         $orders = array(
             'checkout' => __('Checkout button first', 'edd_acp'),
-            'continue' => __('Continue buttton first', 'edd_acp'),
+            'continue' => __('Continue button first', 'edd_acp'),
         );
         return static::select($id, $name, $value, $orders);
     }
@@ -472,7 +472,6 @@ abstract class EddAcpSettingsHtml
                 <p>
                     <?php _e('Click the button to preview your settings before saving.', 'edd_acp'); ?>
                     <br/>
-                    <?php _e('You can also use the "Preview Popup" button on the admin bar.', 'edd_acp'); ?>
                 </p>
             </div>
             <div id="edd-acp-preview-popup-container"></div>

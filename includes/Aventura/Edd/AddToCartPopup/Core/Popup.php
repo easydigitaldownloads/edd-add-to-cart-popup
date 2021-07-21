@@ -109,16 +109,19 @@ class Popup extends Plugin\Module {
         return $this->render(0, $dummyInstance, false);
     }
 
-    /**
-     * Generates a preview for an AJAX event.
-     *
-     * Expects the POST 'settings' index to contain an array of the settings values.
-     */
-    public function ajaxPreview() {
-        $settings = filter_input(INPUT_POST, 'settings', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-        echo $this->generatePreview($settings);
-        die;
-    }
+	/**
+	 * Generates a preview for an AJAX event.
+	 *
+	 * Expects the POST 'settings' index to contain an array of the settings values.
+	 */
+	public function ajaxPreview() {
+		if ( ! current_user_can( 'manage_shop_settings' ) ) {
+			wp_die();
+		}
+		$settings = filter_input( INPUT_POST, 'settings', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		echo $this->generatePreview( $settings );
+		die;
+	}
 
 	public function enqueueAssets() {
 		// Register assets
@@ -132,51 +135,20 @@ class Popup extends Plugin\Module {
 				->enqueueScript('edd_acp_frontend_js');
 	}
 
-    /**
-     * Adds the "Preview Popup" entry to the admin menu bar.
-     *
-     * @global WP_Admin_Bar $wp_admin_bar
-     */
-    public function previewAdminBarMenu() {
-        if (!current_user_can('manage_shop_settings')) {
-            return;
-        }
-        $screen = get_current_screen();
-        if ($screen->id !== 'download_page_edd-settings') {
-            return;
-        }
-        if (filter_input(INPUT_GET, 'tab', FILTER_SANITIZE_STRING) !== 'extensions') {
-            return;
-        }
-        global $wp_admin_bar;
-        $previewLink = array(
-            'id'    => 'edd-acp-preview-admin-bar',
-            'title' => __('Preview Popup', 'edd_acp'),
-            'href'  => '#',
-            'meta'  => array(
-                'class' => 'edd-acp-preview',
-            )
-        );
-        $wp_admin_bar->add_menu($previewLink);
-    }
-
 	/**
 	 * Execution method, run on 'edd_acp_on_run' action.
 	 */
 	public function run() {
-		// If the enabled toggle option is turned on
-		if ($this->getPlugin()->getSettings()->getValue('enabled') == '1' || is_admin()) {
+		// If the enabled toggle option is turned on.
+		if ( $this->getPlugin()->getSettings()->getValue( 'enabled' ) == '1' || is_admin() ) {
 			$this->getPlugin()->getHookLoader()
-					// Hook in the popup render
+					// Hook in the popup render.
 					->queueAction( 'edd_purchase_download_form', $this, 'renderAfterPurchaseForm', 10, 2 )
-					->queueAction( AssetsController::HOOK_FRONTEND, $this, 'enqueueAssets' )
-                    ->queueAction( AssetsController::HOOK_ADMIN, $this, 'enqueueAssets' );
+					->queueAction( AssetsController::HOOK_FRONTEND, $this, 'enqueueAssets' )->queueAction( AssetsController::HOOK_ADMIN, $this, 'enqueueAssets' );
 		}
-		// Check for EDD's AJAX option
+		// Check for EDD's AJAX option.
 		if ( is_admin() ) {
-			$this->getPlugin()->getHookLoader()
-                ->queueAction('wp_ajax_edd_acp_preview', $this, 'ajaxPreview')
-                ->queueAction('admin_bar_menu', $this, 'previewAdminBarMenu', 999999);
+			$this->getPlugin()->getHookLoader()->queueAction( 'wp_ajax_edd_acp_preview', $this, 'ajaxPreview' );
 		}
 	}
 
