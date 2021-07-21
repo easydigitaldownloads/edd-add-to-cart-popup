@@ -1,5 +1,5 @@
 = 1.1.3 (2021-July-21) =
-* Improvement: The "Preview Popup" button has been removed from the top admin bar. It wasn't working on any page other than the add-on's own settings page, and that page already has a dedicated button anyway.
+* Improvement: The "Preview Popup" button has been removed from the top admin bar. It wasn't working on any page other than the extension's own settings page, and that page already has a dedicated button anyway.
 * Fix: The popup preview could be seen by any logged in user.
 * Fix: Typo on settings page.
 * Fix: Update docs link to use https.
