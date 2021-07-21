@@ -75,10 +75,13 @@ class Plugin {
 				->setViewsController(new ViewsController($this))
 				->setPopup(new Popup($this))
 				->setTextDomain(new TextDomain($this, self::TEXT_DOMAIN, EDD_ACP_LANG_DIR));
-		// Set EDD License if the class exists
-		if ( class_exists('EDD_License') ) {
-			$this->_setLicense(new \EDD_License($this->getMainFile(), self::EDD_SL_ITEM_NAME, $this->getInfo('Version'), $this->getInfo('Author'), null, null, 805899));
-		}
+
+		$this->getHookLoader()->addAction(
+			'plugins_loaded',
+			$this,
+			'registerLicense',
+			20
+		);
 	}
 
 	/**
@@ -94,7 +97,7 @@ class Plugin {
 	 * Sets the plugin main file name.
 	 * 
 	 * @param string $mainFile The plugin main file name.
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance.
+	 * @return Plugin This instance.
 	 */
 	protected function _setMainFile($mainFile) {
 		$this->_mainFile = $mainFile;
@@ -104,7 +107,7 @@ class Plugin {
 	/**
 	 * Gets the hook loader.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\HookLoader
+	 * @return HookLoader
 	 */
 	public function getHookLoader() {
 		return $this->_hookLoader;
@@ -113,7 +116,7 @@ class Plugin {
 	/**
 	 * Resets the hook loader.
 	 *
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 * @return Plugin
 	 */
 	public function resetHookLoader() {
 		$this->_hookLoader = new HookLoader();
@@ -123,7 +126,7 @@ class Plugin {
 	/**
 	 * Gets the settings.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\Settings
+	 * @return Settings
 	 */
 	public function getSettings() {
 		return $this->_settings;
@@ -132,8 +135,8 @@ class Plugin {
 	/**
 	 * Sets the settings instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Core\Settings $settings
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 * @param Settings $settings
+	 * @return Plugin
 	 */
 	public function setSettings($settings) {
 		$this->_settings = $settings;
@@ -143,7 +146,7 @@ class Plugin {
 	/**
 	 * Gets the assets controller instance.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\AssetsController
+	 * @return AssetsController
 	 */
 	public function getAssetsController() {
 		return $this->_assets;
@@ -152,8 +155,8 @@ class Plugin {
 	/**
 	 * Sets the assets controller instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Core\AssetsController $assetsController
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 * @param AssetsController $assetsController
+	 * @return Plugin
 	 */
 	public function setAssetsController(AssetsController $assetsController) {
 		$this->_assets = $assetsController;
@@ -163,7 +166,7 @@ class Plugin {
 	/**
 	 * Gets the views controller instance.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\ViewsController
+	 * @return ViewsController
 	 */
 	public function getViewsController() {
 		return $this->_views;
@@ -172,8 +175,8 @@ class Plugin {
 	/**
 	 * Sets the views controller instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Core\ViewsController $viewsController
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 * @param ViewsController $viewsController
+	 * @return Plugin
 	 */
 	public function setViewsController(ViewsController $viewsController) {
 		$this->_views = $viewsController;
@@ -183,7 +186,7 @@ class Plugin {
 	/**
 	 * Gets the popup instance.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\Popup
+	 * @return Popup
 	 */
 	public function getPopup() {
 		return $this->_popup;
@@ -192,8 +195,8 @@ class Plugin {
 	/**
 	 * Sets the popup instance.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Core\Popup $popup
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin
+	 * @param Popup $popup
+	 * @return Plugin
 	 */
 	public function setPopup(Popup $popup) {
 		$this->_popup = $popup;
@@ -203,7 +206,7 @@ class Plugin {
 	/**
 	 * Gets the text domain.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\TextDomain
+	 * @return TextDomain
 	 */
 	public function getTextDomain() {
 		return $this->_textDomain;
@@ -212,8 +215,8 @@ class Plugin {
 	/**
 	 * Sets the text domain.
 	 * 
-	 * @param Aventura\Edd\AddToCartPopup\Core\TextDomain $textDomain
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 * @param TextDomain $textDomain
+	 * @return Plugin This instance
 	 */
 	public function setTextDomain($textDomain) {
 		$this->_textDomain = $textDomain;
@@ -233,7 +236,7 @@ class Plugin {
 	 * Sets the license.
 	 * 
 	 * @param \EDD_License $license
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 * @return Plugin This instance
 	 */
 	protected function _setLicense($license) {
 		$this->_license = $license;
@@ -241,9 +244,30 @@ class Plugin {
 	}
 
 	/**
+	 * Instantiates a new EDD_License object for this plugin.
+	 *
+	 * @since 1.1.3
+	 * @return void
+	 */
+	public function registerLicense() {
+		// Set EDD License if the class exists
+		if ( class_exists( 'EDD_License' ) ) {
+			$this->_setLicense( new \EDD_License(
+				$this->getMainFile(),
+				self::EDD_SL_ITEM_NAME,
+				$this->getInfo( 'Version' ),
+				wp_strip_all_tags( $this->getInfo( 'Author' ) ),
+				null,
+				null,
+				805899
+			) );
+		}
+	}
+
+	/**
 	 * Loads the plugin info from its header in the main file.
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 * @return Plugin This instance
 	 */
 	protected function _loadInfo() {
 		if ( ! function_exists( 'get_plugin_data' ) ) {
@@ -357,7 +381,7 @@ class Plugin {
 	/**
 	 * Code to execute after all initialization and before any hook triggers
 	 * 
-	 * @return Aventura\Edd\AddToCartPopup\Core\Plugin This instance
+	 * @return Plugin This instance
 	 */
 	public function run() {
 		do_action('edd_acp_on_run');
